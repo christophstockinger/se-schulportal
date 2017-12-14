@@ -14,7 +14,7 @@ import java.util.Map;
 public class ModPhone {
     
     public static String modulname = "Kontakt";
-    public static String moduldesc = "Geben Sie im oberen Textfeld den Namen der gesuchten Person ein. <br>Danach wählen Sie eine Rolle, in der gesucht werden soll."; // Zeilenumbruch mit <br>-Tag erzeugen, da es in einen <p>-Tag gerendert wird.
+    public static String moduldesc = "Geben Sie im oberen Textfeld den Namen der gesuchten Person ein. <br>Danach wählen Sie die entsprechende Rolle, in der gesucht werden soll."; // Zeilenumbruch mit <br>-Tag erzeugen, da es in einen <p>-Tag gerendert wird.
     
     public ModPhone() {}
     
@@ -32,47 +32,47 @@ public class ModPhone {
     // }
     
     public static String getAnwenderdataPhoneName() {
-        String anwenderdataPhone = "Pri ist schlau!";
-        anwenderdataPhone += "<ul>";
-        anwenderdataPhone += "<li>";
-        anwenderdataPhone += "SELECT sname" + "SELECT srolle" + "FROM anwender";
-        anwenderdataPhone += "</li>";
-        anwenderdataPhone += "</ul>";
+        String anwenderdataName = "Pri ist schlau!";
+        anwenderdataName += "<ul>";
+        anwenderdataName += "<li>";
+        anwenderdataName += "SELECT sname" + "SELECT srolle" + "FROM anwender";
+        anwenderdataName += "</li>";
+        anwenderdataName += "</ul>";
 
-        return anwenderdataPhone;
+        return anwenderdataName;
     }
     
     public static String getAnwenderdataPhoneVorname() {
-        String anwenderdataPhone = "";
-        anwenderdataPhone += "<ul>";
-        anwenderdataPhone += "<li>";
-        anwenderdataPhone += "SELECT sname" + "SELECT srolle" + "FROM anwender";
-        anwenderdataPhone += "</li>";
-        anwenderdataPhone += "</ul>";
+        String anwenderdataVorname = "";
+        anwenderdataVorname += "<ul>";
+        anwenderdataVorname += "<li>";
+        anwenderdataVorname += "SELECT sname" + "SELECT srolle" + "FROM anwender";
+        anwenderdataVorname += "</li>";
+        anwenderdataVorname += "</ul>";
 
-        return anwenderdataPhone;
+        return anwenderdataVorname;
     }
     
     public static String getAnwenderdataPhoneEmail() {
-        String anwenderdataPhone = "";
-        anwenderdataPhone += "<ul>";
-        anwenderdataPhone += "<li>";
-        anwenderdataPhone += "SELECT sname" + "SELECT srolle" + "FROM anwender";
-        anwenderdataPhone += "</li>";
-        anwenderdataPhone += "</ul>";
+        String anwenderdataEmail = "";
+        anwenderdataEmail += "<ul>";
+        anwenderdataEmail += "<li>";
+        anwenderdataEmail += "SELECT sname" + "SELECT srolle" + "FROM anwender";
+        anwenderdataEmail += "</li>";
+        anwenderdataEmail += "</ul>";
 
-        return anwenderdataPhone;
+        return anwenderdataEmail;
     }
     
     public static String getAnwenderdataPhoneTelefon() {
-        String anwenderdataPhone = "";
-        anwenderdataPhone += "<ul>";
-        anwenderdataPhone += "<li>";
-        anwenderdataPhone += "SELECT sname" + "SELECT srolle" + "FROM anwender";
-        anwenderdataPhone += "</li>";
-        anwenderdataPhone += "</ul>";
+        String anwenderdataTelefon = "";
+        anwenderdataTelefon += "<ul>";
+        anwenderdataTelefon += "<li>";
+        anwenderdataTelefon += "SELECT sname" + "SELECT srolle" + "FROM anwender";
+        anwenderdataTelefon += "</li>";
+        anwenderdataTelefon += "</ul>";
 
-        return anwenderdataPhone;
+        return anwenderdataTelefon;
     }
     
     
