@@ -18,7 +18,7 @@ Im weiteren Part gibt es dann die Export-Funktion, welche eine PDF Datei mit Not
 #### Fehler
 ./.
 
----------------------------------------
+- - -
 
 ### Profil-Einstellungen
 
