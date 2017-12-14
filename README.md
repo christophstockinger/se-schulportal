@@ -102,6 +102,7 @@ Im weiteren Part gibt es dann die Export-Funktion, welche eine PDF Datei mit Not
 
 3.3 Änderungen auf Github.com hochladen
 > git push -u origin master
+> git push -u origin <Branchname>
 
 
 __Jeder hat jetzt seinen eigenen Branch!__
