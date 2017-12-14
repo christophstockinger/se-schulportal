@@ -32,7 +32,7 @@ public class ModPhone {
     // }
     
     public static String getAnwenderdataPhoneName() {
-        String anwenderdataPhone = "";
+        String anwenderdataPhone = "Pri ist schlau!";
         anwenderdataPhone += "<ul>";
         anwenderdataPhone += "<li>";
         anwenderdataPhone += "SELECT sname" + "SELECT srolle" + "FROM anwender";
