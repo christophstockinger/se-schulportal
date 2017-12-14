@@ -10,7 +10,7 @@ Um die Schülerdaten (Klasse 1 bis 4) in das Schulportal zu importieren, nutzen 
 In einem weiteren Part kann ein Lehrer eine geschriebene Prüfung erstellen und anschließend den jeweiligen Schülern der Prüfung, welcher eine Klasse zugeordnet ist, die Noten eintragen und speichern.
 Im weiteren Part gibt es dann die Export-Funktion, welche eine PDF Datei mit Noten eines Schülers erstellt.
 
-#### Probleme und ggf. Lösung(sansätze)
+#### Probleme und ggf. Lösungsansätze
 + Nichtteilnahme eines Schülers (z. B.: wegen Krankheit): Wird als nicht teilgenommen (Status 0) eingetragen und später bei der Berechnung nicht berücksichtigt
 + Schuljahrwechsel: Es soll eine Funktion geben, welche eine Klasse in eine andere Klasse überträgt und bei den jeweiligen Schülern die Rolle ändert
 + Mehrfaches Vorkommen von Schülernamen kann zu Probleme mit gleicher nicht möglicher E-Mail-Adresse führen: Es wird eine Laufzahl beim erster gleichvorkommener E-Mail-Adresse angehängt, welche sich bei weiteren immer um eins erhöht.
@@ -21,32 +21,68 @@ Im weiteren Part gibt es dann die Export-Funktion, welche eine PDF Datei mit Not
 ---------------------------------------
 
 ### Profil-Einstellungen
+#### Anforderungen
 
+#### Umsetzung
+
+#### Probleme und ggf. Lösungsansätze
+
+#### Fehler
 
 ---------------------------------------
 
 ### KFZ-Kennzeichen
+#### Anforderungen
 
+#### Umsetzung
+
+#### Probleme und ggf. Lösungsansätze
+
+#### Fehler
 
 ---------------------------------------
 
 ### Kontakte
+#### Anforderungen
 
+#### Umsetzung
+
+#### Probleme und ggf. Lösungsansätze
+
+#### Fehler
 
 ---------------------------------------
 
 ### Kalender
+#### Anforderungen
 
+#### Umsetzung
+
+#### Probleme und ggf. Lösungsansätze
+
+#### Fehler
 
 ---------------------------------------
 
 ### Mail und SMS-Versand-Tool
+#### Anforderungen
 
+#### Umsetzung
+
+#### Probleme und ggf. Lösungsansätze
+
+#### Fehler
 
 ---------------------------------------
 
 ### Stundenplan
+#### Anforderungen
 
+#### Umsetzung
+
+#### Probleme und ggf. Lösungsansätze
+
+#### Fehler
 
 
 
