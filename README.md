@@ -104,7 +104,7 @@ Im weiteren Part gibt es dann die Export-Funktion, welche eine PDF Datei mit Not
 > git push -u origin master
 
 
-Jeder hat jetzt seinen eigenen Branch!
+__Jeder hat jetzt seinen eigenen Branch!__
 + Wechseln des Branches in Netbeans:
 Rechtsklick auf das Projekt (schulportal) im Projects Fenster von Netbeans.
 Dann bei "Git" auf "Remote" und weiter auf "Pull" zum holen.
