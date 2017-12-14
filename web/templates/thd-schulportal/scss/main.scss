@@ -1,0 +1,872 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : 04.12.2017, 20:43:26
+    Author     : Christoph
+*/
+
+// Farben
+$maincolor: #3F9AB2;
+$secondcolor: #A1CD73;
+$thirdcolor: #3B596A;
+$gray: #d8d8d8;
+$black: #000000;
+$white:#ffffff;
+
+// Font
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,700');
+$fontname: 'OpenSans', sans-serif;
+$boldfont: 700;
+$regularfont: 400;
+$lightfont: 300;
+$standardsize: 14px;
+
+// Breakpoint
+$xs: "max-width: 576px"; // 0px bis 768px
+$sm: "max-width: 768px"; // 0px bis 768px
+$md: "max-width: 992px"; // 769px bis 992px
+$lg: "max-width: 1200px"; // 993px bis 1200px
+$xl: "min-width: 1201px"; // 1201px bis unendlich
+
+
+
+// Basiseinstellungen
+html {
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    font-family: $fontname;
+    font-weight: $regularfont;
+    height: 100%;
+    overflow-x: hidden;
+    background-color: $white;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: $maincolor;
+    font-family: $fontname;
+    font-weight: $boldfont;
+}
+
+h1 {
+    font-size: 35px;
+}
+
+h2 {
+    font-size: 30px;
+}
+
+h3 {
+    font-size: 25px;
+}
+
+h4 {
+    font-size: 20px;
+}
+
+h5 {
+    font-size: 17px;
+}
+
+h6 {
+    font-size: 13px;
+}
+
+p {
+    color: $black;
+    font-family: $fontname;
+    font-family: $regularfont;
+    line-height: 140%;
+    font-size: $standardsize;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    cursor: pointer;
+}
+
+img {
+    border: 0;
+}
+
+ul {
+    li {
+        list-style-type: none;
+    }
+}
+
+.icon {
+    height: 15px;
+    width: auto;
+    display: inline-block;
+    padding: 0 5px 0 0;
+}
+
+// Bootstrap Rewrites
+.row {
+    margin: 0;
+}
+
+.col-1, .col-10, .col-11, .col-12, .col-2, .col-3, .col-4, .col-5, .col-6, .col-7, .col-8, .col-9 {
+    padding: 0;
+}
+
+// Header
+header{
+    width: 100%;
+    height: 70px;
+    background-color: $white;
+    border-bottom: 1px solid $gray;
+    padding: 10px 0;
+    box-sizing: border-box;
+
+    @media($xs) {
+        height: 50px;
+    }
+
+    // Nav_Burger
+    .nav_burger {
+
+        .nav_burger_image {
+            width: 30px;
+            height: 30px;
+            margin: 10px auto;
+            display: block;
+            cursor: pointer;
+
+            @media($xs) {
+                width: 20px;
+                height: 20px;
+                margin: 5px auto;
+            }
+        }
+    }
+
+    // Brand
+    .brand {
+        text-align: left;
+        font-size: 35px;
+        color: $maincolor;
+
+        a {
+            height: 50px;
+            width: auto;
+            display: block;
+
+            @media($xs) {
+                height: 40px;
+            }
+
+            .brand_image {
+                width: auto;
+                height: 100%;
+            }
+        }
+    }
+
+    // User
+    .user {
+
+        .user_image {
+            width: 30px;
+            height: 30px;
+            margin: 10px auto;
+            display: block;
+            cursor: pointer;
+
+            border-radius: 100%;
+            border: 2px solid $black;
+
+            @media($xs) {
+                width: 20px;
+                height: 20px;
+                margin: 5px auto;
+            }
+        }
+    }
+
+    // Nav_Burger
+    .logout {
+        a {
+            display: block;
+            height: 30px;
+            width: 30px;
+            margin: 0 auto;
+
+            @media($xs) {
+                width: 20px;
+                height: 20px;
+            }
+
+            .logout_image {
+                width: auto;
+                height: 100%;
+                margin: 10px 0;
+
+                @media($xs) {
+                    margin: 5px 0;
+                }
+            }
+        }
+    }
+}
+
+// Navigation & User-Navigation
+nav {
+    width: 250px;
+    height: 100vh;
+    display: block;
+    float: left;
+    transition: all 500ms ease-in-out 0s;
+    position: fixed;
+    top: 70px;
+    z-index: 1000;
+    padding: 25px;
+    box-sizing: border-box;
+
+    @media($xs) {
+        width: 100vw;
+        top: 50px;
+    }
+
+    ul {
+        width: 100%;
+        margin: 0 0 25px;
+
+        li {
+            list-style-type: none;
+            width: 100%;
+            padding: 10px 0;
+            text-align: left;
+            border-bottom: 1px solid $gray;
+
+            a {
+                img {
+
+                }
+
+                span {
+                    font-size: 12px;
+                }
+            }
+        }
+    }
+
+    h4 {
+    }
+
+    .welcome {
+        width: 100%;
+        margin: 0;
+    }
+
+}
+
+.main_navi {
+    left: -250px;
+
+    @media($xs) {
+        left: -100vw;
+    }
+}
+.user_navi {
+    right: -250px;
+
+    @media($xs) {
+        right: -100vw;
+    }
+}
+.open-right {
+    right: 0;
+}
+.open-left {
+    left: 0;
+}
+#main_navigation {
+    background-color: $black;
+    color: $white;
+
+
+    a {
+        color: $white;
+    }
+}
+#user_navigation {
+    background-color: $gray;
+    color: $black;
+
+
+    a {
+        color: $black;
+    }
+}
+
+// Main
+main {
+    // Dashboard
+    .dashboard {
+        padding: 50px;
+        box-sizing: border-box;
+
+        // Dashboard Modul Headline
+        .dashboard_modul_headline {
+            h3 {
+
+            }
+        }
+
+        // Dashboard Modul Image
+        .dashboard_modul_image {
+            margin: 0 0 10px;
+
+            a {
+                width: 100%;
+                height: auto;
+
+                img {
+                    width: 100%;
+                    height: auto;
+                    padding: 5px;
+                }
+            }
+        }
+    }
+
+    // Modul
+    .modul {
+        padding: 50px;
+        box-sizing: border-box;
+
+        // Modul Headline
+        .modul_headline {
+            margin: 0 0 10px;
+            h2 {
+                text-align: left;
+            }
+        }
+
+        // Modul zusätzliche Erklärung
+        .modul_description {
+            margin: 0 0 25px;
+            p {
+                text-align: left;
+            }
+        }
+
+        // Modul Navigation
+        .modul_nav {
+            margin: 0 0 25px;
+            padding: 0;
+            height: auto;
+            position: relative;
+            top: auto;
+            transition: none;
+            z-index: 999;
+
+            ul {
+                padding: 5px;
+                background-color: $thirdcolor;
+                width: 100%;
+                float: left;
+
+                li {
+                    width: auto;
+                    float: left;
+                    display: block;
+                    border: 0;
+                    padding: 0;
+                    border-right: 1px solid $white;
+
+                    &:last-of-type {
+                        border-right: 0;
+                    }
+
+                    @media($xs) {
+                        width: 100%;
+                        border-right: 0;
+                        border-bottom: 1px solid $white;
+
+                        &:last-of-type {
+                            border-bottom: 0;
+                        }
+                    }
+
+                    a{
+                        padding: 5px;
+                        color: $white;
+                        font-weight: $lightfont;
+                        font-size: 12px;
+                        display: block;
+
+                        @media($xs) {
+                            padding: 10px 5px;
+                            box-sizing: border-box;
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Modul Formular
+        .modul_form {
+            margin: 0 0 25px;
+
+            h3 {
+                text-align: left;
+            }
+
+            p {
+                text-align: left;
+            }
+
+            form {
+                width: 100%;
+
+                input {
+                    font-size: $standardsize;
+                    font-family: $fontname;
+                    font-weight: $regularfont;
+                    color: $black;
+                    width: 100%;
+                    padding: 5px;
+                    border: 1px solid $gray;
+                    margin: 5px 0;
+                    display: block;
+                }
+
+                input[type=submit], button, .button {
+                    padding: 10px 50px;
+                    font-size: $standardsize;
+                    font-family: $fontname;
+                    font-weight: $boldfont;
+                    color: $black;
+                    background-color: $maincolor;
+                    color: $white;
+                    border: 0;
+                    margin: 5px 0;
+                    cursor: pointer;
+                    display: block;
+                }
+                
+                .button {
+                    width: auto;
+                    float: left;
+                    margin: 5px 25px 5px 0;
+                }
+
+                textarea {
+                    width: 100%;
+                    min-height: 50px;
+                    height: auto;
+                    padding: 5px;
+                    font-size: $standardsize;
+                    font-family: $fontname;
+                    font-weight: $regularfont;
+                    color: $black;
+                    border: 1px solid $gray;
+                    margin: 5px 0;
+                }
+
+                select {
+                    -webkit-appearance: none;
+                    -moz-appearance: none;
+                    appearance: none;
+                    border: none;
+                    border-radius: 0;
+                    font-size: 1em;
+                    width: 100%;
+                }
+
+                select {
+                    width: 100%;
+                    border: 1px solid $gray;
+                    box-sizing: border-box;
+                    background-color: $white;;
+                    background-image: url("../../../images/icons/chevron-bottom.svg");
+                    background-position: 98% center;
+                    background-repeat: no-repeat;
+                    color: $black;
+                    margin: 0;
+                    font-family: $fontname;
+                    font-weight: $regularfont;
+                    font-size: $standardsize;
+                    cursor: pointer;
+
+                    &::-ms-expand {
+                        display: none;
+                    }
+                }
+
+                option {
+                    background-color: $white;
+                    padding: 5px;
+
+                    &:hover {
+                        background-color: $gray;
+                    }
+                }
+
+                .radio, .checkbox {
+                    width: 100%;
+                    float: left;
+
+                    input[type="radio"], input[type="checkbox"] {
+                        width: auto;
+                        margin: 5px 25px 5px 0;
+                        float: left;
+                        display: block;
+                        padding: 5px;
+
+                    }
+
+                    label {
+                        float: left;
+                        display: block;
+                        width: auto;
+                        padding: 5px;
+                        font-family: $fontname;
+                        font-weight: $regularfont;
+                        font-size: $standardsize;
+                    }
+                }
+
+                input[type="radio"], input[type="checkbox"] {
+                    width: auto;
+                    margin: 0 25px 0 0;
+                    float: left;
+                    display: block;
+                    padding: 5px;
+
+                }
+
+
+
+            }
+        }
+
+        // Modul Tabelle
+        .modul_table {
+            margin: 0 0 25px;
+            h3 {
+                text-align: left;
+            }
+
+            p {
+                text-align: left;
+            }
+
+            table {
+                width: 100%;
+                height: auto;
+
+                th {
+                    padding: 5px;
+                    font-family: $fontname;
+                    font-weight: $boldfont;
+                    font-size: 15px;
+                    text-align: left;
+                }
+
+                td {
+                    padding: 5px;
+                    font-family: $fontname;
+                    font-weight: $regularfont;
+                    font-size: $standardsize;
+                    text-align: left;
+                }
+            }
+        }
+
+    }
+}
+
+// Footer
+footer {
+    background-color: $gray;
+    width: 100%;
+    height: auto;
+    padding: 5px 10px;
+    position: fixed;
+    bottom: 0;
+    z-index: 1000;
+
+    .imprint {
+        text-align:left;
+
+        @media($xs) {
+            text-align: center;
+        }
+
+        a {
+            font-size: $standardsize;
+            color: $black;
+        }
+    }
+
+    .copyright {
+        text-align: right;
+
+        @media($xs) {
+            text-align: center;
+        }
+
+        p {
+            font-size: $standardsize;
+            color: $black;
+        }
+    }
+}
+
+// Starterpage (Loging & Registrierung)
+.starterpager {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-image: url("../../../images/backgrounds/test-schulbild.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    main {
+        width: 60%;
+        margin: 50px auto;
+        background-color: $white;
+        padding: 25px;
+        box-sizing: border-box;
+
+        .content {
+            width: 100%;
+            height: 100%;
+            
+            // Brand für Starterpages
+            .brand {
+                height: auto;
+                display: block;
+                margin: 0 0 25px;
+                
+                a {
+                    width: 50%;
+                    margin: 0 auto;
+                    display: block;
+
+                    img {
+                        width: 100%;
+                        height: auto;
+                    }
+                }
+            }
+
+            // Login Formular
+            .form_login {
+                margin: 0 0 25px;
+                
+                h3 {
+                    text-align: center;
+                    margin: 0 0 25px 0;
+                }
+
+                form {
+                    margin: 25px 0;
+                    input {
+                        font-size: $standardsize;
+                        font-family: $fontname;
+                        font-weight: $regularfont;
+                        color: $black;
+                        width: 60%;
+                        padding: 5px;
+                        border: 1px solid $gray;
+                        margin: 5px auto;
+                        display: block;
+                        
+                    }
+
+                    input[type=submit], button {
+                        padding: 10px 50px;
+                        font-size: $standardsize;
+                        font-family: $fontname;
+                        font-weight: $boldfont;
+                        color: $black;
+                        background-color: $maincolor;
+                        color: $white;
+                        border: 0;
+                        margin: 10px auto;
+                        cursor: pointer;
+                        display: block;
+                        width: 60%;
+                    }
+                    
+                    
+                }
+            }
+            
+            // Registrierungs- und Verifizierungs-Formular
+            .form_register {
+                margin: 0 0 25px;
+                
+                h3 {
+                    text-align: center;
+                    margin: 0 0 25px 0;
+                }
+                
+                p {
+                    text-align: center;
+                }
+                
+                form {
+                    margin: 25px 0;
+                    h4 {
+                        text-align: center;
+                        font-weight: $regularfont;
+                        margin: 10px 0;
+                    }
+                    
+                    .textleft {
+                        text-align: left;
+                        width: 60%;
+                        margin: 0 auto;
+                    }
+                    
+                    input {
+                        font-size: $standardsize;
+                        font-family: $fontname;
+                        font-weight: $regularfont;
+                        color: $black;
+                        width: 60%;
+                        padding: 5px;
+                        border: 1px solid $gray;
+                        margin: 5px auto;
+                        display: block;
+                        
+                    }
+
+                    input[type=submit], button {
+                        padding: 10px 50px;
+                        font-size: $standardsize;
+                        font-family: $fontname;
+                        font-weight: $boldfont;
+                        color: $black;
+                        background-color: $maincolor;
+                        color: $white;
+                        border: 0;
+                        margin: 10px auto;
+                        cursor: pointer;
+                        display: block;
+                        width: 60%;
+                    }
+                    
+                    .deletebtn {
+                        width: auto;
+                    }
+                    
+                    select {
+                        -webkit-appearance: none;
+                        -moz-appearance: none;
+                        appearance: none;
+                        border: none;
+                        border-radius: 0;
+                        font-size: 1em;
+                        width: 100%;
+                    }
+
+                    select {
+                        width: 60%;
+                        border: 1px solid $gray;
+                        box-sizing: border-box;
+                        background-color: $white;;
+                        background-image: url("../../../images/icons/chevron-bottom.svg");
+                        background-position: 98% center;
+                        background-repeat: no-repeat;
+                        color: $black;
+                        margin: 0 auto;
+                        font-family: $fontname;
+                        font-weight: $regularfont;
+                        font-size: $standardsize;
+                        cursor: pointer;
+                        display: block;
+
+                        &::-ms-expand {
+                            display: none;
+                        }
+                    }
+
+                    option {
+                        background-color: $white;
+                        padding: 5px;
+
+                        &:hover {
+                            background-color: $gray;
+                        }
+                    }
+                    
+                    .checkbox {
+                        width: 60%;
+                        margin: 0 20%;
+                        float: left;
+
+                        input[type="checkbox"] {
+                            width: auto;
+                            margin: 5px 25px 5px 0;
+                            float: left;
+                            display: block;
+                            padding: 5px;
+
+                        }
+
+                        label {
+                            float: left;
+                            display: block;
+                            width: auto;
+                            padding: 5px;
+                            font-family: $fontname;
+                            font-weight: $regularfont;
+                            font-size: $standardsize;
+                        }
+                    }
+                    
+                    .rollen {
+                        width: 60%;
+                        margin: 25px auto;
+                        display: block;
+                        
+                        p {
+                            text-align: left;
+                        }
+                        
+                        ul {
+                            margin: 0;
+                            padding:0;
+                            
+                            li {
+                                list-style-type: none;
+                                margin: 0 0 10px;
+                                position: relative;
+                                
+                                .deletebtn {
+                                    position: absolute;
+                                    right: 0;
+                                    top: 0;
+                                    background-color: $white;
+                                    background: none;
+                                    padding: 0;
+                                    
+                                    img {
+                                        width: 15px;
+                                        height: 15px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
