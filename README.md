@@ -1,4 +1,53 @@
 # SE Schulportal
+Im Rahmen der Vorlesung Software Engineering entwicklen 10 Studenten ein Schulportal für zwei Grundschulen aus dem bayrischen Wald.
+Dabei wurden folgende Module implementiert:
+### Notenblatt
+#### Anforderungen
+Dieses Modul dient zur Erfassung von Schulnoten der Schüler für ein Schulerjahr. Zudem soll es eine Funktion für die Verwaltung, welche anschließend Zeugnisse bzw. Notenübersicht eines Schülers erstellen kann.
+
+#### Umsetzung
+Um die Schülerdaten (Klasse 1 bis 4) in das Schulportal zu importieren, nutzen wir CSV Dateien mit den Schülernamen sowie Telefonnummern. Aus diesen Daten wird dann automatische eine E-Mail-Adresse generiert.
+In einem weiteren Part kann ein Lehrer eine geschriebene Prüfung erstellen und anschließend den jeweiligen Schülern der Prüfung, welcher eine Klasse zugeordnet ist, die Noten eintragen und speichern.
+Im weiteren Part gibt es dann die Export-Funktion, welche eine PDF Datei mit Noten eines Schülers erstellt.
+
+#### Probleme und ggf. Lösung(sansätze)
++ Nichtteilnahme eines Schülers (z. B.: wegen Krankheit): Wird als nicht teilgenommen (Status 0) eingetragen und später bei der Berechnung nicht berücksichtigt
++ Schuljahrwechsel: Es soll eine Funktion geben, welche eine Klasse in eine andere Klasse überträgt und bei den jeweiligen Schülern die Rolle ändert
++ Mehrfaches Vorkommen von Schülernamen kann zu Probleme mit gleicher nicht möglicher E-Mail-Adresse führen: Es wird eine Laufzahl beim erster gleichvorkommener E-Mail-Adresse angehängt, welche sich bei weiteren immer um eins erhöht.
+
+#### Fehler
+./.
+
+---------------------------------------
+
+### Profil-Einstellungen
+
+
+---------------------------------------
+
+### KFZ-Kennzeichen
+
+
+---------------------------------------
+
+### Kontakte
+
+
+---------------------------------------
+
+### Kalender
+
+
+---------------------------------------
+
+### Mail und SMS-Versand-Tool
+
+
+---------------------------------------
+
+### Stundenplan
+
+
 
 
 ## Github
