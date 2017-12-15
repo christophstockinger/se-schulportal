@@ -17,7 +17,7 @@ Im weiteren Part gibt es dann die Export-Funktion, welche eine PDF Datei mit Not
 + Mit geben der Klasse beim Import. Lösung basiert nun auf einer Klassenübersicht am Anfang, wo ein Parameter mitgegeben wird und dieser auch im Form-Tag weiterverarbeitet wird und beim speichern und eintragen der Datei in die DB ausgelesen wird. (Kombination aus GET und POST)
 
 #### Fehler
-./.
++ Truncation-Fehler beim Datenbank-Eintrag von der CSV-Datei. Dieser Fehler tritt bei der E-Mail-Adresse auf. (noch nicht genauer untersucht.)
 
 ---------------------------------------
 
