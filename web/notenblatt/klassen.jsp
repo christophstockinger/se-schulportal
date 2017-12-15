@@ -4,6 +4,12 @@
     Author     : Christoph
 --%>
 
+<%@ page import="java.io.*,java.util.*, javax.servlet.*" %>
+<%@ page import="javax.servlet.http.*" %>
+<%@ page import="org.apache.commons.fileupload.*" %>
+<%@ page import="org.apache.commons.fileupload.disk.*" %>
+<%@ page import="org.apache.commons.fileupload.servlet.*" %>
+<%@ page import="org.apache.commons.io.output.*" %>
 <%@page import="Notenblatt.Notenblatt"%>
 <%@page import="anwender.Anwender"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -31,7 +37,7 @@ Ionic Icons: https://useiconic.com/open/
     String nachname = "";
     String telefonnummer = "";
     Anwender user;
-    
+
     if ((Anwender) session.getAttribute("user") != null) {
         // User-Variablen mit Session-Values
         email = (String) ((Anwender) session.getAttribute("user")).getEmail();
@@ -40,7 +46,7 @@ Ionic Icons: https://useiconic.com/open/
         vorname = (String) ((Anwender) session.getAttribute("user")).getVorname();
         nachname = (String) ((Anwender) session.getAttribute("user")).getNachname();
         telefonnummer = (String) ((Anwender) session.getAttribute("user")).getTelefonnummer();
-        
+
     } else {
         loginstatus = true; // For dev eigentlich false
     }
@@ -129,26 +135,18 @@ Ionic Icons: https://useiconic.com/open/
                     <p><% out.println(Notenblatt.moduldesc); %></p>
                 </div>
                 <nav class="col-12 col-sm-12 modul_nav">
+                    <% System.out.println("E-Mail: " + email); %>
                     <% out.println(Notenblatt.getSubNavigation(email)); %>
                 </nav>
-                <div class="col-12 col-sm-12 modul_form">
-                    <!-- <form>
+                <!-- <div class="col-12 col-sm-12 modul_form">
+                    <form>
                         <a href="import.jsp" class="button"><img src="/se-schulportal/images/icons/data-transfer-upload-white.svg" alt=""/>Import</a>
                         <a href="export.jsp" class="button"><img src="/se-schulportal/images/icons/data-transfer-download-white.svg" alt=""/>Export</a>
-                    </form> -->
-                </div>
-                <div class="col-12 col-sm-12 modul_description">
-                    <%
-                        String contentType = request.getContentType();
-                        String klasse = (String) request.getParameter("klasse");
-                        
-                        if (contentType != null) {
-                            out.println( Notenblatt.writeCSVFile(contentType, klasse, request) );
-                        } else {
-                            out.println("<p>No file uploaded</p>");
-                        }
-                        
-                    %>
+                    </form>
+                </div> -->
+                
+                <div class="col-12 col-sm-12 modul_table">
+                    <% out.println(Notenblatt.getKlassenOverview() ); %>
                 </div>
 
 
@@ -156,7 +154,8 @@ Ionic Icons: https://useiconic.com/open/
         </main>
         <!--// User Navigation //-->
         <nav class="user_navi" id="user_navigation">
-            <%                user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
+            <%
+                user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
                 out.println("<div class='welcome'><p>Hallo " + anrede + " " + vorname + " " + nachname + "</p></div>");
                 out.println(user.getUserNavigation());
             %>

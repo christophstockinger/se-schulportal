@@ -359,6 +359,12 @@ main {
             p {
                 text-align: left;
             }
+            
+            .alert {
+                color: #FF0000;
+                background-color: $gray;
+                padding: 5px 0;
+            }
         }
 
         // Modul Navigation
@@ -461,6 +467,12 @@ main {
                     width: auto;
                     float: left;
                     margin: 5px 25px 5px 0;
+                    
+                    img {
+                        height: 15px;
+                        vertical-align: middle;
+                        margin-right: 15px;
+                    }
                 }
 
                 textarea {
@@ -582,6 +594,32 @@ main {
                     font-weight: $regularfont;
                     font-size: $standardsize;
                     text-align: left;
+                    vertical-align: middle;
+                    border-bottom: 1px solid $gray;
+                    
+                    .button {
+                        padding: 10px 25px;
+                        font-size: $standardsize;
+                        font-family: $fontname;
+                        font-weight: $boldfont;
+                        background-color: $maincolor;
+                        color: $white;
+                        border: 0;
+                        cursor: pointer;
+                        display: block;
+                    }
+                    
+                    .button {
+                        width: auto;
+                        float: left;
+                        margin: 0 25px 0 0;
+
+                        img {
+                            height: 15px;
+                            vertical-align: middle;
+                            margin-right: 15px;
+                        }
+                    }
                 }
             }
         }

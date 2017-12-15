@@ -119,7 +119,6 @@ public class Anwender implements DBKonstanten {
         if (rollen.size() == 0) {
             naviOutput += "Du hast leider keine Berechtigungen.";
         } else {
-            
 
             for (int i = 1; i <= rollen.size(); i++) {
                 naviOutput += "<h4>" + rollen.get(i) + "</h4>";
@@ -174,7 +173,7 @@ public class Anwender implements DBKonstanten {
                 }
                 naviOutput += "</ul>";
             }
-            
+
         }
 
         return naviOutput;
@@ -251,6 +250,16 @@ public class Anwender implements DBKonstanten {
         userNaviOutput += "</ul>";
 
         return userNaviOutput;
+    }
+
+    public static Boolean CheckEmailInDatabase(String email) {
+        Map tmpEmailCheck = DB.DBConnector.getAnwenderdaten(Anwender.databasetablename, email);
+        
+        if ((tmpEmailCheck.size() == 0)||(tmpEmailCheck == null) ) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     protected void finalize() {
