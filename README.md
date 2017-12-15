@@ -14,6 +14,7 @@ Im weiteren Part gibt es dann die Export-Funktion, welche eine PDF Datei mit Not
 + Nichtteilnahme eines Schülers (z. B.: wegen Krankheit): Wird als nicht teilgenommen (Status 0) eingetragen und später bei der Berechnung nicht berücksichtigt
 + Schuljahrwechsel: Es soll eine Funktion geben, welche eine Klasse in eine andere Klasse überträgt und bei den jeweiligen Schülern die Rolle ändert
 + Mehrfaches Vorkommen von Schülernamen kann zu Probleme mit gleicher nicht möglicher E-Mail-Adresse führen: Es wird eine Laufzahl beim erster gleichvorkommener E-Mail-Adresse angehängt, welche sich bei weiteren immer um eins erhöht.
++ Mit geben der Klasse beim Import. Lösung basiert nun auf einer Klassenübersicht am Anfang, wo ein Parameter mitgegeben wird und dieser auch im Form-Tag weiterverarbeitet wird und beim speichern und eintragen der Datei in die DB ausgelesen wird. (Kombination aus GET und POST)
 
 #### Fehler
 ./.
