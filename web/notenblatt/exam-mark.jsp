@@ -22,30 +22,30 @@ Ionic Icons: https://useiconic.com/open/
     // Status Variable sowie String Variable für Weiterleitung auf Login-Seite
     Boolean loginstatus = (Boolean) session.getAttribute("login");
     String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
-    
+
     // User Variablen
-    String email = "christoph.stockinger@stud.th-deg.de" ; // For Development: hardgecoded normalerweise (String) session.getAttribute("email")
+    String email = "christoph.stockinger@stud.th-deg.de"; // For Development: hardgecoded normalerweise (String) session.getAttribute("email")
     String password = "";
     String anrede = "";
     String vorname = "";
     String nachname = "";
     String telefonnummer = "";
     Anwender user;
-    
-    if ( (Anwender) session.getAttribute("user")!= null ) {
-    // User-Variablen mit Session-Values
-    email = (String) ((Anwender) session.getAttribute("user")).getEmail();
-    password = (String) ((Anwender) session.getAttribute("user")).getPassword();
-    anrede = (String) ((Anwender) session.getAttribute("user")).getAnrede();
-    vorname = (String) ((Anwender) session.getAttribute("user")).getVorname();
-    nachname = (String) ((Anwender) session.getAttribute("user")).getNachname();
-    telefonnummer = (String) ((Anwender) session.getAttribute("user")).getTelefonnummer();
-    
+
+    if ((Anwender) session.getAttribute("user") != null) {
+        // User-Variablen mit Session-Values
+        email = (String) ((Anwender) session.getAttribute("user")).getEmail();
+        password = (String) ((Anwender) session.getAttribute("user")).getPassword();
+        anrede = (String) ((Anwender) session.getAttribute("user")).getAnrede();
+        vorname = (String) ((Anwender) session.getAttribute("user")).getVorname();
+        nachname = (String) ((Anwender) session.getAttribute("user")).getNachname();
+        telefonnummer = (String) ((Anwender) session.getAttribute("user")).getTelefonnummer();
+
     } else {
         loginstatus = false;
     }
-    
-    %>
+
+%>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -91,9 +91,9 @@ Ionic Icons: https://useiconic.com/open/
     </head>
     <body>
         <%
-           // if ( loginstatus == false) {
-           //     out.println(loginpage);
-           // } %>
+            // if ( loginstatus == false) {
+            //     out.println(loginpage);
+            // } %>
         <header class="row">
             <div class="col-2 col-sm-1 nav_burger" >
                 <img data="#main_navigation" class="navicon nav_burger_image" src="/se-schulportal/images/icons/menu.svg" alt="Navigation öffnen" />
@@ -114,7 +114,7 @@ Ionic Icons: https://useiconic.com/open/
         </header>
         <!--// Main Navigation //-->
         <nav class="main_navi" id="main_navigation" >
-           <%
+            <%
                 user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
                 out.println(user.getNavigation());
             %>
@@ -123,46 +123,42 @@ Ionic Icons: https://useiconic.com/open/
         <main>
             <div class="row modul">
                 <div class="col-12 col-sm-12 modul_headline">
-                    <h2><% out.println( Notenblatt.modulname ); %></h2>
+                    <h2><% out.println(Notenblatt.modulname); %></h2>
                 </div>
                 <div class="col-12 col-sm-12 modul_description">
-                    <p><% out.println( Notenblatt.moduldesc ); %></p>
+                    <p><% out.println(Notenblatt.moduldesc); %></p>
                 </div>
                 <nav class="col-12 col-sm-12 modul_nav">
-                    <% System.out.println("E-Mail: " +  email); %>
-                    <% out.println( Notenblatt.getSubNavigation( email ) ); %>
+                    <% System.out.println("E-Mail: " + email); %>
+                    <% out.println(Notenblatt.getSubNavigation(email)); %>
                 </nav>
+                <div class="col-12 col-sm-12 modul_description">
+                    <%
+                        String klasse = request.getParameter("klasse");
+                        String fach = request.getParameter("fach");
+                        String art = request.getParameter("art");
+                        String lehrer = request.getParameter("lehrer");
+                        String date = request.getParameter("datum");
+                        out.println(Notenblatt.writeExam(klasse, fach, art, lehrer, date));
+                        int examid = DB.DBConnector.getExamId(klasse, fach, art, lehrer, date);
+                        if (examid == 0) {
+                            out.println("Es ist ein Fehler beim Abrufen der Prüfung passiert!");
+                        }
+                    %>
+                </div>
                 <div class="col-12 col-sm-12 modul_form">
                     <h3>Formularname</h3>
-                    <form>
-                        <input type="text" name="name" placeholder="Dein Name" />
-                        <textarea>Hier steht ihr Text!!!!</textarea>
-                        <select>
-                            <option>Auswahl 1</option>
-                            <option>Auswahl 2</option>
-                        </select>
-                        <div class="radio"><input type="radio" name=""> <label>A</label></div>
-                        <div class="checkbox"><input type="checkbox" name=""> <label>B</label></div>
-                        
-                        <button onclick=''>Absenden</button>
+                    <% String url = "exam.jsp?examid=" + examid + "&klasse=" + klasse; System.out.println(url); %>
+                    <form action="<% out.print(url); %>" method="GET">
+                        <% 
+                            if (examid != 0) {
+                                out.println(Notenblatt.getKlassenSchuelerForm(klasse));
+                            } else {
+                                out.println("Leider konnte keine Schülerübersicht generiert werden.");
+                            }
+                        %>
+                        <button type="submit" name="examsmark">Prüfungsnoten speichern</button>
                     </form>
-                </div>
-                <div class="col-12 col-sm-12 modul_table">
-                    <h3>Tabellenname</h3>
-                    <table>
-                        <tr>
-                            <th>Überschrift 1</th>
-                            <th>Überschrift 2</th>
-                        </tr>
-                        <tr>
-                            <td>Inhalt 1</td>
-                            <td>Inhalt 2</td>
-                        </tr>
-                        <tr>
-                            <td>Inhalt 3</td>
-                            <td>Inhalt 4</td>
-                        </tr>
-                    </table>
                 </div>
             </div>
         </main>
@@ -171,16 +167,16 @@ Ionic Icons: https://useiconic.com/open/
             <%
                 user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
                 out.println("<div class='welcome'><p>Hallo " + anrede + " " + vorname + " " + nachname + "</p></div>");
-                out.println( user.getUserNavigation() );
+                out.println(user.getUserNavigation());
             %>
         </nav>
-        
+
         <!--// Footer //-->
         <footer class="row">
             <div class="col-12 col-sm-6 imprint"><a href="/se-schulportal/impressum.html">Impressum</a></div>
             <div class="col-12 col-sm-6 copyright"><p>&copy 2017 THD - Christoph Stockinger</p></div>
         </footer>
-    <!--// Javascript & jQuery //-->
+        <!--// Javascript & jQuery //-->
         <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/func.js" type="text/javascript"></script>

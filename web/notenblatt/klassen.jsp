@@ -57,7 +57,7 @@ Ionic Icons: https://useiconic.com/open/
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width; initial-scale=1.0"/>
 
-        <title>Schülerübersicht | <% out.println(Notenblatt.modulname); %> | Schulportal</title>
+        <title>Klassenübersicht | <% out.println(Notenblatt.modulname); %> | Schulportal</title>
 
         <meta name="description" content=""/>
         <meta name="author" content="Coding77 // Christoph Stockinger"/>

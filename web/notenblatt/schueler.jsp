@@ -137,15 +137,28 @@ Ionic Icons: https://useiconic.com/open/
                         <a href="export.jsp" class="button"><img src="/se-schulportal/images/icons/data-transfer-download-white.svg" alt=""/>Export</a>
                     </form> -->
                 </div>
-                <div class="col-12 col-sm-12 modul_description">
+                
                     <%
                         String contentType = request.getContentType();
                         String klasse = (String) request.getParameter("klasse");
                         
                         if (contentType != null) {
+                            out.println("<div class='col-12 col-sm-12 modul_description'>");
                             out.println( Notenblatt.writeCSVFile(contentType, klasse, request) );
+                            out.println("</div>");
+                            out.println("<div class='col-12 col-sm-12 modul_table'>");
+                            out.println( Notenblatt.getKlassenSchuelerOverview( klasse ) );
+                            out.println("</div>");
                         } else {
-                            out.println("<p>No file uploaded</p>");
+                            if (klasse != null) {
+                                out.println("<div class='col-12 col-sm-12 modul_table'>");
+                                out.println( Notenblatt.getKlassenSchuelerOverview( klasse ) );
+                                out.println("</div>");
+                            } else {
+                                out.println("<div class='col-12 col-sm-12 modul_description'>");
+                                out.println("<p> Bitte wählen Sie eine Klasse aus!</p>");
+                                out.println("</div>");
+                            }
                         }
                         
                     %>

@@ -56,7 +56,7 @@ INSERT INTO anwender (anrede, nachname, vorname, email, telefonnummer, passwort)
 INSERT INTO anwender (anrede, nachname, vorname, email, telefonnummer, passwort) VALUES('Herr', 'Stockinger', 'Christoph','christoph.stockinger@stud.th-deg.de','02156168228','123christoph654');
 
 
-INSERT INTO rollennamen (rollenname) VALUES('Lehrer'), ('Eltern'), ('Schueler'), ('Rektor'), ('Personal'),('Admin'),('Klasse 1a'),('Klasse 1b'), ('Klasse 1c'), ('Klasse 2a'),('Klasse 2b'),('Klasse 2c'), ('Klasse 3a'),('Klasse 3b'),('Klasse 3c'), ('Klasse 4a'),('Klasse 4b'), ('Klasse 4c');
+INSERT INTO rollennamen (rollenname) VALUES('Lehrer'), ('Eltern'), ('Schüler'), ('Rektor'), ('Personal'),('Admin'),('Klasse 1a'),('Klasse 1b'), ('Klasse 1c'), ('Klasse 2a'),('Klasse 2b'),('Klasse 2c'), ('Klasse 3a'),('Klasse 3b'),('Klasse 3c'), ('Klasse 4a'),('Klasse 4b'), ('Klasse 4c');
 
 INSERT INTO rolle(rolle,anwender) VALUES('Admin', 'thomas.forstner2@stud.th-deg.de');
 INSERT INTO rolle(rolle,anwender) VALUES('Admin', 'christoph.stockinger@stud.th-deg.de');
@@ -73,7 +73,29 @@ UPDATE anwenderverify SET verifystatus_tel = true WHERE anwender = 'christoph.st
 UPDATE anwenderverify SET verifystatus_admin = true WHERE anwender = 'christoph.stockinger@stud.th-deg.de';
 
 
+DELETE FROM Anwenderverify  WHERE anwender='email@mail.de'
+DELETE FROM Anwender  WHERE email='email@mail.de'
+DELETE FROM Rolle  WHERE anwender='email@mail.de' AND rolle='rollename'
+DELETE FROM Rollennamen WHERE Rollenname = 'rollenname'
+
 SELECT anwender.nachname, anwender.vorname FROM anwender LEFT JOIN rolle ON rolle.rolle = 'Admin';
 
 SELECT * FROM rollennamen;
+
+
+/* Notenblatt */
+
+/* FÜR Derby */
+CREATE TABLE pruefung (
+  id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+  lehrer varchar(200) NOT NULL,
+  art varchar(100) NOT NULL,
+  klasse varchar(100) NOT NULL,
+  fach varchar(100) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (fach) REFERENCES faecher(fach),
+    FOREIGN KEY (klasse) REFERENCES rollennamen(rollenname),
+    FOREIGN KEY (lehrer) REFERENCES anwender(email)
+);
+
 

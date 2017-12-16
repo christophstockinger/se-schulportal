@@ -141,7 +141,7 @@ Ionic Icons: https://useiconic.com/open/
                     <form action="<% out.print(url); %>" enctype="multipart/form-data" method="POST" name="import">
                         <% // out.println( Notenblatt.getKlassen() ); %>
                         <input type="file" name="csvschulerdata" placeholder="Hier bitte eine CSV-Datei mit Schülerdaten hochladen" />
-                        <button name="upload" >Hochladen</button>
+                        <button type="submit" name="upload">Hochladen</button>
                     </form>
                 </div>
             </div>

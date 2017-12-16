@@ -4,6 +4,8 @@
     Author     : Christoph
 --%>
 
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 <%@page import="Notenblatt.Notenblatt"%>
 <%@page import="anwender.Anwender"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -51,7 +53,7 @@ Ionic Icons: https://useiconic.com/open/
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width; initial-scale=1.0"/>
 
-        <title>Startseite | <% out.println(Notenblatt.modulname); %> | Schulportal</title>
+        <title>Prüfungen | <% out.println(Notenblatt.modulname); %> | Schulportal</title>
 
         <meta name="description" content=""/>
         <meta name="author" content="Coding77 // Christoph Stockinger"/>
@@ -129,26 +131,40 @@ Ionic Icons: https://useiconic.com/open/
                     <p><% out.println( Notenblatt.moduldesc ); %></p>
                 </div>
                 <nav class="col-12 col-sm-12 modul_nav">
-                    <% System.out.println("E-Mail: " +  email); %>
                     <% out.println( Notenblatt.getSubNavigation( email ) ); %>
                 </nav>
+                <div class="col-12 col-sm-12 modul_description">
+                    <%
+                        if ( request.getParameter("examid") != null ) {
+                            int examid = Integer.parseInt( request.getParameter("examid") );
+                            String klasse = request.getParameter("klasse");
+
+                            Map klassenschueler = DB.DBConnector.getAnwenderFromRolle(klasse);
+                            Map <String, String> schuelernote = new HashMap<String, String>();
+
+                            for (int i = 1; i <= klassenschueler.size(); i++) {
+                                String note = request.getParameter( (String) klassenschueler.get(i) );
+                                schuelernote.put((String) klassenschueler.get(i), note );
+                            }
+
+                            out.println( Notenblatt.writeExamMark(examid, schuelernote) );
+                        }
+                    %>
+                </div>
                 <div class="col-12 col-sm-12 modul_form">
-                    <h3>Formularname</h3>
-                    <form>
-                        <input type="text" name="name" placeholder="Dein Name" />
-                        <textarea>Hier steht ihr Text!!!!</textarea>
-                        <select>
-                            <option>Auswahl 1</option>
-                            <option>Auswahl 2</option>
-                        </select>
-                        <div class="radio"><input type="radio" name=""> <label>A</label></div>
-                        <div class="checkbox"><input type="checkbox" name=""> <label>B</label></div>
+                    <h3>Neue Prüfung anlegen</h3>
+                    <form action="exam-mark.jsp" method="get">
+                        <% out.println( Notenblatt.getKlassen() ); %>
+                        <% out.println( Notenblatt.getFaecher() ); %>
+                        <% out.println( Notenblatt.getLehrer() ); %>
+                        <% out.println( Notenblatt.getExamArten() ); %>
+                        <input type="date" name="datum" placeholder="Datum" />
                         
-                        <button onclick=''>Absenden</button>
+                        <button type="submit" name="exam">Prüfung anlegen</button>
                     </form>
                 </div>
                 <div class="col-12 col-sm-12 modul_table">
-                    <h3>Tabellenname</h3>
+                    <h3>Alle Prüfungen</h3>
                     <table>
                         <tr>
                             <th>Überschrift 1</th>
