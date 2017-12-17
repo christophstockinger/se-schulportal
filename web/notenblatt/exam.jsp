@@ -140,10 +140,11 @@ Ionic Icons: https://useiconic.com/open/
                             String klasse = request.getParameter("klasse");
 
                             Map klassenschueler = DB.DBConnector.getAnwenderFromRolle(klasse);
-                            Map <String, String> schuelernote = new HashMap<String, String>();
+                            Map <String, Integer> schuelernote = new HashMap<String, Integer>();
 
                             for (int i = 1; i <= klassenschueler.size(); i++) {
-                                String note = request.getParameter( (String) klassenschueler.get(i) );
+                                int note = Integer.parseInt( request.getParameter( (String) klassenschueler.get(i) ));
+                                System.out.println( (String) klassenschueler.get(i)+ " | " + note );
                                 schuelernote.put((String) klassenschueler.get(i), note );
                             }
 

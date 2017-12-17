@@ -92,6 +92,7 @@ CREATE TABLE pruefung (
   art varchar(100) NOT NULL,
   klasse varchar(100) NOT NULL,
   fach varchar(100) NOT NULL,
+  datum date NOT NULL,
     PRIMARY KEY (id),
     FOREIGN KEY (fach) REFERENCES faecher(fach),
     FOREIGN KEY (klasse) REFERENCES rollennamen(rollenname),
@@ -99,3 +100,5 @@ CREATE TABLE pruefung (
 );
 
 
+/* Reset Id auf 1 */
+ALTER TABLE pruefung ALTER COLUMN id RESTART WITH 1

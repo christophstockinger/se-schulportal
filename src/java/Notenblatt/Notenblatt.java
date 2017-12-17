@@ -491,11 +491,11 @@ public class Notenblatt implements Interfaces.IModul {
     public static String writeExamMark(int examid, Map schuelernoten) {
         String returnstr = "";
         Boolean dbInsertMark = false;
-        Map<String, String> noten = (Map) schuelernoten;
+        Map<String, Integer> noten = (Map) schuelernoten;
         
-        for( Map.Entry<String, String> schueler : noten.entrySet() ) {
+        for( Map.Entry<String, Integer> schueler : noten.entrySet() ) {
             String email = schueler.getKey();
-            String note = schueler.getValue();
+            int note = schueler.getValue();
             dbInsertMark = DB.DBConnector.writeExamMarkSchueler(examid, note, email);
         }
 

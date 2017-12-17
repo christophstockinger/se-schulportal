@@ -105,8 +105,10 @@ function main_user_navigation() {
     })
 }
 
-function csvImport() {
-    
+function examMark() {
+    var email = $('#email').html();
+    var url = "adminverify.jsp?email=" + email + "&status=freigabe";
+    window.location.replace(url);
 }
 
 

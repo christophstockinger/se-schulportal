@@ -144,14 +144,16 @@ Ionic Icons: https://useiconic.com/open/
                         if (examid == 0) {
                             out.println("Es ist ein Fehler beim Abrufen der Prüfung passiert!");
                         }
+                        String examidstr = Integer.toString(examid);
                     %>
                 </div>
                 <div class="col-12 col-sm-12 modul_form">
                     <h3>Formularname</h3>
-                    <% String url = "exam.jsp?examid=" + examid + "&klasse=" + klasse; System.out.println(url); %>
-                    <form action="<% out.print(url); %>" method="GET">
+                    <form action="exam.jsp" method="GET">
                         <% 
                             if (examid != 0) {
+                                out.println("<input type='hidden' name='examid' value='" + examid + "' />");
+                                out.println("<input type='hidden' name='klasse' value='" + klasse + "' />");
                                 out.println(Notenblatt.getKlassenSchuelerForm(klasse));
                             } else {
                                 out.println("Leider konnte keine Schülerübersicht generiert werden.");

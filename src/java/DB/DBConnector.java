@@ -622,7 +622,7 @@ public class DBConnector {
 
         try {
             statement = javaDBConn.connect();
-            statement.executeUpdate("INSERT INTO pruefung (lehrer, art, klasse, fach) VALUES ('" + lehrer + "', '" + art + "','" + klasse + "','" + fach + "')");
+            statement.executeUpdate("INSERT INTO pruefung (lehrer, art, klasse, fach, datum) VALUES ('" + lehrer + "', '" + art + "','" + klasse + "','" + fach + "','" + date + "')");
 
             return true;
 
@@ -632,8 +632,7 @@ public class DBConnector {
             return false;
 
         } catch (SQLException ex) {
-            Logger.getLogger(DBConnector.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
     }
@@ -646,7 +645,7 @@ public class DBConnector {
         try {
             statement = javaDBConn.connect();
 
-            ResultSet rs = statement.executeQuery("SELECT id FROM pruefung WHERE klasse='" + klasse + "' AND fach='" + fach + "'  AND art='" + art + "' AND lehrer='" + lehrer + "' ");
+            ResultSet rs = statement.executeQuery("SELECT id FROM pruefung WHERE klasse='" + klasse + "' AND fach='" + fach + "'  AND art='" + art + "' AND lehrer='" + lehrer + "' AND datum='" + date + "'");
 
             int id = 0;
 
@@ -680,7 +679,7 @@ public class DBConnector {
         }
     }
     
-    public static Boolean writeExamMarkSchueler(int examid, String note, String email) {
+    public static Boolean writeExamMarkSchueler(int examid, int note, String email) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
@@ -688,7 +687,7 @@ public class DBConnector {
 
         try {
             statement = javaDBConn.connect();
-            statement.executeUpdate("INSERT INTO pruefungsnoten (note, pruefung, email) VALUES ('" + note + "', '" + examid + "','" + email + "')");
+            statement.executeUpdate("INSERT INTO pruefungsnoten (note, pruefung, email) VALUES (" + note + ", " + examid + ",'" + email + "')");
 
             return true;
 
