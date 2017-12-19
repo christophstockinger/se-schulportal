@@ -203,6 +203,74 @@ public class DBConnector {
     }
 
     /**
+     * Methode zur Abfrage der Emails einer Rolle
+     * @param rolle ausgewählte Rolle
+     * @return Map mit Integer als Laufzahl und String als Email
+     */
+    public static Map getRollenEmail(String rolle) {
+        /*DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+        try {
+            statement = javaDBConn.connect();
+
+            ResultSet rs = statement.executeQuery("SELECT ANWENDER FROM ROLLE WHERE ROLLE = '"+rolle+"';");
+
+            Map<Integer, String> dbDataRolleEmail = new HashMap<Integer, String>();
+
+            ResultSetMetaData meta = rs.getMetaData();
+            int cols = meta.getColumnCount();
+            int rownum = 0;
+            while (rs.next()) {
+                rownum++;
+                dbDataRolleEmail.put(rownum, (String) rs.getObject(1));
+            }
+        return dbDataRolleEmail;
+        }
+        catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
+        }
+        catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+        return null;
+        }
+
+        */
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+        try {
+            statement = javaDBConn.connect();
+
+            ResultSet rs = statement.executeQuery("SELECT ANWENDER FROM ROLLE WHERE ROLLE = '"+rolle+"'");
+
+            Map<String, String> dbDataAnwender = new HashMap<String, String>();
+
+            ResultSetMetaData meta = rs.getMetaData();
+            int cols = meta.getColumnCount();
+            int rownum = 0;
+            while (rs.next()) {
+                rownum++;
+                for (int i = 0; i < cols; i++) {
+                    dbDataAnwender.put((String) meta.getColumnLabel(i + 1), (String) rs.getObject(i + 1));
+
+                }
+            }
+
+            return dbDataAnwender;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    /**
      * Methode zum Eintrag eines Anwenders
      * @param tblname Die einzutragende Datenbanktabelle
      * @param anr Anrede des neuen Anwenders
