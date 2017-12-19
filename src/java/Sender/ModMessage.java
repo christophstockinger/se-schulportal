@@ -20,8 +20,8 @@ public class ModMessage {
     
     public static String getSubNavigation() {
         String output = "<ul>";
-        output += "<li>  <a href='/schulportal/messages/sms.jsp'>SMS</a> </li>";
-        output += "<li> <a href='/schulportal/messages/email.jsp'>Email</a> </li>";
+        output += "<li>  <a href='/se-schulportal/messages/sms.jsp'>SMS</a> </li>";
+        output += "<li> <a href='/se-schulportal/messages/email.jsp'>Email</a> </li>";
         output += "</ul>";
         return output;
     }
