@@ -141,6 +141,7 @@ Ionic Icons: https://useiconic.com/open/
                         <textarea name="nachricht" placeholder="Nachricht"></textarea>
                         <button onclick='email()'>Absenden</button>
                     </form>
+                    Hallo  Witzi
                 </div>
             </div>
         </main>
