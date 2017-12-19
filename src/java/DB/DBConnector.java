@@ -515,7 +515,7 @@ public class DBConnector {
      * @param email: E-Mail, welche Daten abgefragt werden
      * @return Map mit Spaltenüberschrift und Wert. Jeweils als String.
      */
-    public static Map getAnwenderdataPhone(String col) {
+    public static Map getAnwenderdataPhone(String name, String rolle) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
@@ -524,7 +524,7 @@ public class DBConnector {
             statement = javaDBConn.connect();
             
 
-            ResultSet rs = statement.executeQuery("SELECT " + col + " FROM ANWENDER");
+            ResultSet rs = statement.executeQuery("SELECT * FROM ANWENDER");
             //+ " WHERE email = '" + email + "'");
 
             Map<String, String> dbDataAnwender = new HashMap<String, String>();

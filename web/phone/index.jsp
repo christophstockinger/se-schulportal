@@ -161,13 +161,6 @@ Ionic Icons: https://useiconic.com/open/
             %>
         </nav>
         
-        <div>
-            <%
-                String sname = request.getParameter("name");
-                String srolle = request.getParameter("rolle");
-            %>
-        </div>
-        
         <!--// Footer //-->
         <footer class="row">
             <div class="col-12 col-sm-6 imprint"><a href="/se-schulportal/impressum.html">Impressum</a></div>

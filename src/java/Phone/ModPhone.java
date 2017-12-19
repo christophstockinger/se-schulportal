@@ -25,16 +25,16 @@ public class ModPhone {
         return output;
     }
     
-    /*public static Map getAnwenderdataPhone() {
+    public static Map getAnwenderdataPhone(String name, String rolle) {
          
-         Map anwenderdata = DB.DBConnector.getAnwenderdataPhone("ANWENDER");
+        Map anwenderdata = DB.DBConnector.getAnwenderdataPhone(name, rolle);
         
-         return anwenderdata;
-    }*/
+        return anwenderdata;
+    }
     
-    public static String getAnwenderdataPhone(String name, String rolle) {
+    public static String getAnwenderdataPhones(String name, String rolle) {
         
-        
+        //String anwenderdaten = ModPhone.Map.getAnwederdataPhone("name", "rolle");
         
         String anwenderdata = "";
         

@@ -134,9 +134,16 @@ Ionic Icons: https://useiconic.com/open/
                     <% out.println(ModPhone.getSubNavigation() ); %>
                 </nav>
                 
+                <div>
+                    <%
+                        String sname = request.getParameter("name");
+                        String srolle = request.getParameter("rolle");
+                    %>
+                </div>
+                
                 <div class="col-12 col-sm-12 modul_table">
                     <h3>Ergebnisse:</h3>
-                    <% out.println(ModPhone.getAnwenderdataPhone() ); %>
+                    <% out.println(ModPhone.getAnwenderdataPhones(sname, srolle) ); %>
                 </div>
             </div>
         </main>
