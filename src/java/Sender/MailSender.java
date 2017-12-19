@@ -24,7 +24,7 @@ public class MailSender {
      * @param pass ist das dazugehörige Passwort
      * @return session to be used to send data
      */
-    public Session getGMailSession(String user, String pass) {
+    public static Session getGMailSession(String user, String pass) {
         final String username = user;
         final String password = pass;
         
@@ -99,10 +99,9 @@ public class MailSender {
      * @param message our message as string
      * @throws MessagingException will throw exception
      */
-    public void postMail(Session session, String recipient,
-            String subject, String message)
-            throws MessagingException {
-        Message msg = new MimeMessage(session);
+    public static void postMail(String recipient, String subject, String message) throws MessagingException {
+        Session s = getGMailSession("mail@dit.education", "Mail2017+1");
+        Message msg = new MimeMessage(s);
 
         InternetAddress addressTo = new InternetAddress(recipient);
         msg.setRecipient(Message.RecipientType.TO, addressTo);

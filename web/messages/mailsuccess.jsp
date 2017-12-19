@@ -1,12 +1,15 @@
 <%-- 
-    Document   : index
-    Created on : 05.12.2017, 14:08:48
-    Author     : mwitzlsperger & luis
+    Document   : mailsuccess
+    Created on : 12.12.2017, 15:00:06
+    Author     : mwitzlsperger
 --%>
 
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Sender.MailSender"%>
+<%@page import="javax.mail.MessagingException"%>
+<%@page import="javax.mail.Session"%>
 <%@page import="Sender.ModMessage"%>
 <%@page import="anwender.Anwender"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -119,19 +122,21 @@ and open the template in the editor.
             %>
         </nav>
         <!--// Main Modul //-->
-        <main>
-            <div class="row modul">
-                <div class="col-12 col-sm-12 modul_headline">
-                    <h2><% out.println(ModMessage.modulname ); %></h2>
-                </div>
-                <div class="col-12 col-sm-12 modul_description">
-                    <p><% out.println(ModMessage.moduldesc ); %></p>
-                </div>
-                <nav class="col-12 col-sm-12 modul_nav">
-                    <% out.println(ModMessage.getSubNavigation() ); %>
-                </nav>
-            </div>
-        </main>
+                <%
+            String email2 = request.getParameter("email");
+            String betreff = request.getParameter("betreff");
+            String nachricht = request.getParameter("nachricht");
+
+            try {  
+                MailSender.postMail(email2, betreff, nachricht);
+                out.println("Nachricht gesendet");
+
+            } catch (Exception e) {
+                System.out.println(e);
+                out.println("Nachricht konnte nicht gesendet werden");
+                out.println("<input type='button' value='try again' onclick='messages/email.jsp'/>");
+            }  
+        %>
         <!--// User Navigation //-->
         <nav class="user_navi" id="user_navigation">
             <%
@@ -153,3 +158,4 @@ and open the template in the editor.
 
     </body>
 </html>
+
