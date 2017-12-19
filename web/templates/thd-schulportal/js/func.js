@@ -109,7 +109,15 @@ function csvImport() {
     
 }
 
-
+function kennzeichen(){
+            
+            var nkennzeichen = $('#kennzeichen').val();
+            
+            //Hier muss getestet werden, welcher Gruppen angekreuzt wurden
+            
+            //Sende an die nächste Seite
+            window.location.replace("kfzSucces.jsp?kennzeichen="+nkennzeichen);
+        }
 
 console.log("Finish!");
 
