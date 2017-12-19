@@ -159,27 +159,13 @@ Ionic Icons: https://useiconic.com/open/
                         <% out.println( Notenblatt.getFaecher() ); %>
                         <% out.println( Notenblatt.getLehrer() ); %>
                         <% out.println( Notenblatt.getExamArten() ); %>
-                        <input type="date" name="datum" placeholder="Datum" />
-                        
+                        <input required type="date" name="datum" placeholder="Datum" />
                         <button type="submit" name="exam">Prüfung anlegen</button>
                     </form>
                 </div>
                 <div class="col-12 col-sm-12 modul_table">
-                    <h3>Alle Prüfungen</h3>
-                    <table>
-                        <tr>
-                            <th>Überschrift 1</th>
-                            <th>Überschrift 2</th>
-                        </tr>
-                        <tr>
-                            <td>Inhalt 1</td>
-                            <td>Inhalt 2</td>
-                        </tr>
-                        <tr>
-                            <td>Inhalt 3</td>
-                            <td>Inhalt 4</td>
-                        </tr>
-                    </table>
+                    <h3>Prüfungsübersicht</h3>
+                    <% out.println( Notenblatt.getExamOverview( email ) ); %> 
                 </div>
             </div>
         </main>

@@ -108,7 +108,7 @@ public class Notenblatt implements Interfaces.IModul {
 
         alleRollen = DB.DBConnector.getRollennamen();
 
-        returnstr += "<select name='klasse' id='klasse'>";
+        returnstr += "<select required name='klasse' id='klasse'>";
         returnstr += "<option>Klasse auswählen</option>";
         for (int i = 1; i <= alleRollen.size(); i++) {
             if (((String) alleRollen.get(i)).contains("Klasse")) {
@@ -393,7 +393,7 @@ public class Notenblatt implements Interfaces.IModul {
 
         faecher = DB.DBConnector.getFaecher();
 
-        returnstr += "<select name='fach' id='fach'>";
+        returnstr += "<select required name='fach' id='fach'>";
         returnstr += "<option>Fach auswählen</option>";
         for (int i = 1; i <= faecher.size(); i++) {
             returnstr += "<option value='" + faecher.get(i) + "'>" + faecher.get(i) + "</option>";
@@ -412,12 +412,12 @@ public class Notenblatt implements Interfaces.IModul {
     public static String getExamArten() {
         String returnstr = "";
         String[] examArten = new String[3];
-        examArten[0] = "Schulaufgabe";
-        examArten[1] = "Stegreifaufgabe";
-        examArten[2] = "Mündlich";
+        examArten[0] = "schriftliche Probe";
+        examArten[1] = "mündliche Probe";
+        examArten[2] = "praktische Probe";
 
-        returnstr += "<select name='art' id='art'>";
-        returnstr += "<option >Prüfungsart auswählen</option>";
+        returnstr += "<select required name='art' id='art'>";
+        returnstr += "<option >Probenart auswählen</option>";
         for (int i = 0; i < examArten.length; i++) {
             returnstr += "<option value='" + examArten[i] + "'>" + examArten[i] + "</option>";
         }
@@ -479,7 +479,7 @@ public class Notenblatt implements Interfaces.IModul {
                 returnstr += "<td>" + i + "</td>";
                 returnstr += "<td>" + (String) schueler.get("NACHNAME") + "</td>";
                 returnstr += "<td>" + (String) schueler.get("VORNAME") + "</td>";
-                returnstr += "<td><select name='" + (String) schueler.get("EMAIL") + "'/> <option>Note auswählen</option> <option value='1'>1</option> <option value='2'>2</option> <option value='3'>3</option> <option value='4'>4</option> <option value='5'>5</option> <option value='6'>6</option> <option value='0'>nicht teilgenommen</option> </select></td>";
+                returnstr += "<td><select required name='" + (String) schueler.get("EMAIL") + "'/> <option>Note auswählen</option> <option value='1'>1</option> <option value='2'>2</option> <option value='3'>3</option> <option value='4'>4</option> <option value='5'>5</option> <option value='6'>6</option> <option value='0'>nicht teilgenommen</option> </select></td>";
                 returnstr += "</tr>";
             }
 
@@ -492,8 +492,8 @@ public class Notenblatt implements Interfaces.IModul {
         String returnstr = "";
         Boolean dbInsertMark = false;
         Map<String, Integer> noten = (Map) schuelernoten;
-        
-        for( Map.Entry<String, Integer> schueler : noten.entrySet() ) {
+
+        for (Map.Entry<String, Integer> schueler : noten.entrySet()) {
             String email = schueler.getKey();
             int note = schueler.getValue();
             dbInsertMark = DB.DBConnector.writeExamMarkSchueler(examid, note, email);
@@ -503,6 +503,67 @@ public class Notenblatt implements Interfaces.IModul {
             returnstr += "<p>Die Noten wurden erfolgreich gespeichert!</p>";
         } else {
             returnstr += "<p>Beim Speichern der Noten ist ein Fehler unterlaufen, bitte überprüfen die Richtigkeit!</p>";
+        }
+
+        return returnstr;
+    }
+
+    public static String getExamOverview(String email) {
+        String returnstr = "";
+        Map anwenderrollen = DB.DBConnector.getAnwenderRollen(email);
+
+        for (int i = 1; i <= anwenderrollen.size(); i++) {
+            if ((anwenderrollen.get(i)).equals("Lehrer")) {
+                Map<Integer, Integer> exam = DB.DBConnector.getExamFromRolle(email);
+                System.out.println("Länge: " + exam.size());
+                returnstr += "<table cellpadding='0' cellspacing='0'>";
+                returnstr += "<tr>";
+                returnstr += "<th>ID</th>";
+                returnstr += "<th>Fach</th>";
+                returnstr += "<th>Art</th>";
+                returnstr += "<th>Klasse</th>";
+                returnstr += "<th></th>";
+                returnstr += "</tr>";
+                for (int j = 1; j <= exam.size(); j++) {
+                    Map examdata = DB.DBConnector.getExamDataId(exam.get(j));
+                    System.out.println("Examdata: " + examdata.size());
+                    returnstr += "<tr>";
+                    returnstr += "<td>" + Integer.toString(exam.get(j)) + "</td>";
+                    returnstr += "<td>" + examdata.get("FACH") + "</td>";
+                    returnstr += "<td>" + examdata.get("ART") + "</td>";
+                    returnstr += "<td>" + examdata.get("KLASSE") + "</td>";
+                    returnstr += "<td><a class='button' href='exam-mark.jsp?examid=" + Integer.toString(exam.get(j)) + "'>Noten bearbeiten</a></td>";
+                    returnstr += "</tr>";
+                }
+
+                returnstr += "</table>";
+            }
+            
+            if((anwenderrollen.get(i)).equals("Admin")||(anwenderrollen.get(i)).equals("Rektor")) {
+                Map<Integer, Integer> exam = DB.DBConnector.getExamAll();
+                System.out.println("Länge: " + exam.size());
+                returnstr += "<table cellpadding='0' cellspacing='0'>";
+                returnstr += "<tr>";
+                returnstr += "<th>ID</th>";
+                returnstr += "<th>Fach</th>";
+                returnstr += "<th>Art</th>";
+                returnstr += "<th>Klasse</th>";
+                returnstr += "<th></th>";
+                returnstr += "</tr>";
+                for (int j = 1; j <= exam.size(); j++) {
+                    Map examdata = DB.DBConnector.getExamDataId(exam.get(j));
+                    System.out.println("Examdata: " + examdata.size());
+                    returnstr += "<tr>";
+                    returnstr += "<td>" + Integer.toString(exam.get(j)) + "</td>";
+                    returnstr += "<td>" + examdata.get("FACH") + "</td>";
+                    returnstr += "<td>" + examdata.get("ART") + "</td>";
+                    returnstr += "<td>" + examdata.get("KLASSE") + "</td>";
+                    returnstr += "<td><a class='button' href='exam-mark.jsp?examid=" + Integer.toString(exam.get(j)) + "'>Noten bearbeiten</a></td>";
+                    returnstr += "</tr>";
+                }
+
+                returnstr += "</table>";
+            }
         }
 
         return returnstr;

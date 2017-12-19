@@ -702,4 +702,96 @@ public class DBConnector {
             return false;
         }
     }
+    
+    public static Map getExamFromRolle (String email) {
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+        try {
+            statement = javaDBConn.connect();
+
+            ResultSet rs = statement.executeQuery("SELECT ID  FROM Pruefung WHERE Lehrer = '" + email + "'");
+
+            Map<Integer, Integer> exam = new HashMap<Integer, Integer>();
+
+            ResultSetMetaData meta = rs.getMetaData();
+            int cols = meta.getColumnCount();
+            int rownum = 0;
+            while (rs.next()) {
+                rownum++;
+                exam.put(rownum, (Integer) rs.getObject(1));
+            }
+
+            return exam;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public static Map getExamAll () {
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+        try {
+            statement = javaDBConn.connect();
+
+            ResultSet rs = statement.executeQuery("SELECT ID  FROM Pruefung");
+
+            Map<Integer, Integer> exam = new HashMap<Integer, Integer>();
+
+            ResultSetMetaData meta = rs.getMetaData();
+            int cols = meta.getColumnCount();
+            int rownum = 0;
+            while (rs.next()) {
+                rownum++;
+                exam.put(rownum, (Integer) rs.getObject(1));
+            }
+
+            return exam;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    public static Map getExamDataId (int examid) {
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+        try {
+            statement = javaDBConn.connect();
+
+            ResultSet rs = statement.executeQuery("SELECT ART, KLASSE, FACH FROM Pruefung WHERE id = " + examid + "");
+
+            Map<String, String> examdata = new HashMap<String, String>();
+
+            ResultSetMetaData meta = rs.getMetaData();
+            int cols = meta.getColumnCount();
+            int rownum = 0;
+            while (rs.next()) {
+                rownum++;
+                for (int i = 0; i < cols; i++) {
+                    examdata.put( (String) meta.getColumnLabel(i + 1), (String) rs.getObject(i + 1));;
+                }
+            }
+
+            return examdata;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }
