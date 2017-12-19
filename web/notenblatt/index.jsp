@@ -89,7 +89,7 @@ Ionic Icons: https://useiconic.com/open/
         <!--// CSS Main //-->
         <link href="/se-schulportal/templates/thd-schulportal/css/main.css" rel="stylesheet" type="text/css" media="all">
 
-
+        <link></link>
     </head>
     <body>
         <%
