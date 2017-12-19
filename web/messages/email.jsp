@@ -4,6 +4,12 @@
     Author     : mwitzlsperger & luis
 --%>
 
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="DB.DBKonstanten"%>
+<%@page import="DB.DBConnector"%>
 <%@page import="Sender.ModMessage"%>
 <%@page import="anwender.Anwender"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -92,10 +98,12 @@ Ionic Icons: https://useiconic.com/open/
 
     </head>
     <body>
+        
         <%
-            if ( loginstatus == false) {
+            /*if ( loginstatus == false) {
                 out.println(loginpage);
-            } %>
+            } */
+        %>
         <header class="row">
             <div class="col-2 col-sm-1 nav_burger" >
                 <img data="#main_navigation" class="navicon nav_burger_image" src="/se-schulportal/images/icons/menu.svg" alt="Navigation öffnen" />
@@ -135,13 +143,28 @@ Ionic Icons: https://useiconic.com/open/
                 </nav>
                 <div class="col-12 col-sm-12 modul_form">
                     <h3>Email senden</h3>
-                    <form>
+                    <form method="post" action="mailsuccess.jsp">
+                        <select>
+                            <option>Frei Eingabe</option>
+                            <%
+                                String output = "";
+                                Map<String, String> rollen = new HashMap<String, String>();
+                                rollen = DB.DBConnector.getRollennamen();
+                                for (int i = 1; i <= rollen.size(); i++) {
+                                   //System.out.print("Verify: " + i + ":" + rollen.get(i) + " ");
+                                   output += "<option>" + rollen.get(i) + "</option>";
+                                }
+                                out.println(output);
+                            %>
+                        </select>
                         <input type="text" name="email" placeholder="Email" />
                         <input type="text" name="betreff" placeholder="Betreff" />
                         <textarea name="nachricht" placeholder="Nachricht"></textarea>
-                        <button onclick='email()'>Absenden</button>
+                        <%
+                            
+                        %>    
+                        <input type="submit" value="Absenden"/>
                     </form>
-                    Hallo  Witzi
                 </div>
             </div>
         </main>
@@ -163,15 +186,6 @@ Ionic Icons: https://useiconic.com/open/
         <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/func.js" type="text/javascript"></script>
-        <script>
-            function email(){
-                var email = $('#email').val();
-                var betreff = $('#betreff').val();
-                var nachricht = $('#nachricht').val();
-
-                var url = "mailsuccess.jsp?email=" + email + "&betreff=" + betreff + "&nachricht=" + nachricht;
-                window.location.replace(url);
-            }
-        </script>
+        
     </body>
 </html>

@@ -89,9 +89,9 @@ and open the template in the editor.
     </head>
     <body>
         <%
-            if ( loginstatus == false) {
+            /*if ( loginstatus == false) {
                 out.println(loginpage);
-            } 
+            } */
         %>
         <header class="row">
             <div class="col-2 col-sm-1 nav_burger" >

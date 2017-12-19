@@ -91,52 +91,63 @@ and open the template in the editor.
 
     </head>
     <body>
-        <%
-            if ( loginstatus == false) {
-                out.println(loginpage);
-            } 
-        %>
-        <header class="row">
-            <div class="col-2 col-sm-1 nav_burger" >
-                <img data="#main_navigation" class="navicon nav_burger_image" src="/se-schulportal/images/icons/menu.svg" alt="Navigation öffnen" />
-            </div>
-            <div class="col-6 col-sm-9 brand">
-                <a href="/se-schulportal/dashboard.jsp">
-                    <img class="brand_image" src="/se-schulportal/images/logo/schullogo.svg" alt="Schulportal" />
-                </a>
-            </div>
-            <div class="col-2 col-sm-1 user">
-                <img data="#user_navigation" class="navicon user_image" src="/se-schulportal/images/user/user-dummy.svg" alt="Userbild" />
-            </div>
-            <div class="col-2 col-sm-1 logout">
-                <a href="/se-schulportal/">
-                    <img class="logout_image" src="/se-schulportal/images/icons/account-logout.svg" alt="Abmelden" />
-                </a>
-            </div>
-        </header>
-        <!--// Main Navigation //-->
-        <nav class="main_navi" id="main_navigation" >
-            <%
-                user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
-                out.println(user.getNavigation());
-            %>
-        </nav>
-        <!--// Main Modul //-->
+        <main>
+            <div class="row modul">
                 <%
-            String email2 = request.getParameter("email");
-            String betreff = request.getParameter("betreff");
-            String nachricht = request.getParameter("nachricht");
+                    /*if ( loginstatus == false) {
+                        out.println(loginpage);
+                    } */
+                %>
+                <header class="row">
+                    <div class="col-2 col-sm-1 nav_burger" >
+                        <img data="#main_navigation" class="navicon nav_burger_image" src="/se-schulportal/images/icons/menu.svg" alt="Navigation öffnen" />
+                    </div>
+                    <div class="col-6 col-sm-9 brand">
+                        <a href="/se-schulportal/dashboard.jsp">
+                            <img class="brand_image" src="/se-schulportal/images/logo/schullogo.svg" alt="Schulportal" />
+                        </a>
+                    </div>
+                    <div class="col-2 col-sm-1 user">
+                        <img data="#user_navigation" class="navicon user_image" src="/se-schulportal/images/user/user-dummy.svg" alt="Userbild" />
+                    </div>
+                    <div class="col-2 col-sm-1 logout">
+                        <a href="/se-schulportal/">
+                            <img class="logout_image" src="/se-schulportal/images/icons/account-logout.svg" alt="Abmelden" />
+                        </a>
+                    </div>
+                </header>
+                <!--// Main Navigation //-->
+                <nav class="main_navi" id="main_navigation" >
+                    <%
+                        user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
+                        out.println(user.getNavigation());
+                    %>
+                </nav>
+                <!--// Main Modul //-->
+                        <%
+                    String email2 = request.getParameter("email");
+                    String betreff = request.getParameter("betreff");
+                    String nachricht = request.getParameter("nachricht");
 
-            try {  
-                MailSender.postMail(email2, betreff, nachricht);
-                out.println("Nachricht gesendet");
+                    try {  
+                        MailSender.postMail(email2, betreff, nachricht);
+                        out.println("Nachricht gesendet");
 
-            } catch (Exception e) {
-                System.out.println(e);
-                out.println("Nachricht konnte nicht gesendet werden");
-                out.println("<input type='button' value='try again' onclick='messages/email.jsp'/>");
-            }  
-        %>
+
+                    } catch (Exception e) {
+                        System.out.println(e);
+                        out.println("Nachricht konnte nicht gesendet werden");
+
+                    }  
+                %>
+                <br>
+                <div class="modul_form">
+                    <form>
+                        <button type="button" class="button" onclick='index()'>Zurück</button>
+                    </form>
+                </div>
+            </div>
+        </main>
         <!--// User Navigation //-->
         <nav class="user_navi" id="user_navigation">
             <%
@@ -155,7 +166,11 @@ and open the template in the editor.
         <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/func.js" type="text/javascript"></script>
-
+        <script>
+            function index(){
+                window.location.replace("index.jsp");
+            }
+        </script>
     </body>
 </html>
 
