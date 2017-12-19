@@ -144,41 +144,11 @@ Ionic Icons: https://useiconic.com/open/
                 <div class="col-12 col-sm-12 modul_form">
                     <h3>Email senden</h3>
                     <form method="post" action="mailsuccess.jsp">
-                        <select id="list" onchange="getSelectValue()">
-                            <option>Frei Eingabe</option>
-                            <%
-                                String output = "";
-                                Map<String, String> rollen = new HashMap<String, String>();
-                                rollen = DB.DBConnector.getRollennamen();
-                                for (int i = 1; i <= rollen.size(); i++) {
-                                   //System.out.print("Verify: " + i + ":" + rollen.get(i) + " ");
-                                   output += "<option>" + rollen.get(i) + "</option>";
-                                }
-                                out.println(output);
-                            %>
-                        </select>
-                        <input type="text" name="email" placeholder="Email" value="
-                            <%
-                                String emailoutput = "test";
-                                String ValueRequired = request.getParameter("RequiredValue");
-                                System.out.println(ValueRequired);
-                                if(ValueRequired!=null){
-                                    Map<String, String> emails = new HashMap<String, String>();
-                                    emails = DB.DBConnector.getRollenEmail(ValueRequired);
-                                    for (int i = 1; i <= emails.size(); i++){
-                                        emailoutput += emails.get(i)+"; ";
-                                    }
-                                    out.println(emailoutput);
-                                }
-                                
-                            %>
-                        "/>
-                        <input type="text" name="betreff" placeholder="Betreff" />
-                        <textarea name="nachricht" placeholder="Nachricht"></textarea>
                         <%
-                            
-                        %>    
-                        <input type="submit" value="Absenden"/>
+                            // Ausgelagert in ModMessage-Funktion, da alle Logik in dieser Java-Datei
+                            out.println( ModMessage.getEmailForm() );
+                            // JS-Code in funct.js auslagern .. in /templates/...
+                        %>
                     </form>
                 </div>
             </div>
