@@ -508,4 +508,46 @@ public class DBConnector {
             return "";
         }
     }
+    
+        /**
+     * Methode zur Abfrage der Anwenderdaten eienr bestimmten E-Mail-Adresse
+     * @param tblname: Tabellenname in der angefragt werden soll
+     * @param email: E-Mail, welche Daten abgefragt werden
+     * @return Map mit Spaltenüberschrift und Wert. Jeweils als String.
+     */
+    public static Map getAnwenderdataPhone(String col) {
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+        try {
+            statement = javaDBConn.connect();
+            
+
+            ResultSet rs = statement.executeQuery("SELECT " + col + " FROM ANWENDER");
+            //+ " WHERE email = '" + email + "'");
+
+            Map<String, String> dbDataAnwender = new HashMap<String, String>();
+
+            ResultSetMetaData meta = rs.getMetaData();
+            int cols = meta.getColumnCount();
+            int rownum = 0;
+            while (rs.next()) {
+                rownum++;
+                for (int i = 0; i < cols; i++) {
+                    dbDataAnwender.put((String) meta.getColumnLabel(i + 1), (String) rs.getObject(i + 1));
+
+                }
+            }
+
+            return dbDataAnwender;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+
+    }
 }

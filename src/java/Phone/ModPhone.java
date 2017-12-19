@@ -25,56 +25,29 @@ public class ModPhone {
         return output;
     }
     
-    // public static Map getAnwenderdataPhone(String tblname, String email) {
-        // Map anwenderdata = DB.DBConnector.getAnwenderdataPhone("tblname", "email");
+    /*public static Map getAnwenderdataPhone() {
+         
+         Map anwenderdata = DB.DBConnector.getAnwenderdataPhone("ANWENDER");
         
-        // return anwenderdata;
-    // }
+         return anwenderdata;
+    }*/
     
-    public static String getAnwenderdataPhoneName() {
-        String anwenderdataName = "Pri ist schlau!";
-        anwenderdataName += "<ul>";
-        anwenderdataName += "<li>";
-        anwenderdataName += "SELECT sname" + "SELECT srolle" + "FROM anwender";
-        anwenderdataName += "</li>";
-        anwenderdataName += "</ul>";
+    public static String getAnwenderdataPhone(String name, String rolle) {
+        
+        
+        
+        String anwenderdata = "";
+        
+        anwenderdata += "<table>";
+        anwenderdata += "<tr>";
+        anwenderdata += "<th>Name</th>" + "<th>Vorname</th>" + "<th>E-Mail</th>" + "<th>Telefonnummer</th>";
+        anwenderdata += "</tr>";
+        anwenderdata += "<tr>";
+        anwenderdata += "<td>" + "hallo" + "</td>" + "<td>" + "whats" + "</td>" + "<td>" + "whats" + "</td>" + "<td>" + "whats" + "</td>";
+        anwenderdata += "</tr>";
+        anwenderdata += "</table>";
 
-        return anwenderdataName;
+        return anwenderdata;
     }
-    
-    public static String getAnwenderdataPhoneVorname() {
-        String anwenderdataVorname = "";
-        anwenderdataVorname += "<ul>";
-        anwenderdataVorname += "<li>";
-        anwenderdataVorname += "SELECT sname" + "SELECT srolle" + "FROM anwender";
-        anwenderdataVorname += "</li>";
-        anwenderdataVorname += "</ul>";
-
-        return anwenderdataVorname;
-    }
-    
-    public static String getAnwenderdataPhoneEmail() {
-        String anwenderdataEmail = "";
-        anwenderdataEmail += "<ul>";
-        anwenderdataEmail += "<li>";
-        anwenderdataEmail += "SELECT sname" + "SELECT srolle" + "FROM anwender";
-        anwenderdataEmail += "</li>";
-        anwenderdataEmail += "</ul>";
-
-        return anwenderdataEmail;
-    }
-    
-    public static String getAnwenderdataPhoneTelefon() {
-        String anwenderdataTelefon = "";
-        anwenderdataTelefon += "<ul>";
-        anwenderdataTelefon += "<li>";
-        anwenderdataTelefon += "SELECT sname" + "SELECT srolle" + "FROM anwender";
-        anwenderdataTelefon += "</li>";
-        anwenderdataTelefon += "</ul>";
-
-        return anwenderdataTelefon;
-    }
-    
-    
-    
+ 
 }
