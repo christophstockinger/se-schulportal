@@ -5,10 +5,11 @@
         <group>
             <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/web/messages/index.jsp</file>
             <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/src/java/Sender/ModMessage.java</file>
-            <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/web/index.html</file>
             <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/web/messages/mailsuccess.jsp</file>
             <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/web/messages/email.jsp</file>
-            <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/src/java/anwender/Anwender.java</file>
+            <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/src/java/Sender/MailSender.java</file>
+            <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/web/modul_example/index.jsp</file>
+            <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/src/java/DB/DBConnector.java</file>
             <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/web/messages/sms.jsp</file>
         </group>
     </open-files>

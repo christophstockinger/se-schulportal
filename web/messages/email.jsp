@@ -28,7 +28,7 @@ Ionic Icons: https://useiconic.com/open/
     // Status Variable sowie String Variable für Weiterleitung auf Login-Seite
     Boolean loginstatus = (Boolean) session.getAttribute("login");
     String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
-    
+
     // User Variablen
     String email = "";
     String password = "";
@@ -37,21 +37,21 @@ Ionic Icons: https://useiconic.com/open/
     String nachname = "";
     String telefonnummer = "";
     Anwender user;
-    
-    if ( (Anwender) session.getAttribute("user")!= null ) {
-    // User-Variablen mit Session-Values
-    email = (String) ((Anwender) session.getAttribute("user")).getEmail();
-    password = (String) ((Anwender) session.getAttribute("user")).getEmail();
-    anrede = (String) ((Anwender) session.getAttribute("user")).getEmail();
-    vorname = (String) ((Anwender) session.getAttribute("user")).getEmail();
-    nachname = (String) ((Anwender) session.getAttribute("user")).getEmail();
-    telefonnummer = (String) ((Anwender) session.getAttribute("user")).getEmail();
-    
+
+    if ((Anwender) session.getAttribute("user") != null) {
+        // User-Variablen mit Session-Values
+        email = (String) ((Anwender) session.getAttribute("user")).getEmail();
+        password = (String) ((Anwender) session.getAttribute("user")).getEmail();
+        anrede = (String) ((Anwender) session.getAttribute("user")).getEmail();
+        vorname = (String) ((Anwender) session.getAttribute("user")).getEmail();
+        nachname = (String) ((Anwender) session.getAttribute("user")).getEmail();
+        telefonnummer = (String) ((Anwender) session.getAttribute("user")).getEmail();
+
     } else {
         loginstatus = false;
     }
-    
-    %>
+
+%>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -98,9 +98,8 @@ Ionic Icons: https://useiconic.com/open/
 
     </head>
     <body>
-        
-        <%
-            /*if ( loginstatus == false) {
+
+        <%            /*if ( loginstatus == false) {
                 out.println(loginpage);
             } */
         %>
@@ -124,8 +123,7 @@ Ionic Icons: https://useiconic.com/open/
         </header>
         <!--// Main Navigation //-->
         <nav class="main_navi" id="main_navigation" >
-           <%
-                user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
+            <%               user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
                 out.println(user.getNavigation());
             %>
         </nav>
@@ -133,20 +131,21 @@ Ionic Icons: https://useiconic.com/open/
         <main>
             <div class="row modul">
                 <div class="col-12 col-sm-12 modul_headline">
-                    <h2><% out.println(ModMessage.modulname ); %></h2>
+                    <h2><% out.println(ModMessage.modulname); %></h2>
                 </div>
                 <div class="col-12 col-sm-12 modul_description">
-                    <p><% out.println(ModMessage.moduldesc ); %></p>
+                    <p><% out.println(ModMessage.moduldesc); %></p>
                 </div>
                 <nav class="col-12 col-sm-12 modul_nav">
-                    <% out.println(ModMessage.getSubNavigation() ); %>
+                    <% out.println(ModMessage.getSubNavigation()); %>
                 </nav>
                 <div class="col-12 col-sm-12 modul_form">
                     <h3>Email senden</h3>
-                    <form method="post" action="mailsuccess.jsp">
+                    <form method="get" action="mailsuccess.jsp">
                         <%
                             // Ausgelagert in ModMessage-Funktion, da alle Logik in dieser Java-Datei
-                            out.println( ModMessage.getEmailForm() );
+
+                            out.println(ModMessage.getEmailForm());
                             // JS-Code in funct.js auslagern .. in /templates/...
                         %>
                     </form>
@@ -161,23 +160,64 @@ Ionic Icons: https://useiconic.com/open/
                 out.println(user.getUserNavigation());
             %>
         </nav>
-        
+
         <!--// Footer //-->
         <footer class="row">
             <div class="col-12 col-sm-6 imprint"><a href="/se-schulportal/impressum.html">Impressum</a></div>
             <div class="col-12 col-sm-6 copyright"><p>&copy 2017 THD - Luis & Witzi</p></div>
         </footer>
-    <!--// Javascript & jQuery //-->
+        <!--// Javascript & jQuery //-->
         <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/func.js" type="text/javascript"></script>
         <script>
-            function getSelectValue()
-            {
-                var selectedValue = document.getElementById("list").value;
-                window.location.hash = "?RequiredValue="+selectedValue;
-            }
-            
+                
+            $('#list').change(
+                function () {
+                    var sel = $('#list').val();
+                    switch (sel) {
+                        case "Admin":
+                            var value ="";
+                            for (var i=1; i < admins.length; i++) {
+                                console.log(admins);
+                                value += admins[i] + ";";
+                            }
+                            $('#empfaenger').val(value);
+                            break;
+                        case "Lehrer":
+                            var value ="";
+                            for (var i=2; i < lehrer.length; i++) {
+                                console.log(lehrer);
+                                value += lehrer[i] + ";";
+                            }
+                            $('#empfaenger').val(value);
+                            break;
+                        case "Eltern":
+                            var value ="";
+                            for (var i=1; i < eltern.length; i++) {
+                                console.log(eltern);
+                                value += eltern[i] + ";";
+                            }
+                            $('#empfaenger').val(value);
+                            break;
+                        case "Personal":
+                            var value ="";
+                            for (var i=1; i < personal.length; i++) {
+                                value += personal[i] + ";";
+                            }
+                            $('#empfaenger').val(value);
+                            break;
+                        case "Rektor":
+                            var value ="";
+                            for (var i=1; i < rektor.length; i++) {
+                                value += rektor[i] + ";";
+                            }
+                            $('#empfaenger').val(value);
+                    }
+                }
+            );
+
+
         </script>
     </body>
 </html>
