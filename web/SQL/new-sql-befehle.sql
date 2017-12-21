@@ -122,7 +122,7 @@ INSERT INTO faecher (fach) VALUES('Sport');
 INSERT INTO faecher (fach) VALUES('Musik');
 INSERT INTO faecher (fach) VALUES('Förderunterricht');
 INSERT INTO faecher (fach) VALUES('Ethik');
-INSERT INTO faecher (fach) VALUES('Werken ud Gestalten');
+INSERT INTO faecher (fach) VALUES('Werken und Gestalten');
 
 INSERT INTO pruefung(lehrer, art, klasse, fach) VALUES ('thomas.forstner2@stud.th-deg.de', 'Schulaufgabe','Klasse 4b','Mathematik');
 
