@@ -155,11 +155,12 @@ Ionic Icons: https://useiconic.com/open/
                                 out.println("<input type='hidden' name='examid' value='" + examid + "' />");
                                 out.println("<input type='hidden' name='klasse' value='" + klasse + "' />");
                                 out.println(Notenblatt.getKlassenSchuelerForm(klasse));
+                                out.println("<button type='submit' name='examsmark'>Prüfungsnoten speichern</button>");
                             } else {
                                 out.println("Leider konnte keine Schülerübersicht generiert werden.");
                             }
                         %>
-                        <button type="submit" name="examsmark">Prüfungsnoten speichern</button>
+                        
                     </form>
                 </div>
             </div>

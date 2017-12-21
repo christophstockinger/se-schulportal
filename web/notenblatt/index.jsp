@@ -134,37 +134,8 @@ Ionic Icons: https://useiconic.com/open/
                     <% System.out.println("E-Mail: " +  email); %>
                     <% out.println( Notenblatt.getSubNavigation( email ) ); %>
                 </nav>
-                <div class="col-12 col-sm-12 modul_form">
-                    <h3>Formularname</h3>
-                    <form>
-                        <input type="text" name="name" placeholder="Dein Name" />
-                        <textarea>Hier steht ihr Text!!!!</textarea>
-                        <select>
-                            <option>Auswahl 1</option>
-                            <option>Auswahl 2</option>
-                        </select>
-                        <div class="radio"><input type="radio" name=""> <label>A</label></div>
-                        <div class="checkbox"><input type="checkbox" name=""> <label>B</label></div>
-                        
-                        <button onclick=''>Absenden</button>
-                    </form>
-                </div>
-                <div class="col-12 col-sm-12 modul_table">
-                    <h3>Tabellenname</h3>
-                    <table>
-                        <tr>
-                            <th>Überschrift 1</th>
-                            <th>Überschrift 2</th>
-                        </tr>
-                        <tr>
-                            <td>Inhalt 1</td>
-                            <td>Inhalt 2</td>
-                        </tr>
-                        <tr>
-                            <td>Inhalt 3</td>
-                            <td>Inhalt 4</td>
-                        </tr>
-                    </table>
+                <div class="col-12 col-sm-12 modul_description">
+                    <img style="width: 100%;" src="/se-schulportal/images/module/notenblatt/noten.png" alt="Hier soll eine Übersicht stehen!" />
                 </div>
             </div>
         </main>

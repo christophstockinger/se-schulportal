@@ -164,7 +164,6 @@ Ionic Icons: https://useiconic.com/open/
                     </form>
                 </div>
                 <div class="col-12 col-sm-12 modul_table">
-                    <h3>Prüfungsübersicht</h3>
                     <% out.println( Notenblatt.getExamOverview( email ) ); %> 
                 </div>
             </div>

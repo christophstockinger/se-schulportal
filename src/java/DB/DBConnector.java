@@ -794,4 +794,36 @@ public class DBConnector {
             return null;
         }
     }
+    
+    public static Map getExamMarksId(int examid) {
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+        try {
+            statement = javaDBConn.connect();
+
+            ResultSet rs = statement.executeQuery("SELECT * FROM Pruefungsnoten WHERE pruefung = " + examid + "");
+
+            Map<String, String> examdata = new HashMap<String, String>();
+
+            ResultSetMetaData meta = rs.getMetaData();
+            int cols = meta.getColumnCount();
+            int rownum = 0;
+            while (rs.next()) {
+                rownum++;
+                for (int i = 0; i < cols; i++) {
+                    examdata.put( (String) meta.getColumnLabel(i + 1), (String) rs.getObject(i + 1));;
+                }
+            }
+
+            return examdata;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
 }
