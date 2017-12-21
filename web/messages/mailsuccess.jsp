@@ -124,7 +124,7 @@ and open the template in the editor.
                     %>
                 </nav>
                 <!--// Main Modul //-->
-                        <%
+                <%
                     String email2 = request.getParameter("email");
                     String betreff = request.getParameter("betreff");
                     String nachricht = request.getParameter("nachricht");

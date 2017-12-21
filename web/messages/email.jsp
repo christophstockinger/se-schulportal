@@ -95,6 +95,9 @@ Ionic Icons: https://useiconic.com/open/
         <!--// CSS Main //-->
         <link href="/se-schulportal/templates/thd-schulportal/css/main.css" rel="stylesheet" type="text/css" media="all">
 
+        <!--link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet"-->
+        
+        <!--link href="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote-bs4.css" rel="stylesheet"-->
 
     </head>
     <body>
@@ -170,6 +173,8 @@ Ionic Icons: https://useiconic.com/open/
         <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/func.js" type="text/javascript"></script>
+        <!--script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote-bs4.js"></script-->
+        
         <script>
                 
             $('#list').change(
@@ -180,15 +185,15 @@ Ionic Icons: https://useiconic.com/open/
                             var value ="";
                             for (var i=1; i < admins.length; i++) {
                                 console.log(admins);
-                                value += admins[i] + ";";
+                                value += admins[i] + ",";
                             }
                             $('#empfaenger').val(value);
                             break;
                         case "Lehrer":
                             var value ="";
-                            for (var i=2; i < lehrer.length; i++) {
+                            for (var i=1; i < lehrer.length; i++) {
                                 console.log(lehrer);
-                                value += lehrer[i] + ";";
+                                value += lehrer[i] + ",";
                             }
                             $('#empfaenger').val(value);
                             break;
@@ -196,28 +201,37 @@ Ionic Icons: https://useiconic.com/open/
                             var value ="";
                             for (var i=1; i < eltern.length; i++) {
                                 console.log(eltern);
-                                value += eltern[i] + ";";
+                                value += eltern[i] + ",";
                             }
                             $('#empfaenger').val(value);
                             break;
                         case "Personal":
                             var value ="";
                             for (var i=1; i < personal.length; i++) {
-                                value += personal[i] + ";";
+                                value += personal[i] + ",";
                             }
                             $('#empfaenger').val(value);
                             break;
                         case "Rektor":
                             var value ="";
                             for (var i=1; i < rektor.length; i++) {
-                                value += rektor[i] + ";";
+                                value += rektor[i] + ",";
+                            }
+                            $('#empfaenger').val(value);
+                            break;
+                        case "Schueler":
+                            var value ="";
+                            for (var i=1; i < schueler.length; i++) {
+                                value += schueler[i] + ",";
                             }
                             $('#empfaenger').val(value);
                     }
                 }
             );
-
-
+    
+            /*$(document).ready(function() {
+                $('#summernote').summernote();
+            });*/
         </script>
     </body>
 </html>

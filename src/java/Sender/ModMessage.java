@@ -10,8 +10,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- *
- * @author Christoph
+ * 
+ * @author mwitzlsperger & lgraml
+ * 
+ * Java-Klasse für Nachrichten senden (SMS & EMail)
  */
 public class ModMessage {
     
@@ -20,6 +22,11 @@ public class ModMessage {
     
     public ModMessage() {}
     
+    /**
+     * Methode zur Darstellung des Untermenüs
+     * Untermenüpunkte: SMS und EMail
+     * @return gibt HTML-Code für Unternavigation zurück
+     */
     public static String getSubNavigation() {
         String output = "<ul>";
         output += "<li>  <a href='/se-schulportal/messages/sms.jsp'>SMS</a> </li>";
@@ -28,10 +35,17 @@ public class ModMessage {
         return output;
     }
     
+    /**
+     * Methode zur Darstellung des Formulars für die Email-Versendung
+     * Logik für die Datenbankanbindung
+     * -> Auslesen der Rollen und Verbindung mit den zugehörigen EMail-Adressen
+     * @return returnstr: gibt den HTML/Javascript-Code zurück der in der Variable returnstr gespeichert ist
+     */
+    
     public static String getEmailForm(){
         String returnstr = "";
         returnstr += "<select id='list'>";
-        returnstr += "<option value=''>Frei Eingabe</option>";
+        returnstr += "<option value=''>Freie Eingabe</option>";
         Map rollen = DB.DBConnector.getRollennamen();
         for (int i = 1; i <= rollen.size(); i++) {
            //System.out.print("Verify: " + i + ":" + rollen.get(i) + " ");
@@ -50,51 +64,147 @@ public class ModMessage {
         returnstr += "eltern = []; ";
         returnstr += "personal = []; ";
         returnstr += "rektor = []; ";
-        
+        returnstr += "schueler = [];";
+        int admin = 1;
+        int lehrer = 1;
+        int eltern = 1;
+        int personal = 1;
+        int rektor = 1;
+        int schueler = 1;
         for (int i=1; i <= alleUser.size(); i++){
             // Abfrage welche Rolle hat E-Mail
+            
             Map rolle = DB.DBConnector.getAnwenderRollen((String)alleUser.get(i));
             for ( int j=1; j <= rolle.size(); j++) {
                 // Admin
+                
                 if (rolle.get(j).equals("Admin") ) {
-                    returnstr += "admins[" + i + "] = '" + alleUser.get(i) + "';";
+                    returnstr += "admins[" + admin++ + "] = '" + alleUser.get(i) + "';";
                 }
                 // Lehrer
                 if (rolle.get(j).equals("Lehrer") ) {
-                    returnstr += "lehrer[" + i + "] = '" + alleUser.get(i) + "';";
+                    
+                    returnstr += "lehrer[" + lehrer++ + "] = '" + alleUser.get(i) + "';";
                 }
                 // Eltern
                 if (rolle.get(j).equals("Eltern") ) {
-                    returnstr += "eltern[" + i + "] = '" + alleUser.get(i) + "';";
+                    
+                    returnstr += "eltern[" + eltern++ + "] = '" + alleUser.get(i) + "';";
+                    
                 }
                 // Personal
                 if (rolle.get(j).equals("Personal") ) {
-                    returnstr += "personal[" + i + "] = '" + alleUser.get(i) + "';";
+                    
+                    returnstr += "personal[" + personal++ + "] = '" + alleUser.get(i) + "';";
+                    
                 }
                 // Rektor
                 if (rolle.get(j).equals("Rektor") ) {
-                    returnstr += "rektor[" + i + "] = '" + alleUser.get(i) + "';";
+                    returnstr += "rektor[" + rektor++ + "] = '" + alleUser.get(i) + "';";
                 }
+                
+                // Schueler
+                if (rolle.get(j).equals("Schueler") ) {
+                    returnstr += "schueler[" + schueler++ + "] = '" + alleUser.get(i) + "';";
+                }
+                
             }
+            
 
         }
         returnstr += "console.log(admins);";
         returnstr += "</script>";
         returnstr += "<input type='text' name='betreff' placeholder='Betreff' />";
-        returnstr += "<textarea name='nachricht' placeholder='Nachricht'></textarea>";   
+        returnstr += "<textarea name='nachricht' placeholder='Nachricht'></textarea>";
+        //returnstr += "<div id='summernote' name='nachricht'></div>";
         returnstr += "<input type='submit' value='Absenden'/>";
                 
         return returnstr;
     }
-
-    
     
     /**
-     * WORKFLOW
-     * zuerst alle emaildaten vorladen in arrays (adminarray, lehrerarray, ...) in javascript (funct.js)
-     * danach über js-fkt immer die arrayeinträge zur jeweiligen auswahl ausgeben lassen
-     * Trennen mit pipe oder strichpunkt und dann splitten o.ä. im Mail-Sender
-     * fertig!!
+     * Methode zur Darstellung des Formulars für die SMS-Versendung
+     * Logik für die Datenbankanbindung
+     * -> Auslesen der Rollen und Verbindung mit den zugehörigen Telefonnummern
+     * @return 
      */
+    
+    public static String getSMSForm(){
+        String returnstr = "";
+        returnstr += "<select id='smslist'>";
+        returnstr += "<option value=''>Freie Eingabe</option>";
+        Map rollen = DB.DBConnector.getRollennamen();
+        for (int i = 1; i <= rollen.size(); i++) {
+           //System.out.print("Verify: " + i + ":" + rollen.get(i) + " ");
+           returnstr += "<option value='" + rollen.get(i) + "'>" + rollen.get(i) + "</option>";
+        }
+
+        returnstr += "</select>";
+        returnstr += "<input type='text' name='sms' placeholder='Telefonnummer' id='empfaenger'> ";
+        
+        
+        Map alleUser = DB.DBConnector.getRollenSMS();
+        returnstr += "<script type='text/javascript'>";
+
+        returnstr += "admins = []; ";
+        returnstr += "lehrer = []; ";
+        returnstr += "eltern = []; ";
+        returnstr += "personal = []; ";
+        returnstr += "rektor = []; ";
+        returnstr += "schueler = [];";
+        int admin = 1;
+        int lehrer = 1;
+        int eltern = 1;
+        int personal = 1;
+        int rektor = 1;
+        int schueler = 1;
+        for (int i=1; i <= alleUser.size(); i++){
+            // Abfrage welche Rolle hat E-Mail
+            Map rolle = DB.DBConnector.getAnwenderRollen((String)alleUser.get(i));
+            for ( int j=1; j <= rolle.size(); j++) {
+                // Admin
+                
+                if (rolle.get(j).equals("Admin") ) {
+                    returnstr += "admins[" + admin++ + "] = '" + alleUser.get(i) + "';";
+                }
+                // Lehrer
+                if (rolle.get(j).equals("Lehrer") ) {
+                    
+                    returnstr += "lehrer[" + lehrer++ + "] = '" + alleUser.get(i) + "';";
+                }
+                // Eltern
+                if (rolle.get(j).equals("Eltern") ) {
+                    
+                    returnstr += "eltern[" + eltern++ + "] = '" + alleUser.get(i) + "';";
+                    
+                }
+                // Personal
+                if (rolle.get(j).equals("Personal") ) {
+                    
+                    returnstr += "personal[" + personal++ + "] = '" + alleUser.get(i) + "';";
+                    
+                }
+                // Rektor
+                if (rolle.get(j).equals("Rektor") ) {
+                    returnstr += "rektor[" + rektor++ + "] = '" + alleUser.get(i) + "';";
+                }
+                
+                // Schueler
+                if (rolle.get(j).equals("Schueler") ) {
+                    returnstr += "schueler[" + schueler++ + "] = '" + alleUser.get(i) + "';";
+                }
+                
+            }
+            
+
+        }
+        returnstr += "console.log(admins);";
+        returnstr += "</script>";
+        returnstr += "<textarea name='nachricht' placeholder='Nachricht'></textarea>";
+        //returnstr += "<div id='summernote' name='nachricht'></div>";
+        returnstr += "<input type='submit' value='Absenden'/>";
+        
+        return returnstr;
+    }
     
 }

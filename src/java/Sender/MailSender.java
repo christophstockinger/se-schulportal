@@ -10,7 +10,9 @@ import java.util.*;
 import javax.activation.*;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 public class MailSender {
 
@@ -102,9 +104,22 @@ public class MailSender {
     public static void postMail(String recipient, String subject, String message) throws MessagingException {
         Session s = getGMailSession("mail@dit.education", "Mail2017+1");
         Message msg = new MimeMessage(s);
-
-        InternetAddress addressTo = new InternetAddress(recipient);
-        msg.setRecipient(Message.RecipientType.TO, addressTo);
+        String filename = "Dateipfad";
+        //Hier String in Array aufteilen
+        /*
+        String[] recipientList = recipient.split(",");
+        InternetAddress[] recipientAddress = new InternetAddress[recipientList.length];
+        int counter = 0;
+        for (String recipients : recipientList) {
+            recipientAddress[counter] = new InternetAddress(recipients.trim());
+            counter++;
+        }
+        msg.setRecipients(Message.RecipientType.TO, recipientAddress);
+        
+        */
+                
+        // hier dann Array übergegben
+        msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
 
         msg.setSubject(subject);
         msg.setContent(message, "text/html; charset=utf-8");

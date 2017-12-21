@@ -242,6 +242,45 @@ public class DBConnector {
     }
     
     /**
+     * Methode zur Abfrage der Telefonnummern einer Rolle
+     * @param rolle ausgewählte Rolle
+     * @return Map mit Integer als Laufzahl und String als Telefonnummer
+     */
+    public static Map getRollenSMS() {
+        
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+        try {
+            statement = javaDBConn.connect();
+
+            ResultSet rs = statement.executeQuery("SELECT TELEFONNUMMER FROM Anwender");
+
+            Map<Integer, String> dbDataAnwender = new HashMap<Integer, String>();
+
+            ResultSetMetaData meta = rs.getMetaData();
+            int cols = meta.getColumnCount();
+            int rownum = 0;
+            while (rs.next()) {
+                rownum++;
+                for (int i = 0; i < cols; i++) {
+                    dbDataAnwender.put( rownum, (String) rs.getObject(i + 1));
+
+                }
+            }
+
+            return dbDataAnwender;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    /**
      * Methode zum Eintrag eines Anwenders
      * @param tblname Die einzutragende Datenbanktabelle
      * @param anr Anrede des neuen Anwenders
