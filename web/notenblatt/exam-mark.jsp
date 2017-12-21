@@ -4,6 +4,7 @@
     Author     : Christoph
 --%>
 
+<%@page import="java.util.Map"%>
 <%@page import="Notenblatt.Notenblatt"%>
 <%@page import="anwender.Anwender"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -134,17 +135,30 @@ Ionic Icons: https://useiconic.com/open/
                 </nav>
                 <div class="col-12 col-sm-12 modul_description">
                     <%
-                        String klasse = request.getParameter("klasse");
-                        String fach = request.getParameter("fach");
-                        String art = request.getParameter("art");
-                        String lehrer = request.getParameter("lehrer");
-                        String date = request.getParameter("datum");
-                        out.println(Notenblatt.writeExam(klasse, fach, art, lehrer, date));
-                        int examid = DB.DBConnector.getExamId(klasse, fach, art, lehrer, date);
-                        if (examid == 0) {
-                            out.println("Es ist ein Fehler beim Abrufen der Prüfung passiert!");
+                        String examidstr = request.getParameter("examid");
+                        String klasse, fach, art, lehrer, date;
+                        int examid = 0;
+                            if (examidstr == null) {
+                            System.out.println(examidstr);
+                            klasse = request.getParameter("klasse");
+                            fach = request.getParameter("fach");
+                            art = request.getParameter("art");
+                            lehrer = request.getParameter("lehrer");
+                            date = request.getParameter("datum");
+                            out.println(Notenblatt.writeExam(klasse, fach, art, lehrer, date));
+                            examid = DB.DBConnector.getExamId(klasse, fach, art, lehrer, date);
+                                if (examid == 0) {
+                                    out.println("Es ist ein Fehler beim Abrufen der Prüfung passiert!");
+                                }
+                            examidstr = Integer.toString(examid);
+                        } else {
+                            examid = Integer.parseInt(examidstr);
+                            Map examdata = DB.DBConnector.getExamDataId(examid);
+                            klasse = (String) examdata.get("Klasse");
+                            fach = (String) examdata.get("Fach");
+                            
+                            
                         }
-                        String examidstr = Integer.toString(examid);
                     %>
                 </div>
                 <div class="col-12 col-sm-12 modul_form">
