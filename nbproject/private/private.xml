@@ -3,15 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/Users/Christoph/Documents/se-schulportal/web/SQL/new-sql-befehle.sql</file>
+            <file>file:/Users/Christoph/Documents/se-schulportal/src/java/Notenblatt/Notenblatt.java</file>
+            <file>file:/Users/Christoph/Documents/se-schulportal/web/notenblatt/exam.jsp</file>
             <file>file:/Users/Christoph/Documents/se-schulportal/web/notenblatt/exam-mark.jsp</file>
+            <file>file:/Users/Christoph/Documents/se-schulportal/web/notenblatt/index.jsp</file>
             <file>file:/Users/Christoph/Documents/se-schulportal/web/templates/thd-schulportal/js/func.js</file>
             <file>file:/Users/Christoph/Documents/se-schulportal/src/java/DB/DBConnector.java</file>
-            <file>file:/Users/Christoph/Documents/se-schulportal/src/java/Notenblatt/Notenblatt.java</file>
-            <file>file:/Users/Christoph/Documents/se-schulportal/web/templates/thd-schulportal/scss/main.scss</file>
-            <file>file:/Users/Christoph/Documents/se-schulportal/web/notenblatt/exam.jsp</file>
-            <file>file:/Users/Christoph/Documents/se-schulportal/web/notenblatt/schueler.jsp</file>
-            <file>file:/Users/Christoph/Documents/se-schulportal/src/java/anwender/Anwender.java</file>
-            <file>file:/Users/Christoph/Documents/se-schulportal/web/notenblatt/import.jsp</file>
         </group>
     </open-files>
 </project-private>

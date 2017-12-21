@@ -135,11 +135,13 @@ Ionic Icons: https://useiconic.com/open/
                 </nav>
                 <div class="col-12 col-sm-12 modul_description">
                     <%
-                        String examidstr = request.getParameter("examid");
-                        String klasse, fach, art, lehrer, date;
+                        String klasse, fach, art, lehrer, date,examidstr;
                         int examid = 0;
-                            if (examidstr == null) {
-                            System.out.println(examidstr);
+                        examidstr = request.getParameter("examid");
+
+                        if (examidstr == null) {
+                            System.out.println("Examid ist nicht gesetzt!!!");  
+                            System.out.println("Examid: " + examidstr);
                             klasse = request.getParameter("klasse");
                             fach = request.getParameter("fach");
                             art = request.getParameter("art");
@@ -150,28 +152,41 @@ Ionic Icons: https://useiconic.com/open/
                                 if (examid == 0) {
                                     out.println("Es ist ein Fehler beim Abrufen der Prüfung passiert!");
                                 }
-                            examidstr = Integer.toString(examid);
+                            // examidstr = Integer.toString(examid);
                         } else {
-                            examid = Integer.parseInt(examidstr);
-                            Map examdata = DB.DBConnector.getExamDataId(examid);
-                            klasse = (String) examdata.get("Klasse");
-                            fach = (String) examdata.get("Fach");
+                            System.out.println("Examid ist gesetzt!!!");  
+                            System.out.println("Examid: " + examidstr);
                             
+                            examid = Integer.parseInt(examidstr);
+                            
+                            Map examdata = DB.DBConnector.getExamDataId(examid);
+                            
+                            klasse = (String) examdata.get("KLASSE");
+                            fach = (String) examdata.get("FACH");
+                            art = (String) examdata.get("ART");
+                            lehrer = (String) examdata.get("LEHRER");
+                            date = (String) examdata.get("DATUM");
                             
                         }
                     %>
                 </div>
                 <div class="col-12 col-sm-12 modul_form">
-                    <h3>Formularname</h3>
+                    <h3>Noten eintragen</h3>
                     <form action="exam.jsp" method="GET">
                         <% 
-                            if (examid != 0) {
+                            if (examidstr == null) {
+                                if (examid != 0) {
+                                    out.println("<input type='hidden' name='examid' value='" + examid + "' />");
+                                    out.println("<input type='hidden' name='klasse' value='" + klasse + "' />");
+                                    out.println(Notenblatt.getKlassenSchuelerForm(klasse));
+                                    out.println("<button type='submit' name='examsmark' value='true'>Prüfungsnoten speichern</button>");
+                                } else {
+                                    out.println("Leider konnte keine Schülerübersicht generiert werden.");
+                                }
+                            } else {
                                 out.println("<input type='hidden' name='examid' value='" + examid + "' />");
                                 out.println("<input type='hidden' name='klasse' value='" + klasse + "' />");
-                                out.println(Notenblatt.getKlassenSchuelerForm(klasse));
-                                out.println("<button type='submit' name='examsmark'>Prüfungsnoten speichern</button>");
-                            } else {
-                                out.println("Leider konnte keine Schülerübersicht generiert werden.");
+                                out.println( Notenblatt.getExamMarkData(examid, klasse) );
                             }
                         %>
                         

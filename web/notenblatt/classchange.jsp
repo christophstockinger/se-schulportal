@@ -57,7 +57,7 @@ Ionic Icons: https://useiconic.com/open/
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width; initial-scale=1.0"/>
 
-        <title>Klassenübersicht | <% out.println(Notenblatt.modulname); %> | Schulportal</title>
+        <title>Klassenwechsel | <% out.println(Notenblatt.modulname); %> | Schulportal</title>
 
         <meta name="description" content=""/>
         <meta name="author" content="Coding77 // Christoph Stockinger"/>
@@ -132,40 +132,18 @@ Ionic Icons: https://useiconic.com/open/
                     <h2><% out.println(Notenblatt.modulname); %></h2>
                 </div>
                 <div class="col-12 col-sm-12 modul_description">
-                    <p><% 
-                        out.println(Notenblatt.moduldesc);
-                        
-                        if ( Boolean.parseBoolean(request.getParameter("classchange") ) ) {
-
-                                Map klassen = Notenblatt.getKlassenAsMap();
-                                Map <String, String> neueKlassenZuordnung = new HashMap<String, String>();
-
-                                for (int i = 1; i <= klassen.size(); i++) {
-                                    String alteKlasse = (String) klassen.get(i);
-                                    if ( (alteKlasse != null)||(alteKlasse != "") ) {
-                                        String neueKlasse = request.getParameter( (String) klassen.get(i) );
-                                        neueKlassenZuordnung.put(alteKlasse, neueKlasse );
-                                    }
-                                }
-
-                                out.println( Notenblatt.updateKlassenRollen(neueKlassenZuordnung) );
-                            }
-
-                        %></p>
+                    <p><% out.println(Notenblatt.moduldesc); %></p>
                 </div>
                 <nav class="col-12 col-sm-12 modul_nav">
                     <% System.out.println("E-Mail: " + email); %>
                     <% out.println(Notenblatt.getSubNavigation(email)); %>
                 </nav>
-                <!-- <div class="col-12 col-sm-12 modul_form">
-                    <form>
-                        <a href="import.jsp" class="button"><img src="/se-schulportal/images/icons/data-transfer-upload-white.svg" alt=""/>Import</a>
-                        <a href="export.jsp" class="button"><img src="/se-schulportal/images/icons/data-transfer-download-white.svg" alt=""/>Export</a>
-                    </form>
-                </div> -->
                 
-                <div class="col-12 col-sm-12 modul_table">
-                    <% out.println(Notenblatt.getKlassenOverview() ); %>
+                <div class="col-12 col-sm-12 modul_form">
+                    <form method="get" action="klassen.jsp">
+                        <% out.println(Notenblatt.getKlassenChange() ); %>
+                    </form>
+                    
                 </div>
 
 

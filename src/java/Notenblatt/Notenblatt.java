@@ -27,9 +27,10 @@ public class Notenblatt implements Interfaces.IModul {
 
     public static final String modulname = "Notenblatt";
     public static final String moduldesc = "Online-Notenblatt zur Eintragung der Noten für verschiedene Schüler."; // Zeilenumbruch mit <br>-Tag erzeugen, da es in einen <p>-Tag gerendert wird.
-
+    
     public Notenblatt() {
     }
+    
 
     /**
      * abgewandelte Methode für die Ausgabe der Subnavigation unseres Notenblatt
@@ -53,29 +54,32 @@ public class Notenblatt implements Interfaces.IModul {
                         output += "<ul>";
                         output += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
                         output += "<li> <a href='exam.jsp'>Probe anlegen</a> </li>";
-                        output += "<li> <a href='schuelerexport.jsp'>Schülernoten exportieren</a> </li>";
+                        // output += "<li> <a href='schuelerexport.jsp'>Schülernoten exportieren</a> </li>";
                         output += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
                         output += "</ul>";
                     }
                     if (userrollen.get(i).equals("Rektor")) {
                         output += "<ul>";
-                        // output += "<li> <a href='schuelerimport.jsp'>Schüler importieren</a> </li>";
+                        output += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
                         output += "<li> <a href='exam.jsp'>Probe anlegen</a> </li>";
                         // output += "<li> <a href='schuelerexport.jsp'>Schülernoten exportieren</a> </li>";
+                        // output += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
                         output += "</ul>";
                     }
                     if (userrollen.get(i).equals("Personal")) {
                         output += "<ul>";
-                        output += "<li> <a href='schueler.jsp'>Schülerübersicht</a> </li>";
+                        output += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
                         // output += "<li> <a href='exam.jsp'>Probe anlegen</a> </li>";
                         // output += "<li> <a href='schuelerexport.jsp'>Schülernoten exportieren</a> </li>";
+                        output += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
                         output += "</ul>";
                     }
                     if (userrollen.get(i).equals("Lehrer")) {
                         output += "<ul>";
-                        // output += "<li> <a href='schuelerimport.jsp'>Schüler importieren</a> </li>";
+                        // output += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
                         output += "<li> <a href='exam.jsp'>Probe anlegen</a> </li>";
-                        // output += "<li> <a href='schuelerexport.jsp'>Schülernoten exportieren</a> </li>";
+                        //output += "<li> <a href='schuelerexport.jsp'>Schülernoten exportieren</a> </li>";
+                        // output += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
                         output += "</ul>";
                     }
                 }
@@ -115,10 +119,55 @@ public class Notenblatt implements Interfaces.IModul {
 
         return returnstr;
     }
+    
+    /**
+     * Methode speichert alle Klassen als Map
+     * @return Map mit allen Klassen
+     */
+    public static Map getKlassenAsMap() {
+        Map alleRollen;
+        Map klassen = new HashMap();
+
+        alleRollen = DB.DBConnector.getRollennamen();
+
+
+        for (int i = 1; i <= alleRollen.size(); i++) {
+            if (((String) alleRollen.get(i)).contains("Klasse")) {
+                klassen.put(i, alleRollen.get(i) );
+            }
+        }
+
+        return klassen;
+    }
+    
+    
+    /**
+     * Methode baut einen Select-Tag mit allen Klassen als Option-Tag zusammen
+     * @param sename Value des Name-Atrritbut
+     * @return String mit HTML-Konstrukt
+     */
+    public static String getKlassenSelectChange(String sename) {
+        Map alleRollen;
+        String returnstr = "";
+
+        alleRollen = DB.DBConnector.getRollennamen();
+
+        returnstr += "<select required name='" + sename + "' id='klasse'>";
+        returnstr += "<option>Klasse auswählen</option>";
+        for (int i = 1; i <= alleRollen.size(); i++) {
+            if (((String) alleRollen.get(i)).contains("Klasse")) {
+                returnstr += "<option value='" + alleRollen.get(i) + "'>" + alleRollen.get(i) + "</option>";
+            }
+        }
+        returnstr += "<option value='entlassen'>entlassen</option>";
+        returnstr += "</select>";
+
+        return returnstr;
+    }
 
     /**
      * Methode zur Ausgabe der Klassenübersicht
-     *
+     * 
      * @return String mit HTML-Konstrukt mit Headline und Tabelle
      */
     public static String getKlassenOverview() {
@@ -146,6 +195,35 @@ public class Notenblatt implements Interfaces.IModul {
 
         returnstr += "</table>";
 
+        return returnstr;
+    }
+    
+    /**
+     * Methode zur Ausgabe der Auswahlmöglichkeit der neuen Klasse
+     * @return String mit HTML-Konstrukt
+     */
+    public static String getKlassenChange() {
+        Map alleRollen;
+        String returnstr = "";
+
+        alleRollen = DB.DBConnector.getRollennamen();
+
+        returnstr += "<h3>Klassenwechsel</h3>";
+
+        returnstr += "<table cellpadding='0' cellspacing='0'>";
+
+        for (int i = 1; i <= alleRollen.size(); i++) {
+            if (((String) alleRollen.get(i)).contains("Klasse")) {
+                returnstr += "<tr>";
+                returnstr += "<td>" + alleRollen.get(i) + "</td>";
+                returnstr += "<td> wird zu</td>";
+                returnstr += "<td>" + getKlassenSelectChange( (String) alleRollen.get(i) ) + "</td>";
+                returnstr += "</tr>";
+            }
+        }
+
+        returnstr += "</table>";
+        returnstr += "<button type='submit' name='classchange' value='true'>Klassenwechsel vornehmen</button>";
         return returnstr;
     }
 
@@ -333,7 +411,7 @@ public class Notenblatt implements Interfaces.IModul {
         } else {
             returnstr += "<table cellpadding='0' cellspacing='0'>";
             returnstr += "<tr>";
-            returnstr += "<th></th>";
+            // returnstr += "<th></th>";
             returnstr += "<th>Nr.</th>";
             returnstr += "<th>Nachname</th>";
             returnstr += "<th>Vorname</th>";
@@ -343,7 +421,7 @@ public class Notenblatt implements Interfaces.IModul {
                 Map schueler = DB.DBConnector.getAnwenderdaten(Anwender.databasetablename, (String) klassenschueler.get(i));
 
                 returnstr += "<tr>";
-                returnstr += "<td><input type='checkbox' name='" + schueler.get("EMAIL") + "'/></td>";
+                // returnstr += "<td><input type='checkbox' name='" + schueler.get("EMAIL") + "'/></td>";
                 returnstr += "<td>" + i + "</td>";
                 returnstr += "<td>" + (String) schueler.get("NACHNAME") + "</td>";
                 returnstr += "<td>" + (String) schueler.get("VORNAME") + "</td>";
@@ -485,6 +563,7 @@ public class Notenblatt implements Interfaces.IModul {
 
     /**
      * Methode zur Weitergabe an den DB-Connector für Notenspeicherung
+     *
      * @param examid die erstellte Prüfungs-ID
      * @param schuelernoten Die einzutragenden Schülernoten für die Prüfungs-ID
      * @return String mit HTML-Konstrukt, ob Eintrag erfolgreich oder nicht
@@ -508,10 +587,39 @@ public class Notenblatt implements Interfaces.IModul {
 
         return returnstr;
     }
+    
+    /**
+     * Methode zum Ändern der Noten einer Prüfung
+     * @param examid ID der zu ändernden Prüfung
+     * @param schuelernoten Alle Schülernoten aus der Eingabe
+     * @return String mit HTML-Konstrukt, ob Eintrag erfolgreich oder nicht
+     */
+    public static String updateExamMark(int examid, Map schuelernoten) {
+        String returnstr = "";
+        Boolean dbUpdateMark = false;
+        Map<String, Integer> noten = (Map) schuelernoten;
+
+        for (Map.Entry<String, Integer> schueler : noten.entrySet()) {
+            String email = schueler.getKey();
+            int note = schueler.getValue();
+            dbUpdateMark = DB.DBConnector.updateExamMarkSchueler(examid, note, email);
+        }
+
+        if (dbUpdateMark) {
+            returnstr += "<p>Die Noten wurden erfolgreich gespeichert!</p>";
+        } else {
+            returnstr += "<p>Beim Speichern der Noten ist ein Fehler unterlaufen, bitte überprüfen die Richtigkeit!</p>";
+        }
+
+        return returnstr;
+    }
 
     /**
-     * Methode zur Ausgabe einer Übersicht aller Prüfungen in Abhängigkeit der Rolle
-     * @param email E-Mail-Adresse für die Abfrage der Rollen des angemeldeten Anwenders
+     * Methode zur Ausgabe einer Übersicht aller Prüfungen in Abhängigkeit der
+     * Rolle
+     *
+     * @param email E-Mail-Adresse für die Abfrage der Rollen des angemeldeten
+     * Anwenders
      * @return String mit HTML-Konstrukt mit Tabelle aller Prüfungen und Bearbeitungs-Button
      */
     public static String getExamOverview(String email) {
@@ -521,78 +629,194 @@ public class Notenblatt implements Interfaces.IModul {
         for (int i = 1; i <= anwenderrollen.size(); i++) {
             if ((anwenderrollen.get(i)).equals("Lehrer")) {
                 returnstr += "<h3>Eigene Proben</h3>";
-                
+
                 Map<Integer, Integer> exam = DB.DBConnector.getExamFromRolle(email);
 
-                returnstr += "<table cellpadding='0' cellspacing='0'>";
-                returnstr += "<tr>";
-                returnstr += "<th>ID</th>";
-                returnstr += "<th>Fach</th>";
-                returnstr += "<th>Art</th>";
-                returnstr += "<th>Klasse</th>";
-                returnstr += "<th></th>";
-                returnstr += "</tr>";
-                
-                for (int j = 1; j <= exam.size(); j++) {
-                    Map examdata = DB.DBConnector.getExamDataId(exam.get(j));
-                    System.out.println("Examdata: " + examdata.size());
+                if (exam.isEmpty()) {
+                    returnstr += "<p>Leider sind keine Prüfungen angelegt!";
+                } else {
+                    returnstr += "<table cellpadding='0' cellspacing='0'>";
                     returnstr += "<tr>";
-                    returnstr += "<td>" + Integer.toString(exam.get(j)) + "</td>";
-                    returnstr += "<td>" + examdata.get("FACH") + "</td>";
-                    returnstr += "<td>" + examdata.get("ART") + "</td>";
-                    returnstr += "<td>" + examdata.get("KLASSE") + "</td>";
-                    returnstr += "<td><a class='button' href='exam-mark.jsp?examid=" + Integer.toString(exam.get(j)) + "'>Noten bearbeiten</a></td>";
+                    returnstr += "<th>ID</th>";
+                    returnstr += "<th>Fach</th>";
+                    returnstr += "<th>Art</th>";
+                    returnstr += "<th>Klasse</th>";
+                    returnstr += "<th></th>";
                     returnstr += "</tr>";
-                }
 
-                returnstr += "</table>";
+                    for (int j = 1; j <= exam.size(); j++) {
+                        Map examdata = DB.DBConnector.getExamDataId(exam.get(j));
+                        System.out.println("Examdata: " + examdata.size());
+                        returnstr += "<tr>";
+                        returnstr += "<td>" + Integer.toString(exam.get(j)) + "</td>";
+                        returnstr += "<td>" + examdata.get("FACH") + "</td>";
+                        returnstr += "<td>" + examdata.get("ART") + "</td>";
+                        returnstr += "<td>" + examdata.get("KLASSE") + "</td>";
+                        returnstr += "<td><a class='button' href='exam-mark.jsp?examid=" + Integer.toString(exam.get(j)) + "'>Noten bearbeiten</a></td>";
+                        returnstr += "</tr>";
+                    }
+
+                    returnstr += "</table>";
+                }
             }
-            
-            if((anwenderrollen.get(i)).equals("Admin")||(anwenderrollen.get(i)).equals("Rektor")) {
+
+            if ((anwenderrollen.get(i)).equals("Admin") || (anwenderrollen.get(i)).equals("Rektor")) {
                 returnstr += "<h3>Alle Proben</h3>";
-                
-                Map<Integer, Integer> exam = DB.DBConnector.getExamAll();
 
-                returnstr += "<table cellpadding='0' cellspacing='0'>";
-                returnstr += "<tr>";
-                returnstr += "<th>ID</th>";
-                returnstr += "<th>Fach</th>";
-                returnstr += "<th>Art</th>";
-                returnstr += "<th>Klasse</th>";
-                returnstr += "<th></th>";
-                returnstr += "</tr>";
-                
-                for (int j = 1; j <= exam.size(); j++) {
-                    Map examdata = DB.DBConnector.getExamDataId(exam.get(j));
-                    
+                Map<Integer, Integer> exam = DB.DBConnector.getExamIdAll();
+                if (exam.isEmpty()) {
+                    returnstr += "<p>Leider sind keine Prüfungen angelegt!";
+                } else {
+                    returnstr += "<table cellpadding='0' cellspacing='0'>";
                     returnstr += "<tr>";
-                    returnstr += "<td>" + Integer.toString(exam.get(j)) + "</td>";
-                    returnstr += "<td>" + examdata.get("FACH") + "</td>";
-                    returnstr += "<td>" + examdata.get("ART") + "</td>";
-                    returnstr += "<td>" + examdata.get("KLASSE") + "</td>";
-                    returnstr += "<td><a class='button' href='exam-mark.jsp?examid=" + Integer.toString(exam.get(j)) + "'>Noten bearbeiten</a></td>";
+                    returnstr += "<th>ID</th>";
+                    returnstr += "<th>Fach</th>";
+                    returnstr += "<th>Art</th>";
+                    returnstr += "<th>Klasse</th>";
+                    returnstr += "<th></th>";
                     returnstr += "</tr>";
-                }
 
-                returnstr += "</table>";
+                    for (int j = 1; j <= exam.size(); j++) {
+                        Map examdata = DB.DBConnector.getExamDataId(exam.get(j));
+
+                        returnstr += "<tr>";
+                        returnstr += "<td>" + Integer.toString(exam.get(j)) + "</td>";
+                        returnstr += "<td>" + examdata.get("FACH") + "</td>";
+                        returnstr += "<td>" + examdata.get("ART") + "</td>";
+                        returnstr += "<td>" + examdata.get("KLASSE") + "</td>";
+                        returnstr += "<td><a class='button' href='exam-mark.jsp?examid=" + Integer.toString(exam.get(j)) + "'>Noten bearbeiten</a></td>";
+                        returnstr += "</tr>";
+                    }
+
+                    returnstr += "</table>";
+                }
             }
         }
 
         return returnstr;
     }
+
+    /**
+     * Methode zur Ausgabe der akutell hinterlegten Noten einer Prüfung für die Bearbeitungsfunktion
+     * @param examid Prüfungs-ID in der Datenbank
+     * @param klasse Die Klasse, welche die Prüfung geschrieben hat
+     * @return String mit HTML-Konstrukt mit Tabelle aller Schüler und Noten-Auswählmöglichkeit. Aktuelle Note ist vorausgewählt.
+     */
+    public static String getExamMarkData(int examid, String klasse) {
+        String returnstr = "";
+        Map examschueler = DB.DBConnector.getExamMarkSchueler(examid);
+
+        if (examschueler.isEmpty()) {
+            returnstr += "<p>Leider sind keine Noten gespeichert!</p>";
+            returnstr += Notenblatt.getKlassenSchuelerForm(klasse);
+            returnstr += "<button type='submit' name='examsmark'>Prüfungsnoten speichern</button>";
+        } else {
+            returnstr += "<table cellpadding='0' cellspacing='0'>";
+            returnstr += "<tr>";
+            returnstr += "<th>Nr.</th>";
+            returnstr += "<th>Nachname</th>";
+            returnstr += "<th>Vorname</th>";
+            returnstr += "<th>Note</th>";
+            returnstr += "</tr>";
+
+            for (int i = 1; i <= examschueler.size(); i++) {
+                Map schuelernote = DB.DBConnector.getExamMarksId(examid, (String) examschueler.get(i));
+                Map schuelerdata = DB.DBConnector.getAnwenderdaten(Anwender.databasetablename, (String) examschueler.get(i));
+                
+                int mark = (Integer) schuelernote.get("NOTE");
+                
+                returnstr += "<tr>";
+                returnstr += "<td>" + i + "</td>";
+                returnstr += "<td>" + (String) schuelerdata.get("NACHNAME") + "</td>";
+                returnstr += "<td>" + (String) schuelerdata.get("VORNAME") + "</td>";
+                returnstr += "<td><select required name='" + (String) schuelerdata.get("EMAIL") + "'/>";
+                returnstr += "<option>Note auswählen</option>";
+                if (mark == 1) {
+                    returnstr += "<option selected value='1'>1</option>";
+                } else {
+                    returnstr += "<option value='1'>1</option>";
+                }
+                
+                if (mark == 2) {
+                    returnstr += "<option selected value='2'>2</option>";
+                } else {
+                    returnstr += "<option value='2'>2</option>";
+                }
+                
+                if (mark == 3) {
+                    returnstr += "<option selected value='3'>3</option>";
+                } else {
+                    returnstr += "<option value='3'>3</option>";
+                }
+                
+                if (mark == 4) {
+                    returnstr += "<option selected value='4'>4</option>";
+                } else {
+                    returnstr += "<option value='4'>4</option>";
+                }
+                
+                if (mark == 5) {
+                    returnstr += "<option selected value='5'>5</option>";
+                } else {
+                    returnstr += "<option value='5'>5</option>";
+                }
+                
+                if (mark == 6) {
+                    returnstr += "<option selected value='6'>6</option>";
+                } else {
+                    returnstr += "<option value='6'>6</option>";;
+                }
+                
+                if (mark == 0) {
+                    returnstr += "<option selected value='0'>nicht teilgenommen</option>";
+                } else {
+                    returnstr += "<option value='0'>nicht teilgenommen</option>";
+                }
+                returnstr += "</select></td>";
+                returnstr += "</tr>";
+            }
+
+            returnstr += "</table>";
+            returnstr += "<button type='submit' name='examsmarkupdate' value='true'>Notenänerungen speichern</button>";
+        }
+
+    return returnstr ;
+    }
     
     /**
-     * 
-     * @param examid
-     * @return 
+     * Methode zur Weitergabe an den DB-Connector für Klassen-Rollen-Wechsel
+     * @param klassenzuordnung Die neue Zuordnung mit alter Klasse wird zu neuer Klasse
+     * @return String mit HTML-Konstrukt, ob Eintrag erfolgreich oder nicht
      */
-    public static String getExamMarkData(int examid) {
+    public static String updateKlassenRollen (Map klassenzuordnung) {
         String returnstr = "";
-        Map noten = DB.DBConnector.getExamMarksId(examid);
-        for (int i = 0; i < noten.size(); i++ ) {
-            
+        Boolean dbUpadteRollen = false;
+        Boolean dbDeleteRollen = false;
+        Map<String, String> neueKlassenrollen = (Map) klassenzuordnung;
+
+        for (Map.Entry<String, String> rollen : neueKlassenrollen.entrySet()) {
+            String alteRolle = rollen.getKey();
+            String  neueRolle = rollen.getValue();
+            if (neueRolle.equals("entlassen")) {
+                // Falls entlassen wird Rolle gelöscht
+                dbDeleteRollen = DB.DBConnector.deleteRollen(alteRolle);
+            } else {
+                dbUpadteRollen = DB.DBConnector.updateRollen(alteRolle, neueRolle);
+            }
+        }
+
+        if (dbUpadteRollen) {
+            returnstr += "<p>Die Klassen konnten erfolgreich gewechselt werden</p>";
+        } else {
+            returnstr += "<p>Beim Speichern der Klassenwechsel ist ein Fehler unterlaufen, bitte überprüfen die Richtigkeit!</p>";
         }
         
+        if (dbDeleteRollen) {
+            returnstr += "<p>Die entlassen Klassen konnten erfolgreich gelöscht werden</p>";
+        } else {
+            returnstr += "<p>Beim Löschen der entlassenen Klassen ist ein Fehler unterlaufen, bitte überprüfen die Richtigkeit!</p>";
+        }
+
         return returnstr;
     }
 }

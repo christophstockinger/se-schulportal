@@ -136,19 +136,36 @@ Ionic Icons: https://useiconic.com/open/
                 <div class="col-12 col-sm-12 modul_description">
                     <%
                         if ( request.getParameter("examid") != null ) {
-                            int examid = Integer.parseInt( request.getParameter("examid") );
-                            String klasse = request.getParameter("klasse");
+                            if ( Boolean.parseBoolean(request.getParameter("examsmark") ) ) {
+                                int examid = Integer.parseInt( request.getParameter("examid") );
+                                String klasse = request.getParameter("klasse");
 
-                            Map klassenschueler = DB.DBConnector.getAnwenderFromRolle(klasse);
-                            Map <String, Integer> schuelernote = new HashMap<String, Integer>();
+                                Map klassenschueler = DB.DBConnector.getAnwenderFromRolle(klasse);
+                                Map <String, Integer> schuelernote = new HashMap<String, Integer>();
 
-                            for (int i = 1; i <= klassenschueler.size(); i++) {
-                                int note = Integer.parseInt( request.getParameter( (String) klassenschueler.get(i) ));
-                                System.out.println( (String) klassenschueler.get(i)+ " | " + note );
-                                schuelernote.put((String) klassenschueler.get(i), note );
+                                for (int i = 1; i <= klassenschueler.size(); i++) {
+                                    int note = Integer.parseInt( request.getParameter( (String) klassenschueler.get(i) ));
+                                    System.out.println( (String) klassenschueler.get(i)+ " | " + note );
+                                    schuelernote.put((String) klassenschueler.get(i), note );
+                                }
+
+                                out.println( Notenblatt.writeExamMark(examid, schuelernote) );
                             }
+                            if ( Boolean.parseBoolean(request.getParameter("examsmarkupdate") ) ) {
+                                int examid = Integer.parseInt( request.getParameter("examid") );
+                                String klasse = request.getParameter("klasse");
 
-                            out.println( Notenblatt.writeExamMark(examid, schuelernote) );
+                                Map klassenschueler = DB.DBConnector.getAnwenderFromRolle(klasse);
+                                Map <String, Integer> schuelernote = new HashMap<String, Integer>();
+
+                                for (int i = 1; i <= klassenschueler.size(); i++) {
+                                    int note = Integer.parseInt( request.getParameter( (String) klassenschueler.get(i) ));
+                                    System.out.println( (String) klassenschueler.get(i)+ " | " + note );
+                                    schuelernote.put((String) klassenschueler.get(i), note );
+                                }
+
+                                out.println( Notenblatt.updateExamMark(examid, schuelernote) );
+                            }
                         }
                     %>
                 </div>

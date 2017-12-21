@@ -422,8 +422,7 @@ public class DBConnector {
      * der Eintragung einer Rolle wird in Abhängigkeit der Anzahl der Map
      * anwenderrollen ausgeführt und der Return-Status in jedem Durchgang
      * geupdatet
-     * @return Boolean-Value <br>true: bei erfolgreichem Eintragungen<br>false:
-     * bei einer nicht erfolgreichen Eintragung
+     * @return Boolean-Value <br>true: bei erfolgreichem Eintragungen<br>false: bei einer nicht erfolgreichen Eintragung
      */
     public static Boolean writeAnwenderRollen(String email, Map anwenderrollen) {
         DBConnector javaDBConn;
@@ -443,6 +442,65 @@ public class DBConnector {
             }
 
             return writestatus;
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return false;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    /**
+     * Methode zur Änderung aller Anwender mit der alten Rolle
+     * @param alteRolle alte Rolle
+     * @param neueRolle neue Rolle
+     * @return Boolean <br>true: bei erfolgreichem Änderung<br>false: bei einer nicht erfolgreichen Änderung
+     */
+    public static Boolean updateRollen(String alteRolle, String neueRolle) {
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+
+        try {
+            statement = javaDBConn.connect();
+            statement.executeUpdate("Update rolle SET rolle = '" + neueRolle + "' WHERE rolle = '" + alteRolle + "'");
+
+            return true;
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return false;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    /**
+     * Methode zur Löschung aller Anwender mit der Rolle
+     * @param alteRolle die zu löschende Rolle
+     * @return Boolean <br>true: bei erfolgreichem Änderung<br>false: bei einer nicht erfolgreichen Änderung
+     */
+    public static Boolean deleteRollen(String alteRolle) {
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+
+        try {
+            statement = javaDBConn.connect();
+            statement.executeUpdate("DELTE FROM rolle WHERE rolle = '" + alteRolle + "'");
+
+            return true;
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Anwender.class
@@ -614,6 +672,15 @@ public class DBConnector {
         }
     }
     
+    /**
+     * Methode zum Eintragen einer Prüfung
+     * @param klasse Klasse in der, die Prüfung geschrieben wurde
+     * @param fach Fach in dem, die Prüfung geschrieben wurde
+     * @param art Die Art der Prüfung
+     * @param lehrer Der Lehrer, der die Prüfung geschrieben hat
+     * @param date Das Datum an dem die Prüfung geschrieben wurde
+     * @return Boolean: <br> true: erfolgreicher Eintrag <br> false: nicht erfolgreicher Eintrag
+     */
     public static Boolean writeExamData(String klasse, String fach, String art, String lehrer, String date) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
@@ -637,6 +704,15 @@ public class DBConnector {
         }
     }
 
+    /**
+     * Methode zur Abfrage der Prüfungs-ID
+     * @param klasse Klasse in der die Prüfung geschrieben wurde
+     * @param fach Fach in der die Prüfung geschrieben wurde
+     * @param art Art der geschriebenen Prüfung
+     * @param lehrer Lehrer, der die Prüfung geschrieben hat
+     * @param date Datum, an dem die Prüfung geschrieben wurde
+     * @return Integer mit der Prüfungs-ID
+     */
     public static Integer getExamId(String klasse, String fach, String art, String lehrer, String date) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
@@ -679,6 +755,13 @@ public class DBConnector {
         }
     }
     
+    /**
+     * Methode zur Eintragung aller Schülernoten einer Prüfung in die Datenbank
+     * @param examid Prüfungs-ID
+     * @param note Note des Schüler
+     * @param email E-Mail-Adresse des Schülers
+     * @return Boolean mit true für erfolgreichen Eintrag und false mit falschem Eintrag
+     */
     public static Boolean writeExamMarkSchueler(int examid, int note, String email) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
@@ -703,6 +786,44 @@ public class DBConnector {
         }
     }
     
+    /**
+     * Methode zur Änderung aller Schülernoten einer Prüfung in der Datenbank
+     * @param examid Prüfungs-ID
+     * @param note Note des Schüler
+     * @param email E-Mail-Adresse des Schülers
+     * @return Boolean mit true für erfolgreichen Eintrag und false mit falschem Eintrag
+     */
+    public static Boolean updateExamMarkSchueler(int examid, int note, String email) {
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+
+        try {
+            statement = javaDBConn.connect();
+            System.out.println ("UPDATE pruefungsnoten SET note = " + note + " WHERE email = '" + email + "' AND pruefung = " + examid + "");
+            statement.executeUpdate("UPDATE pruefungsnoten SET note = " + note + " WHERE email = '" + email + "' AND pruefung = " + examid + "");
+
+            return true;
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return false;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    
+    /**
+     * Methode um Prüfungs-Ids eines Lehrers zu bekommen
+     * @param email E-Mail-Adresse des angemeldeteten Lehrers
+     * @return Map mit allen Prüfung-Ids eines Lehrers
+     */
     public static Map getExamFromRolle (String email) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
@@ -733,7 +854,11 @@ public class DBConnector {
         }
     }
     
-    public static Map getExamAll () {
+    /**
+     * Methode um ID aller Prüfungen zu bekommen
+     * @return Map mit allen Prüfungs-Ids
+     */
+    public static Map getExamIdAll () {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
@@ -763,6 +888,11 @@ public class DBConnector {
         }
     }
     
+    /**
+     * Methode um Informationen zur einer speziellen Prüfung zu bekommen
+     * @param examid Die spezielle Prüfung
+     * @return Map mit den Informationen als Key die Spaltenüberschrift
+     */
     public static Map getExamDataId (int examid) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
@@ -771,7 +901,7 @@ public class DBConnector {
         try {
             statement = javaDBConn.connect();
 
-            ResultSet rs = statement.executeQuery("SELECT ART, KLASSE, FACH FROM Pruefung WHERE id = " + examid + "");
+            ResultSet rs = statement.executeQuery("SELECT ART, KLASSE, FACH, LEHRER FROM Pruefung WHERE id = " + examid + "");
 
             Map<String, String> examdata = new HashMap<String, String>();
 
@@ -795,7 +925,13 @@ public class DBConnector {
         }
     }
     
-    public static Map getExamMarksId(int examid) {
+    /**
+     * Methode um eine Note einer Schülers in einer Prüfung zur erhalten
+     * @param examid ID der Prüfung 
+     * @param email E-Mail des Schülers
+     * @return Map mit der Note
+     */
+    public static Map getExamMarksId(int examid, String email) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
@@ -803,9 +939,9 @@ public class DBConnector {
         try {
             statement = javaDBConn.connect();
 
-            ResultSet rs = statement.executeQuery("SELECT * FROM Pruefungsnoten WHERE pruefung = " + examid + "");
+            ResultSet rs = statement.executeQuery("SELECT note FROM Pruefungsnoten WHERE pruefung = " + examid + " AND email='" + email + "'");
 
-            Map<String, String> examdata = new HashMap<String, String>();
+            Map examdata = new HashMap();
 
             ResultSetMetaData meta = rs.getMetaData();
             int cols = meta.getColumnCount();
@@ -813,7 +949,53 @@ public class DBConnector {
             while (rs.next()) {
                 rownum++;
                 for (int i = 0; i < cols; i++) {
-                    examdata.put( (String) meta.getColumnLabel(i + 1), (String) rs.getObject(i + 1));;
+                    Class typ = ( rs.getObject( i + 1 ) ).getClass();
+                    if ( ( typ.getName() ).equals("java.lang.Integer")) {
+                        examdata.put( (String) meta.getColumnLabel(i + 1), (Integer) rs.getObject( i + 1 ));
+                    }
+                    
+                    if (( typ.getName() ).equals("java.lang.String")) {
+                        examdata.put( (String) meta.getColumnLabel(i + 1), (String) rs.getObject( i + 1 ));
+                    }
+                    //System.out.println("Typ: " + ( rs.getObject( i + 1 ) ).getClass() );
+                    //examdata.put( (String) meta.getColumnLabel(i + 1), (i + 1));
+                }
+            }
+
+            return examdata;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    }
+    
+    /**
+     * Methode um die alle Schüler zu erhalten, welche eine Prüfung geschrieben haben
+     * @param examid ID der Prüfung
+     * @return Map mit allen E-Mail-Adressen der Schüler, welche die Prüfung geschrieben haben
+     */
+    public static Map getExamMarkSchueler(int examid) {
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+        try {
+            statement = javaDBConn.connect();
+
+            ResultSet rs = statement.executeQuery("SELECT EMAIL FROM Pruefungsnoten WHERE pruefung = " + examid + "");
+
+            Map<Integer, String> examdata = new HashMap<Integer, String>();
+
+            ResultSetMetaData meta = rs.getMetaData();
+            int cols = meta.getColumnCount();
+            int rownum = 0;
+            while (rs.next()) {
+                rownum++;
+                for (int i = 0; i < cols; i++) {
+                    examdata.put( rownum, (String) rs.getObject( i + 1 ));
                 }
             }
 
