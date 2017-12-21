@@ -92,7 +92,7 @@ Im weiteren Part gibt es dann die Export-Funktion, welche eine PDF Datei mit Not
 > git clone https://github.com/christophstockinger/se-schulportal
 
 2. Projekt holen
-> git push
+> git pull
 
 3. Projekt updaten
 3.1 Hinzufügen aller Dateien
