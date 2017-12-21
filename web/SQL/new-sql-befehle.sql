@@ -77,3 +77,23 @@ SELECT anwender.nachname, anwender.vorname FROM anwender LEFT JOIN rolle ON roll
 
 SELECT * FROM rollennamen;
 
+
+
+/* Fächer DB */
+CREATE TABLE faecher (
+  fach varchar(100) NOT NULL,
+    PRIMARY KEY (fach) 
+);
+INSERT INTO faecher (fach) VALUES('Mathematik');
+INSERT INTO faecher (fach) VALUES('Deutsch');
+INSERT INTO faecher (fach) VALUES('Englisch');
+INSERT INTO faecher (fach) VALUES('Heimat und Sachunterricht');
+INSERT INTO faecher (fach) VALUES('Werken');
+INSERT INTO faecher (fach) VALUES('Kunst');
+INSERT INTO faecher (fach) VALUES('Religion');
+INSERT INTO faecher (fach) VALUES('Sport');
+INSERT INTO faecher (fach) VALUES('Musik');
+INSERT INTO faecher (fach) VALUES('Förderunterricht');
+INSERT INTO faecher (fach) VALUES('Ethik');
+INSERT INTO faecher (fach) VALUES('Werken ud Gestalten');
+
