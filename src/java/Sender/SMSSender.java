@@ -26,14 +26,18 @@ public class SMSSender {
         try {
             AuthMethod auth = new TokenAuthMethod("dae3d3bf","27d45ac64cd4d222" );
             NexmoClient client = new NexmoClient(auth);
-            System.out.println("+491601899824");
+            //System.out.println("+491601899824");
 
-            SmsSubmissionResult[] responses = client.getSmsClient().submitMessage(new TextMessage(
+            String[] empf = empfaenger.split(",");
+            
+            for (int i = 0; i<=empf.length; i++) {
+                SmsSubmissionResult[] responses = client.getSmsClient().submitMessage(new TextMessage(
                     "+491601899824", // Sender
-                    empfaenger, // Empfänger
+                    empf[i], // Empfänger
                     message));
-            for (SmsSubmissionResult response : responses) {
-                System.out.println(response);
+                for (SmsSubmissionResult response : responses) {
+                    System.out.println(response);
+                }
             }
 
         } catch (Exception e) {

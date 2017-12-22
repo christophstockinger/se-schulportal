@@ -246,7 +246,7 @@ public class DBConnector {
      * @param rolle ausgewählte Rolle
      * @return Map mit Integer als Laufzahl und String als Telefonnummer
      */
-    public static Map getRollenSMS() {
+    public static Map getRollenSMS(String email) {
         
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
@@ -255,7 +255,7 @@ public class DBConnector {
         try {
             statement = javaDBConn.connect();
 
-            ResultSet rs = statement.executeQuery("SELECT TELEFONNUMMER FROM Anwender");
+            ResultSet rs = statement.executeQuery("SELECT TELEFONNUMMER FROM Anwender WHERE EMAIL ='"+email+"'");
 
             Map<Integer, String> dbDataAnwender = new HashMap<Integer, String>();
 

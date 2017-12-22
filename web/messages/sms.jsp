@@ -174,7 +174,57 @@ Ionic Icons: https://useiconic.com/open/
         <!--script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote-bs4.js"></script-->
         
         <script>
-            
+            $('#smslist').change(
+                function () {
+                    var sel = $('#smslist').val();
+                    switch (sel) {
+                        case "Admin":
+                            var value ="";
+                            for (var i=1; i < admins.length; i++) {
+                                console.log(admins);
+                                value += admins[i] + ",";
+                            }
+                            $('#empfaenger').val(value);
+                            break;
+                        case "Lehrer":
+                            var value ="";
+                            for (var i=1; i < lehrer.length; i++) {
+                                console.log(lehrer);
+                                value += lehrer[i] + ",";
+                            }
+                            $('#empfaenger').val(value);
+                            break;
+                        case "Eltern":
+                            var value ="";
+                            for (var i=1; i < eltern.length; i++) {
+                                console.log(eltern);
+                                value += eltern[i] + ",";
+                            }
+                            $('#empfaenger').val(value);
+                            break;
+                        case "Personal":
+                            var value ="";
+                            for (var i=1; i < personal.length; i++) {
+                                value += personal[i] + ",";
+                            }
+                            $('#empfaenger').val(value);
+                            break;
+                        case "Rektor":
+                            var value ="";
+                            for (var i=1; i < rektor.length; i++) {
+                                value += rektor[i] + ",";
+                            }
+                            $('#empfaenger').val(value);
+                            break;
+                        case "Schueler":
+                            var value ="";
+                            for (var i=1; i < schueler.length; i++) {
+                                value += schueler[i] + ",";
+                            }
+                            $('#empfaenger').val(value);
+                    }
+                }
+            );
         </script>
     </body>
 </html>

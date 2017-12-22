@@ -143,7 +143,7 @@ public class ModMessage {
         returnstr += "<input type='text' name='sms' placeholder='Telefonnummer' id='empfaenger'> ";
         
         
-        Map alleUser = DB.DBConnector.getRollenSMS();
+        Map alleUser = DB.DBConnector.getRollenEmail();
         returnstr += "<script type='text/javascript'>";
 
         returnstr += "admins = []; ";
@@ -161,37 +161,38 @@ public class ModMessage {
         for (int i=1; i <= alleUser.size(); i++){
             // Abfrage welche Rolle hat E-Mail
             Map rolle = DB.DBConnector.getAnwenderRollen((String)alleUser.get(i));
+            //Map sms = DB.DBConnector.getRollenSMS((String)alleUser.get(i));
             for ( int j=1; j <= rolle.size(); j++) {
                 // Admin
-                
                 if (rolle.get(j).equals("Admin") ) {
-                    returnstr += "admins[" + admin++ + "] = '" + alleUser.get(i) + "';";
+
+                    returnstr += "admins[" + admin++ + "] = '" + DB.DBConnector.getRollenSMS((String)alleUser.get(i)).get(1) + "';";
                 }
                 // Lehrer
                 if (rolle.get(j).equals("Lehrer") ) {
-                    
-                    returnstr += "lehrer[" + lehrer++ + "] = '" + alleUser.get(i) + "';";
+                    Map sms = DB.DBConnector.getRollenSMS((String)alleUser.get(i));
+                    returnstr += "lehrer[" + lehrer++ + "] = '" + DB.DBConnector.getRollenSMS((String)alleUser.get(i)).get(1) + "';";
                 }
                 // Eltern
                 if (rolle.get(j).equals("Eltern") ) {
                     
-                    returnstr += "eltern[" + eltern++ + "] = '" + alleUser.get(i) + "';";
+                    returnstr += "eltern[" + eltern++ + "] = '" + DB.DBConnector.getRollenSMS((String)alleUser.get(i)).get(1) + "';";
                     
                 }
                 // Personal
                 if (rolle.get(j).equals("Personal") ) {
                     
-                    returnstr += "personal[" + personal++ + "] = '" + alleUser.get(i) + "';";
+                    returnstr += "personal[" + personal++ + "] = '" + DB.DBConnector.getRollenSMS((String)alleUser.get(i)).get(1) + "';";
                     
                 }
                 // Rektor
                 if (rolle.get(j).equals("Rektor") ) {
-                    returnstr += "rektor[" + rektor++ + "] = '" + alleUser.get(i) + "';";
+                    returnstr += "rektor[" + rektor++ + "] = '" + DB.DBConnector.getRollenSMS((String)alleUser.get(i)).get(1) + "';";
                 }
                 
                 // Schueler
                 if (rolle.get(j).equals("Schueler") ) {
-                    returnstr += "schueler[" + schueler++ + "] = '" + alleUser.get(i) + "';";
+                    returnstr += "schueler[" + schueler++ + "] = '" + DB.DBConnector.getRollenSMS((String)alleUser.get(i)).get(1) + "';";
                 }
                 
             }
