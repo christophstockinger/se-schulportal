@@ -27,10 +27,9 @@ public class Notenblatt implements Interfaces.IModul {
 
     public static final String modulname = "Notenblatt";
     public static final String moduldesc = "Online-Notenblatt zur Eintragung der Noten für verschiedene Schüler."; // Zeilenumbruch mit <br>-Tag erzeugen, da es in einen <p>-Tag gerendert wird.
-    
+
     public Notenblatt() {
     }
-    
 
     /**
      * abgewandelte Methode für die Ausgabe der Subnavigation unseres Notenblatt
@@ -54,15 +53,13 @@ public class Notenblatt implements Interfaces.IModul {
                         output += "<ul>";
                         output += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
                         output += "<li> <a href='exam.jsp'>Probe anlegen</a> </li>";
-                        // output += "<li> <a href='schuelerexport.jsp'>Schülernoten exportieren</a> </li>";
-                        output += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
+                        // output += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
                         output += "</ul>";
                     }
                     if (userrollen.get(i).equals("Rektor")) {
                         output += "<ul>";
                         output += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
                         output += "<li> <a href='exam.jsp'>Probe anlegen</a> </li>";
-                        // output += "<li> <a href='schuelerexport.jsp'>Schülernoten exportieren</a> </li>";
                         // output += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
                         output += "</ul>";
                     }
@@ -70,15 +67,13 @@ public class Notenblatt implements Interfaces.IModul {
                         output += "<ul>";
                         output += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
                         // output += "<li> <a href='exam.jsp'>Probe anlegen</a> </li>";
-                        // output += "<li> <a href='schuelerexport.jsp'>Schülernoten exportieren</a> </li>";
-                        output += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
+                        // output += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
                         output += "</ul>";
                     }
                     if (userrollen.get(i).equals("Lehrer")) {
                         output += "<ul>";
-                        // output += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
+                        output += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
                         output += "<li> <a href='exam.jsp'>Probe anlegen</a> </li>";
-                        //output += "<li> <a href='schuelerexport.jsp'>Schülernoten exportieren</a> </li>";
                         // output += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
                         output += "</ul>";
                     }
@@ -102,9 +97,10 @@ public class Notenblatt implements Interfaces.IModul {
      *
      * @return String mit HTML-Konstrukt
      */
-    public static String getKlassen() {
+    public static String getKlassenAsSelect() {
         Map alleRollen;
         String returnstr = "";
+        int count = 0;
 
         alleRollen = DB.DBConnector.getRollennamen();
 
@@ -112,16 +108,20 @@ public class Notenblatt implements Interfaces.IModul {
         returnstr += "<option>Klasse auswählen</option>";
         for (int i = 1; i <= alleRollen.size(); i++) {
             if (((String) alleRollen.get(i)).contains("Klasse")) {
-                returnstr += "<option value='" + alleRollen.get(i) + "'>" + alleRollen.get(i) + "</option>";
+                count = DB.DBConnector.getAnwenderCount((String) alleRollen.get(i));
+                if (count != 0) {
+                    returnstr += "<option value='" + alleRollen.get(i) + "'>" + alleRollen.get(i) + "</option>";
+                }
             }
         }
         returnstr += "</select>";
 
         return returnstr;
     }
-    
+
     /**
      * Methode speichert alle Klassen als Map
+     *
      * @return Map mit allen Klassen
      */
     public static Map getKlassenAsMap() {
@@ -130,23 +130,25 @@ public class Notenblatt implements Interfaces.IModul {
 
         alleRollen = DB.DBConnector.getRollennamen();
 
-
+        int j = 0;
         for (int i = 1; i <= alleRollen.size(); i++) {
             if (((String) alleRollen.get(i)).contains("Klasse")) {
-                klassen.put(i, alleRollen.get(i) );
+                klassen.put(j, alleRollen.get(i));
+                j++;
             }
+
         }
 
         return klassen;
     }
-    
-    
+
     /**
      * Methode baut einen Select-Tag mit allen Klassen als Option-Tag zusammen
+     *
      * @param sename Value des Name-Atrritbut
      * @return String mit HTML-Konstrukt
      */
-    public static String getKlassenSelectChange(String sename) {
+    public static String getKlassenAsSelectForChange(String sename) {
         Map alleRollen;
         String returnstr = "";
 
@@ -167,12 +169,13 @@ public class Notenblatt implements Interfaces.IModul {
 
     /**
      * Methode zur Ausgabe der Klassenübersicht
-     * 
+     *
      * @return String mit HTML-Konstrukt mit Headline und Tabelle
      */
     public static String getKlassenOverview() {
         Map alleRollen;
         String returnstr = "";
+        int anwenderCount = 0;
 
         alleRollen = DB.DBConnector.getRollennamen();
 
@@ -182,13 +185,19 @@ public class Notenblatt implements Interfaces.IModul {
 
         for (int i = 1; i <= alleRollen.size(); i++) {
             if (((String) alleRollen.get(i)).contains("Klasse")) {
+                anwenderCount = DB.DBConnector.getAnwenderCount((String) alleRollen.get(i));
+
                 returnstr += "<tr>";
                 returnstr += "<td>" + alleRollen.get(i) + "</td>";
                 returnstr += "<td>";
-                returnstr += "<a href='schueler.jsp?klasse=" + alleRollen.get(i) + "' class='button'> <img src='se-schulportal/images/icons/brush-white.svg' alt=''/> Bearbeiten </a>";
-                returnstr += "<a href='import.jsp?klasse=" + alleRollen.get(i) + "' class='button'> <img src='se-schulportal/images/icons/data-transfer-upload-white.svg' alt=''/> Import </a>";
-                // returnstr += "<a href='export.jsp?klasse=" + alleRollen.get(i) + "' class='button'> <img src='se-schulportal/images/icons/data-transfer-download-white.svg' alt=''/> Export </a>";
+
+                if (anwenderCount != 0) {
+                    returnstr += "<a href='schueler.jsp?klasse=" + alleRollen.get(i) + "' class='button'> <img src='/se-schulportal/images/icons/brush-white.svg' alt=''/> Bearbeiten </a>";
+                } else {
+                    returnstr += "<a href='import.jsp?klasse=" + alleRollen.get(i) + "' class='button'> <img src='/se-schulportal/images/icons/data-transfer-upload-white.svg' alt=''/> Import </a>";
+                }
                 returnstr += "</td>";
+                returnstr += "<td>" + Integer.toString(anwenderCount) + " Schüler</td>";
                 returnstr += "</tr>";
             }
         }
@@ -197,9 +206,10 @@ public class Notenblatt implements Interfaces.IModul {
 
         return returnstr;
     }
-    
+
     /**
      * Methode zur Ausgabe der Auswahlmöglichkeit der neuen Klasse
+     *
      * @return String mit HTML-Konstrukt
      */
     public static String getKlassenChange() {
@@ -217,7 +227,7 @@ public class Notenblatt implements Interfaces.IModul {
                 returnstr += "<tr>";
                 returnstr += "<td>" + alleRollen.get(i) + "</td>";
                 returnstr += "<td> wird zu</td>";
-                returnstr += "<td>" + getKlassenSelectChange( (String) alleRollen.get(i) ) + "</td>";
+                returnstr += "<td>" + getKlassenAsSelectForChange((String) alleRollen.get(i)) + "</td>";
                 returnstr += "</tr>";
             }
         }
@@ -405,7 +415,6 @@ public class Notenblatt implements Interfaces.IModul {
     public static String getKlassenSchuelerOverview(String klasse) {
         String returnstr = "";
         Map klassenschueler = DB.DBConnector.getAnwenderFromRolle(klasse);
-
         if (klassenschueler.size() == 0) {
             returnstr += "<p>Der Klasse sind keine Schüler zugeordnet! Sie müssen erst Schüler importieren.</p>";
         } else {
@@ -415,6 +424,7 @@ public class Notenblatt implements Interfaces.IModul {
             returnstr += "<th>Nr.</th>";
             returnstr += "<th>Nachname</th>";
             returnstr += "<th>Vorname</th>";
+            returnstr += "<th></th>";
             returnstr += "</tr>";
 
             for (int i = 1; i <= klassenschueler.size(); i++) {
@@ -425,11 +435,13 @@ public class Notenblatt implements Interfaces.IModul {
                 returnstr += "<td>" + i + "</td>";
                 returnstr += "<td>" + (String) schueler.get("NACHNAME") + "</td>";
                 returnstr += "<td>" + (String) schueler.get("VORNAME") + "</td>";
+                returnstr += "<td><a class='button' href='schuelernoten.jsp?schueler=" + (String) schueler.get("EMAIL") + "'><img src='/se-schulportal/images/icons/pie-chart-white.svg' alt='' /> Notenstatistik</a>";
                 returnstr += "</tr>";
             }
 
             returnstr += "</table>";
         }
+
         return returnstr;
     }
 
@@ -438,7 +450,7 @@ public class Notenblatt implements Interfaces.IModul {
      *
      * @return String mit HTML-Konstrukt
      */
-    public static String getLehrer() {
+    public static String getLehrerAsSelect() {
         Map lehreremails;
         String returnstr = "";
 
@@ -460,7 +472,7 @@ public class Notenblatt implements Interfaces.IModul {
      *
      * @return String mit HTML-Konstrukt
      */
-    public static String getFaecher() {
+    public static String getFaecherAsSelect() {
         Map faecher;
         String returnstr = "";
 
@@ -482,17 +494,14 @@ public class Notenblatt implements Interfaces.IModul {
      *
      * @return String mit HTML-Konstrukt
      */
-    public static String getExamArten() {
+    public static String getExamartenAsSelect() {
         String returnstr = "";
-        String[] examArten = new String[3];
-        examArten[0] = "schriftliche Probe";
-        examArten[1] = "mündliche Probe";
-        examArten[2] = "praktische Probe";
+        Map examarten = DB.DBConnector.getExamArten();
 
         returnstr += "<select required name='art' id='art'>";
         returnstr += "<option >Probenart auswählen</option>";
-        for (int i = 0; i < examArten.length; i++) {
-            returnstr += "<option value='" + examArten[i] + "'>" + examArten[i] + "</option>";
+        for (int i = 1; i <= examarten.size(); i++) {
+            returnstr += "<option value='" + examarten.get(i) + "'>" + examarten.get(i) + "</option>";
         }
         returnstr += "</select>";
 
@@ -587,9 +596,10 @@ public class Notenblatt implements Interfaces.IModul {
 
         return returnstr;
     }
-    
+
     /**
      * Methode zum Ändern der Noten einer Prüfung
+     *
      * @param examid ID der zu ändernden Prüfung
      * @param schuelernoten Alle Schülernoten aus der Eingabe
      * @return String mit HTML-Konstrukt, ob Eintrag erfolgreich oder nicht
@@ -620,7 +630,8 @@ public class Notenblatt implements Interfaces.IModul {
      *
      * @param email E-Mail-Adresse für die Abfrage der Rollen des angemeldeten
      * Anwenders
-     * @return String mit HTML-Konstrukt mit Tabelle aller Prüfungen und Bearbeitungs-Button
+     * @return String mit HTML-Konstrukt mit Tabelle aller Prüfungen und
+     * Bearbeitungs-Button
      */
     public static String getExamOverview(String email) {
         String returnstr = "";
@@ -652,7 +663,8 @@ public class Notenblatt implements Interfaces.IModul {
                         returnstr += "<td>" + examdata.get("FACH") + "</td>";
                         returnstr += "<td>" + examdata.get("ART") + "</td>";
                         returnstr += "<td>" + examdata.get("KLASSE") + "</td>";
-                        returnstr += "<td><a class='button' href='exam-mark.jsp?examid=" + Integer.toString(exam.get(j)) + "'>Noten bearbeiten</a></td>";
+                        returnstr += "<td><a class='button' href='exam-mark.jsp?examid=" + Integer.toString(exam.get(j)) + "'><img src='/se-schulportal/images/icons/brush-white.svg' alt=''>Noten bearbeiten</a>";
+                        returnstr += "<a class='button' href='examstatistik.jsp?examid=" + Integer.toString(exam.get(j)) + "'><img src='/se-schulportal/images/icons/pie-chart-white.svg' alt=''> Probenstatistik </a></td>";
                         returnstr += "</tr>";
                     }
 
@@ -684,7 +696,8 @@ public class Notenblatt implements Interfaces.IModul {
                         returnstr += "<td>" + examdata.get("FACH") + "</td>";
                         returnstr += "<td>" + examdata.get("ART") + "</td>";
                         returnstr += "<td>" + examdata.get("KLASSE") + "</td>";
-                        returnstr += "<td><a class='button' href='exam-mark.jsp?examid=" + Integer.toString(exam.get(j)) + "'>Noten bearbeiten</a></td>";
+                        returnstr += "<td><a class='button' href='exam-mark.jsp?examid=" + Integer.toString(exam.get(j)) + "'><img src='/se-schulportal/images/icons/brush-white.svg' alt=''>Noten bearbeiten</a>";
+                        returnstr += "<a class='button' href='examstatistik.jsp?examid=" + Integer.toString(exam.get(j)) + "'><img src='/se-schulportal/images/icons/pie-chart-white.svg' alt=''> Probenstatistik </a></td>";
                         returnstr += "</tr>";
                     }
 
@@ -697,12 +710,15 @@ public class Notenblatt implements Interfaces.IModul {
     }
 
     /**
-     * Methode zur Ausgabe der akutell hinterlegten Noten einer Prüfung für die Bearbeitungsfunktion
+     * Methode zur Ausgabe der akutell hinterlegten Noten einer Prüfung für die
+     * Bearbeitungsfunktion
+     *
      * @param examid Prüfungs-ID in der Datenbank
      * @param klasse Die Klasse, welche die Prüfung geschrieben hat
-     * @return String mit HTML-Konstrukt mit Tabelle aller Schüler und Noten-Auswählmöglichkeit. Aktuelle Note ist vorausgewählt.
+     * @return String mit HTML-Konstrukt mit Tabelle aller Schüler und
+     * Noten-Auswählmöglichkeit. Aktuelle Note ist vorausgewählt.
      */
-    public static String getExamMarkData(int examid, String klasse) {
+    public static String getExamMarkFromDatabase(int examid, String klasse) {
         String returnstr = "";
         Map examschueler = DB.DBConnector.getExamMarkSchueler(examid);
 
@@ -722,9 +738,9 @@ public class Notenblatt implements Interfaces.IModul {
             for (int i = 1; i <= examschueler.size(); i++) {
                 Map schuelernote = DB.DBConnector.getExamMarksId(examid, (String) examschueler.get(i));
                 Map schuelerdata = DB.DBConnector.getAnwenderdaten(Anwender.databasetablename, (String) examschueler.get(i));
-                
+
                 int mark = (Integer) schuelernote.get("NOTE");
-                
+
                 returnstr += "<tr>";
                 returnstr += "<td>" + i + "</td>";
                 returnstr += "<td>" + (String) schuelerdata.get("NACHNAME") + "</td>";
@@ -736,37 +752,37 @@ public class Notenblatt implements Interfaces.IModul {
                 } else {
                     returnstr += "<option value='1'>1</option>";
                 }
-                
+
                 if (mark == 2) {
                     returnstr += "<option selected value='2'>2</option>";
                 } else {
                     returnstr += "<option value='2'>2</option>";
                 }
-                
+
                 if (mark == 3) {
                     returnstr += "<option selected value='3'>3</option>";
                 } else {
                     returnstr += "<option value='3'>3</option>";
                 }
-                
+
                 if (mark == 4) {
                     returnstr += "<option selected value='4'>4</option>";
                 } else {
                     returnstr += "<option value='4'>4</option>";
                 }
-                
+
                 if (mark == 5) {
                     returnstr += "<option selected value='5'>5</option>";
                 } else {
                     returnstr += "<option value='5'>5</option>";
                 }
-                
+
                 if (mark == 6) {
                     returnstr += "<option selected value='6'>6</option>";
                 } else {
                     returnstr += "<option value='6'>6</option>";;
                 }
-                
+
                 if (mark == 0) {
                     returnstr += "<option selected value='0'>nicht teilgenommen</option>";
                 } else {
@@ -780,42 +796,265 @@ public class Notenblatt implements Interfaces.IModul {
             returnstr += "<button type='submit' name='examsmarkupdate' value='true'>Notenänerungen speichern</button>";
         }
 
-    return returnstr ;
+        return returnstr;
     }
-    
+
     /**
      * Methode zur Weitergabe an den DB-Connector für Klassen-Rollen-Wechsel
-     * @param klassenzuordnung Die neue Zuordnung mit alter Klasse wird zu neuer Klasse
+     *
+     * @param klassenzuordnung Die neue Zuordnung mit alter Klasse wird zu neuer
+     * Klasse
      * @return String mit HTML-Konstrukt, ob Eintrag erfolgreich oder nicht
      */
-    public static String updateKlassenRollen (Map klassenzuordnung) {
+    public static String updateKlassenRollen(Map klassenzuordnung) {
         String returnstr = "";
         Boolean dbUpadteRollen = false;
         Boolean dbDeleteRollen = false;
         Map<String, String> neueKlassenrollen = (Map) klassenzuordnung;
 
-        for (Map.Entry<String, String> rollen : neueKlassenrollen.entrySet()) {
-            String alteRolle = rollen.getKey();
-            String  neueRolle = rollen.getValue();
-            if (neueRolle.equals("entlassen")) {
-                // Falls entlassen wird Rolle gelöscht
-                dbDeleteRollen = DB.DBConnector.deleteRollen(alteRolle);
-            } else {
-                dbUpadteRollen = DB.DBConnector.updateRollen(alteRolle, neueRolle);
+        try {
+            for (Map.Entry<String, String> rollen : neueKlassenrollen.entrySet()) {
+                String alteRolle = rollen.getKey();
+                Map anwenderMitAlterRolle = DB.DBConnector.getAnwenderFromRolle(alteRolle);
+                String neueRolle = rollen.getValue();
+                for (int i = 1; i <= anwenderMitAlterRolle.size(); i++) {
+                    String anwender = (String) anwenderMitAlterRolle.get(i);
+                    if (neueRolle.equals("entlassen")) {
+                        // Falls entlassen wird Rolle gelöscht
+                        dbDeleteRollen = DB.DBConnector.deleteRollen(alteRolle);
+                    } else {
+                        dbUpadteRollen = DB.DBConnector.updateRollen(alteRolle, neueRolle);
+                    }
+                }
             }
+
+            if (dbUpadteRollen) {
+                returnstr += "<p>Die Klassen konnten erfolgreich gewechselt werden</p>";
+            } else {
+                returnstr += "<p>Beim Speichern der Klassenwechsel ist ein Fehler unterlaufen, bitte überprüfen die Richtigkeit!</p>";
+            }
+
+            if (dbDeleteRollen) {
+                returnstr += "<p>Die entlassen Klassen konnten erfolgreich gelöscht werden</p>";
+            } else {
+                returnstr += "<p>Beim Löschen der entlassenen Klassen ist ein Fehler unterlaufen, bitte überprüfen die Richtigkeit!</p>";
+            }
+
+            return returnstr;
+        } catch (NullPointerException ne) {
+            System.out.println(ne.getMessage());
+            return "Leider ist ein Fehler unterlaufen!";
+        }
+    }
+
+    /**
+     * Methode zur Ausgabe der Prüfungsstatstikübersicht
+     *
+     * @param examid ID der auszugegeben Prüfung
+     * @return String mit HTML-Konstrukt
+     */
+    public static String getExamStatistik(int examid) {
+        String returnstr = "";
+        Map examdata = DB.DBConnector.getExamDataId(examid);
+        Date examdate = DB.DBConnector.getExamDateFromId(examid);
+        int day = examdate.getDay();
+        int month = examdate.getMonth();
+        int year = 1900 + examdate.getYear();
+        Map lehrer = DB.DBConnector.getAnwenderdaten(Anwender.databasetablename, (String) examdata.get("LEHRER"));
+        int examAttendersCount = DB.DBConnector.getExamAttendersCount(examid);
+
+        int noteEins = DB.DBConnector.getExamMarkCount(examid, 1);
+        int noteZwei = DB.DBConnector.getExamMarkCount(examid, 2);
+        int noteDrei = DB.DBConnector.getExamMarkCount(examid, 3);
+        int noteVier = DB.DBConnector.getExamMarkCount(examid, 4);
+        int noteFünf = DB.DBConnector.getExamMarkCount(examid, 5);
+        int noteSechs = DB.DBConnector.getExamMarkCount(examid, 6);
+
+        int prozentEins = (noteEins * 100) / examAttendersCount;
+        int prozentZwei = (noteZwei * 100) / examAttendersCount;
+        int prozentDrei = (noteDrei * 100) / examAttendersCount;
+        int prozentVier = (noteVier * 100) / examAttendersCount;
+        int prozentFünf = (noteFünf * 100) / examAttendersCount;
+        int prozentSechs = (noteSechs * 100) / examAttendersCount;
+
+        Map examSchueler = DB.DBConnector.getExamMarkSchueler(examid);
+
+        returnstr += "<h3>Probenstatistik</h3>";
+
+        returnstr += "<div class='row'>";
+        // Linke Spalte mit Probeninfos
+        returnstr += "<div class='col-12 col-sm-12 col-md-6'>";
+
+        returnstr += "<table>";
+        returnstr += "<tr>";
+        returnstr += "<td>Datum: </td>";
+        returnstr += "<td>" + Integer.toString(day) + "." + Integer.toString(month) + "." + Integer.toString(year) + "</td>";
+        returnstr += "</tr>";
+        returnstr += "<tr>";
+        returnstr += "<td>Fach: </td>";
+        returnstr += "<td>" + examdata.get("FACH") + "</td>";
+        returnstr += "</tr>";
+        returnstr += "<tr>";
+        returnstr += "<td>Art: </td>";
+        returnstr += "<td>" + examdata.get("ART") + "</td>";
+        returnstr += "</tr>";
+        returnstr += "<tr>";
+        returnstr += "<td>Klasse: </td>";
+        returnstr += "<td>" + examdata.get("KLASSE") + "</td>";
+        returnstr += "</tr>";
+        returnstr += "<tr>";
+        returnstr += "<td>Anzahl der teilgenommen Schüler: </td>";
+        returnstr += "<td>" + Integer.toString(examAttendersCount) + "</td>";
+        returnstr += "</tr>";
+        returnstr += "<tr>";
+        returnstr += "<td>Lehrer: </td>";
+        returnstr += "<td>" + lehrer.get("ANREDE") + " " + lehrer.get("VORNAME") + " " + lehrer.get("NACHNAME") + "</td>";
+        returnstr += "</tr>";
+        returnstr += "</table>";
+
+        returnstr += "</div>";
+
+        // Rechte Spalte mit Notenstatistik
+        returnstr += "<div class='col-12 col-sm-12 col-md-6'>";
+        returnstr += "<table>";
+        returnstr += "<tr>";
+        returnstr += "<th>Note </th>";
+        returnstr += "<th>Anzahl </th>";
+        returnstr += "<th>Prozent </th>";
+        returnstr += "</tr>";
+        returnstr += "<tr>";
+        returnstr += "<td>1</td>";
+        returnstr += "<td>" + Integer.toString(noteEins) + " Schüler </td>";
+        returnstr += "<td>" + Integer.toString(prozentEins) + " %</td>";
+        returnstr += "</tr>";
+        returnstr += "<tr>";
+        returnstr += "<td>2</td>";
+        returnstr += "<td>" + Integer.toString(noteZwei) + " Schüler</td>";
+        returnstr += "<td>" + Integer.toString(prozentZwei) + " %</td>";
+        returnstr += "</tr>";
+        returnstr += "<tr>";
+        returnstr += "<td>3</td>";
+        returnstr += "<td>" + Integer.toString(noteDrei) + " Schüler</td>";
+        returnstr += "<td>" + Integer.toString(prozentDrei) + " %</td>";;
+        returnstr += "</tr>";
+        returnstr += "<tr>";
+        returnstr += "<td>4</td>";
+        returnstr += "<td>" + Integer.toString(noteVier) + " Schüler</td>";
+        returnstr += "<td>" + Integer.toString(prozentVier) + " %</td>";
+        returnstr += "</tr>";
+        returnstr += "<tr>";
+        returnstr += "<td>5</td>";
+        returnstr += "<td>" + Integer.toString(noteFünf) + " Schüler</td>";
+        returnstr += "<td>" + Integer.toString(prozentFünf) + " %</td>";
+        returnstr += "</tr>";
+        returnstr += "<tr>";
+        returnstr += "<td>6</td>";
+        returnstr += "<td>" + Integer.toString(noteSechs) + " Schüler</td>";
+        returnstr += "<td>" + Integer.toString(prozentSechs) + " %</td>";
+        returnstr += "</tr>";
+        returnstr += "</table>";
+        returnstr += "</div>";
+        returnstr += "</div>";
+
+        // Tabelle mit allen Schülernoten
+        returnstr += "<table style='margin-top: 50px;'>";
+        returnstr += "<tr>";
+        returnstr += "<th>Nr </th>";
+        returnstr += "<th>Nachname </th>";
+        returnstr += "<th>Vorname </th>";
+        returnstr += "<th>Note </th>";
+        returnstr += "</tr>";
+
+        for (int i = 1; i <= examSchueler.size(); i++) {
+            Map schueler = DB.DBConnector.getAnwenderdaten(Anwender.databasetablename, (String) examSchueler.get(i));
+            Map schuelernote = DB.DBConnector.getExamMarksId(examid, (String) examSchueler.get(i));
+
+            String vorname = (String) schueler.get("VORNAME");
+            String nachname = (String) schueler.get("NACHNAME");
+            int note = (Integer) schuelernote.get("NOTE");
+
+            returnstr += "<tr>";
+            returnstr += "<td>" + i + "</td>";
+            returnstr += "<td>" + nachname + "</td>";
+            returnstr += "<td>" + vorname + "</td>";
+            if (note == 0) {
+                returnstr += "<td>" + "nicht teilgenommen" + "</td>";
+            } else {
+                returnstr += "<td>" + Integer.toString(note) + "</td>";
+            }
+            returnstr += "</tr>";
         }
 
-        if (dbUpadteRollen) {
-            returnstr += "<p>Die Klassen konnten erfolgreich gewechselt werden</p>";
-        } else {
-            returnstr += "<p>Beim Speichern der Klassenwechsel ist ein Fehler unterlaufen, bitte überprüfen die Richtigkeit!</p>";
+        returnstr += "</table>";
+        returnstr += "</div>";
+
+        return returnstr;
+    }
+
+    public static String getSchuelerStatistik(String schueleremail) {
+        String returnstr = "";
+        Map schuelerdaten = DB.DBConnector.getAnwenderdaten(Anwender.databasetablename, schueleremail);
+        Map examarten = DB.DBConnector.getExamArten();
+        Map faecher = DB.DBConnector.getFaecher();
+        
+        Map examids = DB.DBConnector.getExamIdFromSchueler( (String) schuelerdaten.get("EMAIL"));
+        
+        Map<Integer, String> examIdArt = new HashMap<Integer, String>();
+        String examart = "";
+        
+        for (int i = 1; i <= examids.size(); i++) {
+            examart = DB.DBConnector.getExamArtFromId( (Integer) examids.get(i) );
+            // Exam-Id => Exam-art
+            examIdArt.put( (Integer) examids.get(i), examart);
         }
         
-        if (dbDeleteRollen) {
-            returnstr += "<p>Die entlassen Klassen konnten erfolgreich gelöscht werden</p>";
-        } else {
-            returnstr += "<p>Beim Löschen der entlassenen Klassen ist ein Fehler unterlaufen, bitte überprüfen die Richtigkeit!</p>";
+       
+
+        returnstr += "<h3>Statistik für " + schuelerdaten.get("VORNAME") + " " + schuelerdaten.get("NACHNAME") + "</h3>";
+
+        returnstr += "<table>";
+        // Tabellenheadline
+        returnstr += "<tr>";
+        returnstr += "<th>Fach</th>";
+        for (int i = 1; i <= examarten.size(); i++) {
+            returnstr += "<th>" + examarten.get(i) + "</th>";
         }
+        returnstr += "</tr>";
+
+        
+        examart = ""; // Reset Examart!
+        
+        // Tabellenrumpf
+        for (int j = 1; j <= faecher.size(); j++) {
+            String fach = (String) faecher.get(j);
+            
+            returnstr += "<tr>";
+            // Fach
+            returnstr += "<td>" + fach + "</td>";
+            
+            
+            for (int k = 1; k <= examarten.size(); k++) {
+                examart = (String) examarten.get(k);
+                
+                returnstr += "<td>";
+               
+                for ( Map.Entry<Integer,String> exam : examIdArt.entrySet() ) {
+                    int examid = exam.getKey();
+                    String art = exam.getValue();
+                    
+                    if (examart.equals(art)) {
+                        returnstr += Integer.toString(examid) + " | "; 
+                    }
+                }
+                
+                returnstr += "</td>";
+                
+            }
+            
+            returnstr += "</tr>";
+        }
+
+        returnstr += "</table>";
 
         return returnstr;
     }

@@ -138,9 +138,9 @@ Ionic Icons: https://useiconic.com/open/
                         if ( Boolean.parseBoolean(request.getParameter("classchange") ) ) {
 
                                 Map klassen = Notenblatt.getKlassenAsMap();
-                                Map <String, String> neueKlassenZuordnung = new HashMap<String, String>();
+                                Map neueKlassenZuordnung = new HashMap();
 
-                                for (int i = 1; i <= klassen.size(); i++) {
+                                for (int i = 0; i < klassen.size(); i++) {
                                     String alteKlasse = (String) klassen.get(i);
                                     if ( (alteKlasse != null)||(alteKlasse != "") ) {
                                         String neueKlasse = request.getParameter( (String) klassen.get(i) );

@@ -91,40 +91,6 @@ CREATE TABLE faecher (
   fach varchar(100) NOT NULL,
     PRIMARY KEY (fach) 
 );
-INSERT INTO faecher (fach) VALUES('Mathematik');
-INSERT INTO faecher (fach) VALUES('Deutsch');
-INSERT INTO faecher (fach) VALUES('Englisch');
-INSERT INTO faecher (fach) VALUES('Heimat und Sachunterricht');
-INSERT INTO faecher (fach) VALUES('Werken');
-INSERT INTO faecher (fach) VALUES('Kunst');
-INSERT INTO faecher (fach) VALUES('Religion');
-INSERT INTO faecher (fach) VALUES('Sport');
-INSERT INTO faecher (fach) VALUES('Musik');
-INSERT INTO faecher (fach) VALUES('Förderunterricht');
-INSERT INTO faecher (fach) VALUES('Ethik');
-INSERT INTO faecher (fach) VALUES('Werken ud Gestalten');
-
-
-CREATE TABLE pruefung (
-  id int(100) NOT NULL AUTO_INCREMENT,
-  lehrer varchar(200) NOT NULL,
-  art varchar(100) NOT NULL,
-  klasse varchar(100) NOT NULL,
-  fach varchar(100) NOT NULL,
-    PRIMARY KEY (id),
-    FOREIGN KEY (fach) REFERENCES faecher(fach),
-    FOREIGN KEY (klasse) REFERENCES rollennamen(rollenname),
-    FOREIGN KEY (lehrer) REFERENCES anwender(email)
-);
-
-CREATE TABLE pruefungsnoten (
-  note int NOT NULL,
-  pruefung int NOT NULL,
-  email varchar (200) NOT NULL,
-    PRIMARY KEY (pruefung, email),
-    FOREIGN KEY (email) REFERENCES anwender(email),
-    FOREIGN KEY (pruefung) REFERENCES pruefung(id)
-);
 
 INSERT INTO faecher (fach) VALUES('Mathematik');
 INSERT INTO faecher (fach) VALUES('Deutsch');
@@ -138,6 +104,47 @@ INSERT INTO faecher (fach) VALUES('Musik');
 INSERT INTO faecher (fach) VALUES('Förderunterricht');
 INSERT INTO faecher (fach) VALUES('Ethik');
 INSERT INTO faecher (fach) VALUES('Werken und Gestalten');
+
+SELECT fach FROM faecher;
+
+
+/* Prüfungsarten DB */
+CREATE TABLE pruefungsarten(
+    art varchar(100) NOT NULL,
+    PRIMARY KEY (art)
+);
+
+INSERT INTO pruefungsarten (art) VALUES('schriftlich Probe');
+INSERT INTO pruefungsarten (art) VALUES('mündliche Probe');
+INSERT INTO pruefungsarten (art) VALUES('praktische Probe');
+
+SELECT art FROM pruefungsarten;
+
+
+/* Prüfung DB */
+CREATE TABLE pruefung (
+  id int(100) NOT NULL AUTO_INCREMENT,
+  lehrer varchar(200) NOT NULL,
+  art varchar(100) NOT NULL,
+  klasse varchar(100) NOT NULL,
+  fach varchar(100) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (fach) REFERENCES faecher(fach),
+    FOREIGN KEY (klasse) REFERENCES rollennamen(rollenname),
+    FOREIGN KEY (lehrer) REFERENCES anwender(email),
+    FOREIGN KEY (art) REFERENCES pruefungsarten(art)
+);
+
+CREATE TABLE pruefungsnoten (
+  note int NOT NULL,
+  pruefung int NOT NULL,
+  email varchar (200) NOT NULL,
+    PRIMARY KEY (pruefung, email),
+    FOREIGN KEY (email) REFERENCES anwender(email),
+    FOREIGN KEY (pruefung) REFERENCES pruefung(id)
+);
+
+
 
 INSERT INTO pruefung(lehrer, art, klasse, fach) VALUES ('thomas.forstner2@stud.th-deg.de', 'Schulaufgabe','Klasse 4b','Mathematik');
 
@@ -162,7 +169,8 @@ CREATE TABLE pruefung (
     PRIMARY KEY (id),
     FOREIGN KEY (fach) REFERENCES faecher(fach),
     FOREIGN KEY (klasse) REFERENCES rollennamen(rollenname),
-    FOREIGN KEY (lehrer) REFERENCES anwender(email)
+    FOREIGN KEY (lehrer) REFERENCES anwender(email),
+    FOREIGN KEY (art) REFERENCES pruefungsarten(art)
 );
 
 

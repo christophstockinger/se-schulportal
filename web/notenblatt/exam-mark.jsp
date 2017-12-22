@@ -186,7 +186,7 @@ Ionic Icons: https://useiconic.com/open/
                             } else {
                                 out.println("<input type='hidden' name='examid' value='" + examid + "' />");
                                 out.println("<input type='hidden' name='klasse' value='" + klasse + "' />");
-                                out.println( Notenblatt.getExamMarkData(examid, klasse) );
+                                out.println( Notenblatt.getExamMarkFromDatabase(examid, klasse) );
                             }
                         %>
                         
