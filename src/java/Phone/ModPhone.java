@@ -25,16 +25,16 @@ public class ModPhone {
         return output;
     }
     
-    public static Map getAnwenderdataPhone(String name, String rolle) {
+   // public static Map getAnwenderdataPhone(String name, String rolle) {
          
-        Map anwenderdata = DB.DBConnector.getAnwenderdataPhone(name, rolle);
+       // Map anwenderdata = DB.DBConnector.getAnwenderdataPhone(name, rolle);
         
-        return anwenderdata;
-    }
+       // return anwenderdata;
+    //}
     
     public static String getAnwenderdataPhones(String name, String rolle) {
         
-        //String anwenderdaten = ModPhone.Map.getAnwederdataPhone("name", "rolle");
+       // anwenderdaten.getAnwederdataPhone("sname", "srolle");
         
         String anwenderdata = "";
         
@@ -43,7 +43,7 @@ public class ModPhone {
         anwenderdata += "<th>Name</th>" + "<th>Vorname</th>" + "<th>E-Mail</th>" + "<th>Telefonnummer</th>";
         anwenderdata += "</tr>";
         anwenderdata += "<tr>";
-        anwenderdata += "<td>" + "hallo" + "</td>" + "<td>" + "whats" + "</td>" + "<td>" + "whats" + "</td>" + "<td>" + "whats" + "</td>";
+        anwenderdata += "<td>" + "Name" + "</td>" + "<td>" + "Vorname" + "</td>" + "<td>" + "E-Mail" + "</td>" + "<td>" + "Tel.Nr." + "</td>";
         anwenderdata += "</tr>";
         anwenderdata += "</table>";
 

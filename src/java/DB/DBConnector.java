@@ -515,32 +515,38 @@ public class DBConnector {
      * @param email: E-Mail, welche Daten abgefragt werden
      * @return Map mit Spaltenüberschrift und Wert. Jeweils als String.
      */
-    public static Map getAnwenderdataPhone(String name, String rolle) {
+    /*public static Map getAnwenderdataPhone(String name, String rolle) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
-
+        
+        
         Statement statement = null;
         try {
             statement = javaDBConn.connect();
-            
-
-            ResultSet rs = statement.executeQuery("SELECT * FROM ANWENDER");
-            //+ " WHERE email = '" + email + "'");
-
-            Map<String, String> dbDataAnwender = new HashMap<String, String>();
-
-            ResultSetMetaData meta = rs.getMetaData();
-            int cols = meta.getColumnCount();
-            int rownum = 0;
-            while (rs.next()) {
-                rownum++;
-                for (int i = 0; i < cols; i++) {
-                    dbDataAnwender.put((String) meta.getColumnLabel(i + 1), (String) rs.getObject(i + 1));
-
+            ResultSet rs;
+            if(rolle == "alle"){
+                rs = statement.executeQuery("SELECT * FROM ANWENDER WHERE NACHNAME = '" + name + "'OR VORNAME ='" + name + "'");
+            }else {
+                rs = statement.executeQuery("SELECT EMAIL FROM ROLLE WHERE ROLLE = '" + rolle + "'");
+                
+                for(int i = 1; i <=  ; i++){
+                    rs = statement.executeQuery("SELECT * FROM ANWENDER WHERE EMAIL = '" +  + "'");
                 }
-            }
+                
+                Map<String, String> dbDataAnwender = new HashMap<String, String>();
 
-            return dbDataAnwender;
+                ResultSetMetaData meta = rs.getMetaData();
+                int cols = meta.getColumnCount();
+                int rownum = 0;
+                while (rs.next()) {
+                rownum++;
+                    for (int i = 0; i < cols; i++) {
+                        dbDataAnwender.put((String) meta.getColumnLabel(i + 1), (String) rs.getObject(i + 1));
+                    }
+                }
+                return dbDataAnwender;
+            }
+         
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -549,5 +555,5 @@ public class DBConnector {
             return null;
         }
 
-    }
+    }*/
 }

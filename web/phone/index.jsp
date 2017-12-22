@@ -136,17 +136,35 @@ Ionic Icons: https://useiconic.com/open/
                 </nav>
                 <div class="col-12 col-sm-12 modul_form">
                     <form>
+                        <h4>Suchen in Klassen</h4>
+                        <br>
+                        <h6>Klasse:</h6>
+                        <select id="klasse">
+                            <option value="alle">Alle Klassen</option>
+                            <option value="1a">1a</option>
+                            <option value="1b">1b</option>
+                            <option value="1c">1c</option>
+                            <option value="2a">2a</option>
+                            <option value="2b">2b</option>
+                            <option value="2c">2c</option>
+                            <option value="3a">3a</option>
+                            <option value="3b">3b</option>
+                            <option value="3c">3c</option>
+                            <option value="4a">4a</option>
+                            <option value="4b">4b</option>
+                            <option value="4c">4c</option>
+                        </select> 
+                        
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        
+                        <h4>Suchen nach Namen</h4>
+                        <br>
                         <h6>Name:</h6>
                         <input type="text" name="name" placeholder="Geben Sie hier den Namen ein..." id="name"/>
-                         
-                        <h6>Suche in:</h6>
-                        <select id="rolle">
-                            <option value="alle">Alle</option>
-                            <option value="schueler">Schüler</option>
-                            <option value="lehrer">Lehrer</option>
-                            <option value="mitarbeiter">Mitarbeiter</option>
-                        </select>             
-                          
+                        
                        <button type="button" class="button" onclick="search()">Suchen</button>
                     </form>
                 </div>             
@@ -171,9 +189,9 @@ Ionic Icons: https://useiconic.com/open/
             function search() {
                 console.log("Geklick");
                 var name = $('#name').val();
-                var rolle = $('#rolle').val();
+                var klasse = $('#klasse').val();
            
-                var url = "aufruf.jsp?name=" + name + "&rolle=" + rolle;
+                var url = "aufruf.jsp?name=" + name + "&rolle=" + klasse;
                 window.location.replace(url);
             }
         </script>
