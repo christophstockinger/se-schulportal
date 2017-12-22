@@ -1,91 +1,44 @@
 <%-- 
-    Document   : dashboard
-    Created on : 05.12.2017, 14:08:48
-    Author     : Christoph
+    Document   : edit
+    Created on : 20.12.2017, 15:23:39
+    Author     : fabianschene
 --%>
 
-<%@page import="java.util.Map"%>
-<%@page import="java.util.HashMap"%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Profile_edit.Edit"%>
+<%@page import="Modul_example.ModExample"%>
 <%@page import="anwender.Anwender"%>
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-
-<!--// 
-Know-How:
-Ionic Icons: https://useiconic.com/open/ 
-//-->
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    // Status Variablen sowie String Variable für Weiterleitung auf Login-Seite
-    Boolean loginstatus; // not init
-    Boolean verify;
+    // Status Variable sowie String Variable für Weiterleitung auf Login-Seite
+    Boolean loginstatus = (Boolean) session.getAttribute("login");
     String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
-
-    // User-Variablen
-    String email = request.getParameter("email"); // eingegebene E-Mail-Adresse
-    String password = request.getParameter("password"); // eingegebenes Passwort
+    
+    // User Variablen
+    String email = "fabian.schene@stud.th-deg.de";
+    String password = "";
     String anrede = "";
     String vorname = "";
     String nachname = "";
     String telefonnummer = "";
     Anwender user;
-
-    // Maps für Verifizierungsdaten und DB-Daten des Users
-    Map dbDataAnwenderVerify = new HashMap();
-    Map<String, String> dbDataAnwender = new HashMap<String, String>();
-    dbDataAnwenderVerify = Anwender.getVerifyData(email);
-    dbDataAnwender = Anwender.getLoginData(email); // Daten zur eingegeben E-Mail-Adresse aus der DB
-
-    //DB Verify data in Variablen aufteilen
-    Boolean verifymail = (Boolean) dbDataAnwenderVerify.get("VERIFYSTATUS_MAIL");
-    Boolean verifytel = (Boolean) dbDataAnwenderVerify.get("VERIFYSTATUS_TEL");
-    Boolean verifyadmin = (Boolean) dbDataAnwenderVerify.get("VERIFYSTATUS_ADMIN");
-
-    if ((verifymail == null) || (verifytel == null) || (verifyadmin == null)) {
-        verify = false;
-    } else {
-        verify = (verifymail) && (verifytel) && (verifyadmin);
-    }
-
-    // DB data in Variablen aufteilen
-    String dbanrede = (String) dbDataAnwender.get("ANREDE");
-    String dbvorname = (String) dbDataAnwender.get("VORNAME");
-    String dbnachname = (String) dbDataAnwender.get("NACHNAME");
-    String dbemail = (String) dbDataAnwender.get("EMAIL");
-    String dbtelefonnummer = (String) dbDataAnwender.get("TELEFONNUMMER");
-    String dbpassword = (String) dbDataAnwender.get("PASSWORT");
-
-    // Check ob Verifizierung abgeschlossen
-    if (verify) {
-        // Erfolgreich
-        // Setzen des Loginstatus wenn E-Mail und Password mit DB übereinstimmen
-        loginstatus = (dbemail.equals(email)) && (dbpassword.equals(password));
-
-        // Create a new User
-        user = new Anwender(dbanrede, dbvorname, dbnachname, dbemail, dbtelefonnummer, dbpassword);
-        // User Attribute global zur Verfügung zu stellen
-        anrede = user.getAnrede();
-        vorname = user.getVorname();
-        nachname = user.getNachname();
-        telefonnummer = user.getTelefonnummer();
-        email = user.getEmail();
-
-        session.setAttribute("user", user);
-
+    
+    if ( (Anwender) session.getAttribute("user")!= null ) {
+    // User-Variablen mit Session-Values
+    email = (String) ((Anwender) session.getAttribute("user")).getEmail();
+    password = (String) ((Anwender) session.getAttribute("user")).getPassword();
+    anrede = (String) ((Anwender) session.getAttribute("user")).getAnrede();
+    vorname = (String) ((Anwender) session.getAttribute("user")).getVorname();
+    nachname = (String) ((Anwender) session.getAttribute("user")).getNachname();
+    telefonnummer = (String) ((Anwender) session.getAttribute("user")).getTelefonnummer();
+    
     } else {
         loginstatus = false;
     }
-
-    session.setAttribute("login", loginstatus);
-    // For Development!!
-    session.setAttribute("email", email);
-%>
+    
+    %>
 
 
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -94,9 +47,9 @@ Ionic Icons: https://useiconic.com/open/
         <title>Dashboard | Schulportal</title>
 
         <meta name="description" content=""/>
-        <meta name="author" content="Coding77 // Christoph Stockinger"/>
-        <meta name="publisher" content="Coding77 // Christoph Stockinger"/>
-        <meta name="copyright" content="&copy; Coding77 // Christoph Stockinger"/>
+        <meta name="author" content="Fabian Schene"/>
+        <meta name="publisher" content="Fabian Schene"/>
+        <meta name="copyright" content="&copy; Fabian Schene"/>
         <meta name="version" content="1.0"/>
 
 
@@ -124,6 +77,8 @@ Ionic Icons: https://useiconic.com/open/
         <link href="/se-schulportal/templates/thd-schulportal/css/cs-reset.css" rel="stylesheet" type="text/css" media="all">
         <!--// CSS Bootstrap Grid //-->
         <link href="/se-schulportal/templates/thd-schulportal/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" media="all">
+
+        <link href="/se-schulportal/templates/thd-schulportal/css/open-ionic.min.css" rel="stylesheet" type="text/css">
         <!--// CSS Main //-->
         <link href="/se-schulportal/templates/thd-schulportal/css/main.css" rel="stylesheet" type="text/css" media="all">
 
@@ -131,9 +86,9 @@ Ionic Icons: https://useiconic.com/open/
     </head>
     <body>
         <%
-            if (loginstatus == false) {
-                out.println(loginpage);
-            } %>
+            //if ( loginstatus == false) {
+            //    out.println(loginpage);
+         //   } %>
         <header class="row">
             <div class="col-2 col-sm-1 nav_burger" >
                 <img data="#main_navigation" class="navicon nav_burger_image" src="/se-schulportal/images/icons/menu.svg" alt="Navigation öffnen" />
@@ -144,31 +99,58 @@ Ionic Icons: https://useiconic.com/open/
                 </a>
             </div>
             <div class="col-2 col-sm-1 user">
-                <%
-                    out.println("<img data='#user_navigation' class='navicon user_image' src='/se-schulportal/images/user/user-dummy.svg' alt='Userbild' />");
-                %>
+                <img data="#user_navigation" class="navicon user_image" src="/se-schulportal/images/user/user-dummy.svg" alt="Userbild" />
             </div>
             <div class="col-2 col-sm-1 logout">
-                <a href='/se-schulportal/'>
-                    <img class='logout_image' src='/se-schulportal/images/icons/account-logout.svg' alt='Abmelden' />
+                <a href="/se-schulportal/">
+                    <img class="logout_image" src="/se-schulportal/images/icons/account-logout.svg" alt="Abmelden" />
                 </a>
             </div>
         </header>
         <!--// Main Navigation //-->
         <nav class="main_navi" id="main_navigation" >
-            <%
+           <%
                 user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
                 out.println(user.getNavigation());
             %>
         </nav>
-        <!--// Main Dashboard //-->
+        <!--// Main Modul //-->
         <main>
-            <div class="row dashboard">
-                <%
-                    user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
-                    out.println(user.getDashboard());
-                %>
-            </div>
+            <div class="row modul">
+                <div class="col-12 col-sm-12 modul_headline">
+                    <h2><% out.println(Edit.modulname ); %></h2>
+                </div>
+                <div class="col-12 col-sm-12 modul_description">
+                    <p><% out.println(Edit.moduldesc ); %></p>
+                </div>
+                <nav class="col-12 col-sm-12 modul_nav">
+                    <% out.println(Edit.getSubNavigation() ); %>
+                </nav>
+                <div class="col-12 col-sm-12 modul_form">
+                    <h3>Formularname</h3>
+                    <form>
+                        <%
+                            user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
+                            String profilOutput;
+                            profilOutput= "<form>";
+                            profilOutput+= "<input type='text' id='ar' name='anrede' value='"+anrede+"' />";
+                            profilOutput+= "<input type='text' id='vn' name='vorname' value='"+vorname+"' />";
+                            profilOutput+= "<input type='text' id='nn' name='nachname' value='"+nachname+"' />";
+                            profilOutput+= "<input type='text' id='em' name='email' value='"+email+"' />";
+                            profilOutput+= "<input type='text' id='tn' name='telefonnummer' value='"+telefonnummer+"' />";
+                            profilOutput+= "</form>";
+                            out.println(profilOutput);
+                        %>
+                        <select>
+                            <option>Herr</option>
+                            <option> </option>
+                        </select>
+                        <div class="radio"><input type="radio" name=""> <label>A</label></div>
+                        <div class="checkbox"><input type="checkbox" name=""> <label>B</label></div>
+                        
+                        <button onclick='absenden()'>Absenden</button>
+                    </form>
+                </div>
         </main>
         <!--// User Navigation //-->
         <nav class="user_navi" id="user_navigation">
@@ -178,16 +160,30 @@ Ionic Icons: https://useiconic.com/open/
                 out.println(user.getUserNavigation());
             %>
         </nav>
-
+        
         <!--// Footer //-->
         <footer class="row">
             <div class="col-12 col-sm-6 imprint"><a href="/se-schulportal/impressum.html">Impressum</a></div>
             <div class="col-12 col-sm-6 copyright"><p>&copy 2017 THD - Christoph Stockinger</p></div>
         </footer>
-        <!--// Javascript & jQuery //-->
+        
+        <script type="text/javascript">
+            function absenden(){
+                var ar=$('#ar').val();
+                var vn=$('#vn').val();
+                var nn=$('#nn').val();
+                var em=$('#em').val();
+                var tn=$('#tn').val();
+                var url="absendenerfolgreich.jsp?ar="+ar+"&vn="+vn+"&nn="+nn+"&em="+em+"&tn="+tn;
+                window.location.replace(url);
+            }
+            
+        </script>
+    <!--// Javascript & jQuery //-->
         <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/func.js" type="text/javascript"></script>
 
     </body>
 </html>
+

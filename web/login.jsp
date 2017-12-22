@@ -92,7 +92,7 @@ Erstellt am 14.11.2017 von Christoph Stockinger
                 if (loginstatus) {
                     // Create Navigation
                     out.println("<nav>");
-                    out.println("<p class='welcome'>Hallo " + session.getAttribute("anrede") + " " + session.getAttribute("vorname") + " " + session.getAttribute("nachname") + " | <a href='/schulportal/' >Abmelden</a></p>");
+                    out.println("<p class='welcome'>Hallo " + session.getAttribute("anrede") + " " + session.getAttribute("vorname") + " " + session.getAttribute("nachname") + " | <a href='/se-schulportal/' >Abmelden</a></p>");
                     out.println("<ul>");
                     // Für Schüler
 
