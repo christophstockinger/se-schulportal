@@ -3,7 +3,7 @@ Im Rahmen der Vorlesung Software Engineering entwicklen 10 Studenten ein Schulpo
 Dabei wurden folgende Module implementiert:
 ### Notenblatt
 #### Anforderungen
-Dieses Modul dient zur Erfassung von Schulnoten der Schüler für ein Schulerjahr. Zudem soll es eine Funktion für die Verwaltung, welche anschließend Zeugnisse bzw. Notenübersicht eines Schülers erstellen kann.
+Dieses Modul dient zur Erfassung von Schulnoten der Schüler für ein Schuljahr. Zudem soll es eine Funktion für die Verwaltung, welche anschließend Zeugnisse bzw. Notenübersicht eines Schülers erstellen kann.
 
 #### Umsetzung
 Um die Schülerdaten (Klasse 1 bis 4) in das Schulportal zu importieren, nutzen wir CSV Dateien mit den Schülernamen sowie Telefonnummern. Aus diesen Daten wird dann automatische eine E-Mail-Adresse generiert.
