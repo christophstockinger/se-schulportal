@@ -8,16 +8,18 @@ Dieses Modul dient zur Erfassung von Schulnoten der Schüler für ein Schulerjah
 #### Umsetzung
 Um die Schülerdaten (Klasse 1 bis 4) in das Schulportal zu importieren, nutzen wir CSV Dateien mit den Schülernamen sowie Telefonnummern. Aus diesen Daten wird dann automatische eine E-Mail-Adresse generiert.
 In einem weiteren Part kann ein Lehrer eine geschriebene Prüfung erstellen und anschließend den jeweiligen Schülern der Prüfung, welcher eine Klasse zugeordnet ist, die Noten eintragen und speichern.
-Im weiteren Part gibt es dann die Export-Funktion, welche eine PDF Datei mit Noten eines Schülers erstellt.
+Die Umsetzung der Exportfunktionen ist für die kurze Zeit und weiteren Projekten gecancelt worden. (Jedoch vorgemerkt!) Zudem wurde die Klassenwechsel-Funktion auch gecancelt, das die ursprüngliche Idee nicht funktioniet und zu Fehlern führen kann.
+Jedoch haben wir jetzt noch Statistiken für eine Probe sowie für einen Schüler mitaufgenommen und umgesetzt.
 
 #### Probleme und ggf. Lösungsansätze
 + Nichtteilnahme eines Schülers (z. B.: wegen Krankheit): Wird als nicht teilgenommen (Status 0) eingetragen und später bei der Berechnung nicht berücksichtigt
 + Schuljahrwechsel: Es soll eine Funktion geben, welche eine Klasse in eine andere Klasse überträgt und bei den jeweiligen Schülern die Rolle ändert
 + Mehrfaches Vorkommen von Schülernamen kann zu Probleme mit gleicher nicht möglicher E-Mail-Adresse führen: Es wird eine Laufzahl beim erster gleichvorkommener E-Mail-Adresse angehängt, welche sich bei weiteren immer um eins erhöht.
 + Mit geben der Klasse beim Import. Lösung basiert nun auf einer Klassenübersicht am Anfang, wo ein Parameter mitgegeben wird und dieser auch im Form-Tag weiterverarbeitet wird und beim speichern und eintragen der Datei in die DB ausgelesen wird. (Kombination aus GET und POST)
++ Idee des Klassenwechsel kann im schlimmsten Fall zu einer "Entlassung" aller Schüler führen. Aktuell keinen Idee für einen neuen Lösungsansatz
 
 #### Fehler
-+ Truncation-Fehler beim Datenbank-Eintrag von der CSV-Datei. Dieser Fehler tritt bei der E-Mail-Adresse auf. (noch nicht genauer untersucht.)
+
 
 ---------------------------------------
 
