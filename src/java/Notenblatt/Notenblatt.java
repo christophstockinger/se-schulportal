@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.LineNumberReader;
+import java.security.SecureRandom;
 import java.util.*;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.fileupload.*;
@@ -40,51 +41,55 @@ public class Notenblatt implements Interfaces.IModul {
      */
     public static String getSubNavigation(String email) {
         Map userrollen = new HashMap(); // Integer und String
-        String output = "";
+        String returnstr = "";
 
         if (email != null) {
             userrollen = DBConnector.getAnwenderRollen(email); // For Development: Parameter email aktuell hardgecoded!
 
             if (userrollen.size() == 0) {
-                output += "Keine Berechtigung!!";
+                returnstr += "Keine Berechtigung!!";
             } else {
                 for (int i = 1; i <= userrollen.size(); i++) {
                     if (userrollen.get(i).equals("Admin")) {
-                        output += "<ul>";
-                        output += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
-                        output += "<li> <a href='exam.jsp'>Probe anlegen</a> </li>";
-                        // output += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
-                        output += "</ul>";
+                        returnstr += "<ul>";
+                        returnstr += "<li>Berechtigungen als " + userrollen.get(i) + ":</li>";
+                        returnstr += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
+                        returnstr += "<li> <a href='exam.jsp'>Probe anlegen</a> </li>";
+                        // returnstr += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
+                        returnstr += "</ul>";
                     }
                     if (userrollen.get(i).equals("Rektor")) {
-                        output += "<ul>";
-                        output += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
-                        output += "<li> <a href='exam.jsp'>Probe anlegen</a> </li>";
-                        // output += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
-                        output += "</ul>";
+                        returnstr += "<ul>";
+                        returnstr += "<li>Berechtigungen als " + userrollen.get(i) + ":</li>";
+                        returnstr += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
+                        returnstr += "<li> <a href='exam.jsp'>Probe anlegen</a> </li>";
+                        // returnstr += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
+                        returnstr += "</ul>";
                     }
                     if (userrollen.get(i).equals("Personal")) {
-                        output += "<ul>";
-                        output += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
-                        // output += "<li> <a href='exam.jsp'>Probe anlegen</a> </li>";
-                        // output += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
-                        output += "</ul>";
+                        returnstr += "<ul>";
+                        returnstr += "<li>Berechtigungen als " + userrollen.get(i) + ":</li>";
+                        returnstr += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
+                        // returnstr += "<li> <a href='exam.jsp'>Probe anlegen</a> </li>";
+                        // returnstr += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
+                        returnstr += "</ul>";
                     }
                     if (userrollen.get(i).equals("Lehrer")) {
-                        output += "<ul>";
-                        output += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
-                        output += "<li> <a href='exam.jsp'>Probe anlegen</a> </li>";
-                        // output += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
-                        output += "</ul>";
+                        returnstr += "<ul>";
+                        returnstr += "<li>Berechtigungen als " + userrollen.get(i) + ":</li>";
+                        //returnstr += "<li> <a href='klassen.jsp'>Klassenübersicht</a> </li>";
+                        returnstr += "<li> <a href='exam.jsp'>Probe anlegen</a> </li>";
+                        // returnstr += "<li> <a href='classchange.jsp'>Klassenwechsel</a> </li>";
+                        returnstr += "</ul>";
                     }
                 }
             }
         } else {
             userrollen.put(0, "Keine Berechtigungen");
-            output += userrollen.get(0);
+            returnstr += userrollen.get(0);
         }
 
-        return output;
+        return returnstr;
     }
 
     @Override
@@ -185,7 +190,7 @@ public class Notenblatt implements Interfaces.IModul {
 
         for (int i = 1; i <= alleRollen.size(); i++) {
             if (((String) alleRollen.get(i)).contains("Klasse")) {
-                anwenderCount = DB.DBConnector.getAnwenderCount((String) alleRollen.get(i));
+                anwenderCount = Notenblatt.getSchuelerCount( (String) alleRollen.get(i));
 
                 returnstr += "<tr>";
                 returnstr += "<td>" + alleRollen.get(i) + "</td>";
@@ -331,24 +336,37 @@ public class Notenblatt implements Interfaces.IModul {
 
                 // Variablen
                 String anrede = daten[0];
-                String vorname = daten[1];
-                String nachname = daten[2];
+                String vorname = daten[2];
+                String nachname = daten[1];
                 String telefonnummer = daten[3];
                 String email = "";
-
+                
+                // Telefonnummer umwandeln
+                if ( (telefonnummer.substring(1,1)).equals("0") ) {
+                telefonnummer = telefonnummer.substring(1, telefonnummer.length());
+                telefonnummer = "+49" + telefonnummer;
+                }
                 // Password generieren
-                String password = "kafjdka";
+                String password = createPassword(15);
 
                 // E-Mail-Adresse generieren
-                String tmpEmail = vorname + "." + nachname + "@schule.de";
+                String tmpEmail = vorname.toLowerCase() + "." + nachname.toLowerCase() + "@schule.de";
+                
+                // Umlaute parsen
+                tmpEmail = tmpEmail.replace("ö", "oe");
+                tmpEmail = tmpEmail.replace("ä", "ae");
+                tmpEmail = tmpEmail.replace("ü", "ue");
+                tmpEmail = tmpEmail.replace("ß", "ss");
+                tmpEmail = tmpEmail.replace(" ", "-");
 
                 Boolean tmpEmailUsed = Anwender.CheckEmailInDatabase(tmpEmail);
                 int i = 1;
                 Boolean schleifenstatus = true;
-                while (schleifenstatus) {
+                while (!tmpEmailUsed) {
                     if (tmpEmailUsed == false) {
                         email = tmpEmail;
                         schleifenstatus = false;
+                        break;
                     } else {
                         tmpEmail = vorname + "." + nachname + i + "@schule.de";
                         tmpEmailUsed = Anwender.CheckEmailInDatabase(tmpEmail);
@@ -385,7 +403,7 @@ public class Notenblatt implements Interfaces.IModul {
 
                     System.out.println("DB Insert Verify: " + dbinsertverify);
                     if (dbinsertverify) {
-                        returnstr += "<p>Der Schüler" + vorname + " " + nachname + " konnte erfolgreich verifiziert werden.<p>";
+                        returnstr += "<p>Der Schüler " + vorname + " " + nachname + " konnte erfolgreich verifiziert werden.<p>";
                     } else {
                         returnstr += "<p style='alert'>Die Verifizierung von Schüler " + vorname + " " + nachname + " ist nicht erfolgreich erfolgt!</p>";
                     }
@@ -414,7 +432,8 @@ public class Notenblatt implements Interfaces.IModul {
      */
     public static String getKlassenSchuelerOverview(String klasse) {
         String returnstr = "";
-        Map klassenschueler = DB.DBConnector.getAnwenderFromRolle(klasse);
+        Map klassenschueler = Notenblatt.getSchuelerOfAKlasse(klasse);
+       
         if (klassenschueler.size() == 0) {
             returnstr += "<p>Der Klasse sind keine Schüler zugeordnet! Sie müssen erst Schüler importieren.</p>";
         } else {
@@ -481,7 +500,8 @@ public class Notenblatt implements Interfaces.IModul {
         returnstr += "<select required name='fach' id='fach'>";
         returnstr += "<option>Fach auswählen</option>";
         for (int i = 1; i <= faecher.size(); i++) {
-            returnstr += "<option value='" + faecher.get(i) + "'>" + faecher.get(i) + "</option>";
+            String ausgabe = ( (String) faecher.get(i) ).replace("oe", "ö").replace("ae", "ä").replace("ue", "ü");
+            returnstr += "<option value='" + faecher.get(i) + "'>" + ausgabe + "</option>";
 
         }
         returnstr += "</select>";
@@ -501,7 +521,8 @@ public class Notenblatt implements Interfaces.IModul {
         returnstr += "<select required name='art' id='art'>";
         returnstr += "<option >Probenart auswählen</option>";
         for (int i = 1; i <= examarten.size(); i++) {
-            returnstr += "<option value='" + examarten.get(i) + "'>" + examarten.get(i) + "</option>";
+            String ausgabe = ( (String) examarten.get(i)) .replace("ue", "ü").replace("oe", "ö").replace("ae", "ä");
+            returnstr += "<option value='" + examarten.get(i) + "'>" + ausgabe + "</option>";
         }
         returnstr += "</select>";
 
@@ -541,7 +562,8 @@ public class Notenblatt implements Interfaces.IModul {
      */
     public static String getKlassenSchuelerForm(String klasse) {
         String returnstr = "";
-        Map klassenschueler = DB.DBConnector.getAnwenderFromRolle(klasse);
+        
+        Map klassenschueler = Notenblatt.getSchuelerOfAKlasse(klasse);
 
         if (klassenschueler.size() == 0) {
             returnstr += "<p>Der Klasse sind keine Schüler zugeordnet! Sie müssen erst Schüler importieren.</p>";
@@ -660,8 +682,8 @@ public class Notenblatt implements Interfaces.IModul {
                         System.out.println("Examdata: " + examdata.size());
                         returnstr += "<tr>";
                         returnstr += "<td>" + Integer.toString(exam.get(j)) + "</td>";
-                        returnstr += "<td>" + examdata.get("FACH") + "</td>";
-                        returnstr += "<td>" + examdata.get("ART") + "</td>";
+                        returnstr += "<td>" + ( (String) examdata.get("FACH") ).replace("oe", "ö").replace("ae", "ä").replace("ue", "ü") + "</td>";
+                        returnstr += "<td>" + ( (String) examdata.get("ART") ).replace("oe", "ö").replace("ae", "ä").replace("ue", "ü" ) + "</td>";
                         returnstr += "<td>" + examdata.get("KLASSE") + "</td>";
                         returnstr += "<td><a class='button' href='exam-mark.jsp?examid=" + Integer.toString(exam.get(j)) + "'><img src='/se-schulportal/images/icons/brush-white.svg' alt=''>Noten bearbeiten</a>";
                         returnstr += "<a class='button' href='examstatistik.jsp?examid=" + Integer.toString(exam.get(j)) + "'><img src='/se-schulportal/images/icons/pie-chart-white.svg' alt=''> Probenstatistik </a></td>";
@@ -693,8 +715,8 @@ public class Notenblatt implements Interfaces.IModul {
 
                         returnstr += "<tr>";
                         returnstr += "<td>" + Integer.toString(exam.get(j)) + "</td>";
-                        returnstr += "<td>" + examdata.get("FACH") + "</td>";
-                        returnstr += "<td>" + examdata.get("ART") + "</td>";
+                        returnstr += "<td>" + ( (String) examdata.get("FACH") ).replace("oe", "ö").replace("ae", "ä").replace("ue", "ü") + "</td>";
+                        returnstr += "<td>" + ( (String) examdata.get("ART") ).replace("oe", "ö").replace("ae", "ä").replace("ue", "ü" ) + "</td>";
                         returnstr += "<td>" + examdata.get("KLASSE") + "</td>";
                         returnstr += "<td><a class='button' href='exam-mark.jsp?examid=" + Integer.toString(exam.get(j)) + "'><img src='/se-schulportal/images/icons/brush-white.svg' alt=''>Noten bearbeiten</a>";
                         returnstr += "<a class='button' href='examstatistik.jsp?examid=" + Integer.toString(exam.get(j)) + "'><img src='/se-schulportal/images/icons/pie-chart-white.svg' alt=''> Probenstatistik </a></td>";
@@ -862,20 +884,35 @@ public class Notenblatt implements Interfaces.IModul {
         int year = 1900 + examdate.getYear();
         Map lehrer = DB.DBConnector.getAnwenderdaten(Anwender.databasetablename, (String) examdata.get("LEHRER"));
         int examAttendersCount = DB.DBConnector.getExamAttendersCount(examid);
+        
+        int noteEins, noteZwei, noteDrei, noteVier, noteFuenf, noteSechs, prozentEins, prozentZwei, prozentDrei, prozentVier, prozentFuenf, prozentSechs;
 
-        int noteEins = DB.DBConnector.getExamMarkCount(examid, 1);
-        int noteZwei = DB.DBConnector.getExamMarkCount(examid, 2);
-        int noteDrei = DB.DBConnector.getExamMarkCount(examid, 3);
-        int noteVier = DB.DBConnector.getExamMarkCount(examid, 4);
-        int noteFünf = DB.DBConnector.getExamMarkCount(examid, 5);
-        int noteSechs = DB.DBConnector.getExamMarkCount(examid, 6);
+        noteEins = DB.DBConnector.getExamMarkCount(examid, 1);
+        noteZwei = DB.DBConnector.getExamMarkCount(examid, 2);
+        noteDrei = DB.DBConnector.getExamMarkCount(examid, 3);
+        noteVier = DB.DBConnector.getExamMarkCount(examid, 4);
+        noteFuenf = DB.DBConnector.getExamMarkCount(examid, 5);
+        noteSechs = DB.DBConnector.getExamMarkCount(examid, 6);
 
-        int prozentEins = (noteEins * 100) / examAttendersCount;
-        int prozentZwei = (noteZwei * 100) / examAttendersCount;
-        int prozentDrei = (noteDrei * 100) / examAttendersCount;
-        int prozentVier = (noteVier * 100) / examAttendersCount;
-        int prozentFünf = (noteFünf * 100) / examAttendersCount;
-        int prozentSechs = (noteSechs * 100) / examAttendersCount;
+        if (examAttendersCount != 0) {
+            prozentEins = (noteEins * 100) / examAttendersCount;
+            prozentZwei = (noteZwei * 100) / examAttendersCount;
+            prozentDrei = (noteDrei * 100) / examAttendersCount;
+            prozentVier = (noteVier * 100) / examAttendersCount;
+            prozentFuenf = (noteFuenf * 100) / examAttendersCount;
+            prozentSechs = (noteSechs * 100) / examAttendersCount;
+        } else {
+            prozentEins = 0;
+            prozentZwei = 0;
+            prozentDrei = 0;
+            prozentVier = 0;
+            prozentFuenf = 0;
+            prozentSechs = 0;
+        }
+        
+        int notensumme = ( 1 * noteEins ) + ( 2 * noteZwei ) + ( 3 * noteDrei ) + ( 4 * noteVier ) + (5 * noteFuenf) + ( 6 * noteSechs);
+        double durchschnitt  = Double.parseDouble( Integer.toString(notensumme) ) / Double.parseDouble(  Integer.toString(examAttendersCount) );
+        durchschnitt = Math.round(durchschnitt * 100) / 100.0;
 
         Map examSchueler = DB.DBConnector.getExamMarkSchueler(examid);
 
@@ -892,23 +929,27 @@ public class Notenblatt implements Interfaces.IModul {
         returnstr += "</tr>";
         returnstr += "<tr>";
         returnstr += "<td>Fach: </td>";
-        returnstr += "<td>" + examdata.get("FACH") + "</td>";
+        returnstr += "<td>" + ( (String) examdata.get("FACH") ).replace("oe", "ö").replace("ae", "ä").replace("ue", "ü") + "</td>";
         returnstr += "</tr>";
         returnstr += "<tr>";
         returnstr += "<td>Art: </td>";
-        returnstr += "<td>" + examdata.get("ART") + "</td>";
+        returnstr += "<td>" + ( (String) examdata.get("ART") ).replace("oe", "ö").replace("ae", "ä").replace("ue", "ü") + "</td>";
         returnstr += "</tr>";
         returnstr += "<tr>";
         returnstr += "<td>Klasse: </td>";
         returnstr += "<td>" + examdata.get("KLASSE") + "</td>";
         returnstr += "</tr>";
         returnstr += "<tr>";
+        returnstr += "<td>Lehrer: </td>";
+        returnstr += "<td>" + lehrer.get("ANREDE") + " " + lehrer.get("VORNAME") + " " + lehrer.get("NACHNAME") + "</td>";
+        returnstr += "</tr>";
+        returnstr += "<tr>";
         returnstr += "<td>Anzahl der teilgenommen Schüler: </td>";
         returnstr += "<td>" + Integer.toString(examAttendersCount) + "</td>";
         returnstr += "</tr>";
         returnstr += "<tr>";
-        returnstr += "<td>Lehrer: </td>";
-        returnstr += "<td>" + lehrer.get("ANREDE") + " " + lehrer.get("VORNAME") + " " + lehrer.get("NACHNAME") + "</td>";
+        returnstr += "<td>Durchschnitt: </td>";
+        returnstr += "<td>" + (Double.toString(durchschnitt)).replace(".", ",") + "</td>";
         returnstr += "</tr>";
         returnstr += "</table>";
 
@@ -944,8 +985,8 @@ public class Notenblatt implements Interfaces.IModul {
         returnstr += "</tr>";
         returnstr += "<tr>";
         returnstr += "<td>5</td>";
-        returnstr += "<td>" + Integer.toString(noteFünf) + " Schüler</td>";
-        returnstr += "<td>" + Integer.toString(prozentFünf) + " %</td>";
+        returnstr += "<td>" + Integer.toString(noteFuenf) + " Schüler</td>";
+        returnstr += "<td>" + Integer.toString(prozentFuenf) + " %</td>";
         returnstr += "</tr>";
         returnstr += "<tr>";
         returnstr += "<td>6</td>";
@@ -991,8 +1032,14 @@ public class Notenblatt implements Interfaces.IModul {
         return returnstr;
     }
 
+    /**
+     * Methode zur Ausgabe der Schülernotenstatistik mit allen Fächern und Noten
+     * @param schueleremail E-Mail-Adresse des Schülers
+     * @return String mit HTML-Konstrukt
+     */
     public static String getSchuelerStatistik(String schueleremail) {
         String returnstr = "";
+        int notensumme, examsumme;
         Map schuelerdaten = DB.DBConnector.getAnwenderdaten(Anwender.databasetablename, schueleremail);
         Map examarten = DB.DBConnector.getExamArten();
         Map faecher = DB.DBConnector.getFaecher();
@@ -1017,8 +1064,9 @@ public class Notenblatt implements Interfaces.IModul {
         returnstr += "<tr>";
         returnstr += "<th>Fach</th>";
         for (int i = 1; i <= examarten.size(); i++) {
-            returnstr += "<th>" + examarten.get(i) + "</th>";
+            returnstr += "<th>" + ( (String) examarten.get(i) ).replace("oe", "ö").replace("ae", "ä").replace("ue", "ü") + "</th>";
         }
+        returnstr += "<th>Durchschnitt</th>";
         returnstr += "</tr>";
 
         
@@ -1026,13 +1074,16 @@ public class Notenblatt implements Interfaces.IModul {
         
         // Tabellenrumpf
         for (int j = 1; j <= faecher.size(); j++) {
+            // Reset Durchschnittberechnungsvariablen
+            notensumme = 0;
+            examsumme = 0;
+            
             String fach = (String) faecher.get(j);
             
             returnstr += "<tr>";
             // Fach
-            returnstr += "<td>" + fach + "</td>";
-            
-            
+            returnstr += "<td>" + fach.replace("oe", "ö").replace("ae", "ä").replace("ue", "ü") + "</td>";
+
             for (int k = 1; k <= examarten.size(); k++) {
                 examart = (String) examarten.get(k);
                 
@@ -1042,20 +1093,76 @@ public class Notenblatt implements Interfaces.IModul {
                     int examid = exam.getKey();
                     String art = exam.getValue();
                     
-                    if (examart.equals(art)) {
-                        returnstr += Integer.toString(examid) + " | "; 
+                    String examfach = DB.DBConnector.getExamFachWithId(examid);
+                    
+                    if (fach.equals(examfach)) {
+                    
+                        if (examart.equals(art)) {
+                            int note = DB.DBConnector.getExamMarkOfExamIdFromSchueler(examid, schueleremail);
+                            returnstr += Integer.toString(note);
+                            returnstr += " | "; 
+                            
+                            notensumme += note;
+                            examsumme += 1;
+                        }
                     }
                 }
                 
                 returnstr += "</td>";
-                
             }
-            
+            if (examsumme == 0) {
+                returnstr += "<td>Es sind keine Prüfungen angelegt!</td>";
+            } else {
+                double durchschnitt = Double.parseDouble( Integer.toString(notensumme) ) / Double.parseDouble(  Integer.toString(examsumme) );
+                durchschnitt = Math.round(durchschnitt * 100) / 100.0;
+                returnstr += "<td>" + (Double.toString(durchschnitt)).replace(".", ",") + "</td>";
+            }
             returnstr += "</tr>";
         }
 
         returnstr += "</table>";
 
         return returnstr;
+    }
+    
+    /**
+     * Methode die ein zufälliges Passwort generiert
+     * @param length Die maximale Länge des Passwort
+     * @return 
+     */
+    public static String createPassword(int length){
+        final String allowedChars = "0123456789abcdefghijklmnopqrstuvwABCDEFGHIJKLMNOP!§$%&?*+#";
+        SecureRandom random = new SecureRandom();
+        StringBuilder pass = new StringBuilder(length);
+        for (int i = 0; i < length; i++) {
+            pass.append(allowedChars.charAt(random.nextInt(allowedChars.length())));
+        }
+        return pass.toString();
+    }
+    
+    /**
+     * Methode um alle Schüler einer speziellen Klassen-Rolle zu bekommen
+     * @param klasse spezielle Klassen Rolle
+     * @return Map mit allen Schülern dieser Klasse
+     */
+    public static Map getSchuelerOfAKlasse(String klasse) {
+        Map alleSchueler = DB.DBConnector.getAnwenderFromRolle("Schüler");
+        Map klassenschueler = new HashMap();
+        int c = 1;
+        for (int d = 1; d <= alleSchueler.size(); d++ ){
+             String kschueler = DB.DBConnector.getAnwenderFromRolleAndAnwender( klasse, (String) alleSchueler.get(d) );
+             if ( !(kschueler.equals("")) ) {
+                 klassenschueler.put(c, kschueler);
+                 c++;
+             }
+        }
+        
+        return klassenschueler;
+    }
+    
+    public static Integer getSchuelerCount(String klasse) {
+        Map klassenschueler = Notenblatt.getSchuelerOfAKlasse( klasse );
+        
+        return klassenschueler.size();
     }
 }
