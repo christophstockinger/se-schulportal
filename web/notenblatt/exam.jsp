@@ -26,7 +26,7 @@ Ionic Icons: https://useiconic.com/open/
     String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
     
     // User Variablen
-    String email = "christoph.stockinger@stud.th-deg.de" ; // For Development: hardgecoded normalerweise (String) session.getAttribute("email")
+    String email = (String) session.getAttribute("email");
     String password = "";
     String anrede = "";
     String vorname = "";
@@ -63,22 +63,22 @@ Ionic Icons: https://useiconic.com/open/
 
 
         <!--// Favicon //-->
-        <link rel="apple-touch-icon" sizes="57x57" href="/schulportal/images/favicon/apple-icon-57x57.png">
-        <link rel="apple-touch-icon" sizes="60x60" href="/schulportal/images/favicon/apple-icon-60x60.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="/schulportal/images/favicon/apple-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="/schulportal/images/favicon/apple-icon-76x76.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="/schulportal/images/favicon/apple-icon-114x114.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="/schulportal/images/favicon/apple-icon-120x120.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="/schulportal/images/favicon/apple-icon-144x144.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="/schulportal/images/favicon/apple-icon-152x152.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="/schulportal/images/favicon/apple-icon-180x180.png">
-        <link rel="icon" type="image/png" sizes="192x192" href="/schulportal/images/favicon/android-icon-192x192.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/schulportal/images/favicon/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="96x96" href="/schulportal/images/favicon/favicon-96x96.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/schulportal/images/favicon/favicon-16x16.png">
-        <link rel="manifest" href="/schulportal/images/favicon/manifest.json">
+        <link rel="apple-touch-icon" sizes="57x57" href="/se-schulportal/images/favicon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/se-schulportal/images/favicon/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/se-schulportal/images/favicon/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/se-schulportal/images/favicon/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/se-schulportal/images/favicon/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/se-schulportal/images/favicon/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/se-schulportal/images/favicon/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/se-schulportal/images/favicon/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/se-schulportal/images/favicon/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="/se-schulportal/images/favicon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/se-schulportal/images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/se-schulportal/images/favicon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/se-schulportal/images/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/se-schulportal/images/favicon/manifest.json">
         <meta name="msapplication-TileColor" content="#ffffff">
-        <meta name="msapplication-TileImage" content="/schulportal/images/favicon/ms-icon-144x144.png">
+        <meta name="msapplication-TileImage" content="/se-schulportal/images/favicon/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
 
         <!--// CSS //-->
@@ -101,7 +101,7 @@ Ionic Icons: https://useiconic.com/open/
                 <img data="#main_navigation" class="navicon nav_burger_image" src="/se-schulportal/images/icons/menu.svg" alt="Navigation öffnen" />
             </div>
             <div class="col-6 col-sm-9 brand">
-                <a href="/schulportal/dashboard.jsp">
+                <a href="/se-schulportal/dashboard.jsp">
                     <img class="brand_image" src="/se-schulportal/images/logo/schullogo.svg" alt="Schulportal" />
                 </a>
             </div>
@@ -109,7 +109,7 @@ Ionic Icons: https://useiconic.com/open/
                 <img data="#user_navigation" class="navicon user_image" src="/se-schulportal/images/user/user-dummy.svg" alt="Userbild" />
             </div>
             <div class="col-2 col-sm-1 logout">
-                <a href="/schulportal/">
+                <a href="/se-schulportal/">
                     <img class="logout_image" src="/se-schulportal/images/icons/account-logout.svg" alt="Abmelden" />
                 </a>
             </div>
@@ -140,9 +140,10 @@ Ionic Icons: https://useiconic.com/open/
                                 int examid = Integer.parseInt( request.getParameter("examid") );
                                 String klasse = request.getParameter("klasse");
 
-                                Map klassenschueler = DB.DBConnector.getAnwenderFromRolle(klasse);
-                                Map <String, Integer> schuelernote = new HashMap<String, Integer>();
-
+                                
+                                Map klassenschueler = Notenblatt.getSchulerOfAKlasse(klasse);
+                                Map schuelernote = new HashMap();
+                                
                                 for (int i = 1; i <= klassenschueler.size(); i++) {
                                     int note = Integer.parseInt( request.getParameter( (String) klassenschueler.get(i) ));
                                     System.out.println( (String) klassenschueler.get(i)+ " | " + note );
@@ -155,8 +156,8 @@ Ionic Icons: https://useiconic.com/open/
                                 int examid = Integer.parseInt( request.getParameter("examid") );
                                 String klasse = request.getParameter("klasse");
 
-                                Map klassenschueler = DB.DBConnector.getAnwenderFromRolle(klasse);
-                                Map <String, Integer> schuelernote = new HashMap<String, Integer>();
+                                Map klassenschueler = Notenblatt.getSchulerOfAKlasse(klasse);
+                                Map schuelernote = new HashMap();
 
                                 for (int i = 1; i <= klassenschueler.size(); i++) {
                                     int note = Integer.parseInt( request.getParameter( (String) klassenschueler.get(i) ));

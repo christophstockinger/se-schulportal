@@ -24,7 +24,7 @@ Ionic Icons: https://useiconic.com/open/
     String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
     
     // User Variablen
-    String email = "christoph.stockinger@stud.th-deg.de" ; // For Development: hardgecoded normalerweise (String) session.getAttribute("email")
+    String email = (String) session.getAttribute("email");
     String password = "";
     String anrede = "";
     String vorname = "";
