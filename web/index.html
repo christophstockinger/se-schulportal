@@ -24,10 +24,10 @@ Erstellt am 14.11.2017 von Christoph Stockinger
                 </div>
                 <div class="col-12 col-sm-12 form_login">
                     <h3>Herzlich Willkommen</h3>
-                    <form>
-                        <input type="email" name="email" placeholder="E-Mail-Adresse" id="email" />
-                        <input type="password" name="password" placeholder="Password" id="password" />
-                        <button type="button" class="button" onclick='login()'>Anmelden</button>
+                    <form method="GET" action="dashboard.jsp">
+                        <input required type="email" name="email" placeholder="E-Mail-Adresse" id="email" />
+                        <input required type="password" name="password" placeholder="Password" id="password" />
+                        <button type="submit" class="button">Anmelden</button>
                     </form>
                 </div>
                 <div class='col-12 col-sm-12 form_register'>
