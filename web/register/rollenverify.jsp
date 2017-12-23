@@ -47,16 +47,7 @@
                         anwenderrollen.put(i, (String) request.getParameter("rolle" + i));
                     }
 
-                    Boolean rollenwrite = DBConnector.writeAnwenderRollen(email, anwenderrollen);
-
-                    if (rollenwrite) {
-                        out.println("<p>Deine Rollen wurden vermerkt und gespeichert.</p>");
-                        out.println("<p>Sobald ihr Account freigeschaltet ist, bekommen Sie eine E-Mail von uns.</p>");
-                        // Send E-Mail to Administration
-                        Verify.sendVerifySMSMailAdmin(email, anwenderrollen);
-                    } else {
-                        out.println("<p>Leider ist ein Fehler unterlaufen, bitte melde dich bei support@schulsportal.de.</p>");
-                    }
+                   out.println( Verify.rollenVerify(email, anwenderrollen) );
                 %>
                 </div>
             </div>

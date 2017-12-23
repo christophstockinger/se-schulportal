@@ -38,85 +38,47 @@ Erstellt am 14.11.2017 von Christoph Stockinger
                 <div class='col-12 col-sm-12 form_register'>
                     <h3>Registrierung</h3>
                     <%
+                        String setButton = request.getParameter("register");
+                        if ( Boolean.parseBoolean( (String) setButton) ) {
                         String anr = request.getParameter("anrede");
-                        session.setAttribute("anrede", anr);
                         String vn = request.getParameter("vorname");
-                        session.setAttribute("vorname", vn);
                         String nn = request.getParameter("nachname");
-                        session.setAttribute("nachname", nn);
                         String tel = request.getParameter("telefonnummer");
-                        if (tel == null) {
-
-                        } else {
-                            tel = tel.substring(1, tel.length());
-                            tel = "+49" + tel;
-                            System.out.println(tel);
-                        }
-                        session.setAttribute("telefonnummer", tel);
                         String em = request.getParameter("email");
-                        session.setAttribute("email", em);
                         String pw = request.getParameter("password");
-                        session.setAttribute("password", pw);
+                        
+                        out.println( Verify.anwenderRegister(anr, vn, nn, tel, em, pw) );
+                        
+                        } else {
 
-                        if ((vn == null) || (nn == null) || (em == null) || (tel == null) || (pw == null) || (anr == null)) {
-                            // Parameter nicht vorhanden!
                     %>
 
-                    <form>
+                    <form method="GET" action="register.jsp" >
                         <h4>Persönliche Daten</h4>
                         <select name="anrede" class="anrede" id="anrede">
                             <option value="Frau"> Frau</option>
                             <option value="Herr"> Herr</option>
                         </select>
-                        <input type="text" name="vorname" placeholder="Vorname" id="vorname" />
-                        <input type="text" name="nachname" placeholder="Nachname" id="nachname" />
-                        <input type="text" name="telefonnumer" placeholder="Handynummer" id="telefonnummer" />
+                        <input required type="text" name="vorname" placeholder="Vorname" id="vorname" />
+                        <input required type="text" name="nachname" placeholder="Nachname" id="nachname" />
+                        <input required type="text" name="telefonnummer" placeholder="Handynummer" id="telefonnummer" />
                         <h4>Anmeldedaten</h4>
-                        <input type="email" name="email" placeholder="E-Mail-Adresse" id="email" />
-                        <input type="password" name="password" placeholder="Password" id="password" />
+                        <input required type="email" name="email" placeholder="E-Mail-Adresse" id="email" />
+                        <input required type="password" name="password" placeholder="Password" id="password" />
 
-                        <button type="button" class="button" onclick="register()">Registrieren</button>
+                        <button type="submit" class="button" name="register" value="true">Registrieren</button>
                     </form>
                     <%
-                        } else {
-                            // Parameter vorhanden!
-                            anr = (String) session.getAttribute("anrede");
-                            vn = (String) session.getAttribute("vorname");
-                            nn = (String) session.getAttribute("nachname");
-                            tel = (String) session.getAttribute("telefonnummer");
-                            em = (String) session.getAttribute("email");
-                            pw = (String) session.getAttribute("password");
-
-                            // Database Insert
-                            Boolean dbinsert = DBConnector.writeRegistryAnwenderData(Anwender.databasetablename, anr, vn, nn, tel, em, pw);
-                            Boolean dbverifyinsert = DBConnector.writeAnwenderVerify(em, false, false, false);
-                            // Für Testzwecke!!!
-                            // Boolean dbinsert = true;
-                            // Boolean dbverifyinsert = true;
-                            if (dbinsert) {
-                                out.println("<p>Deine Daten konnten erfolgreich verarbeitet werden.</p>");
-
-                                // Mailversand.
-                                if (dbverifyinsert) {
-                                    // Mail versenden
-                                    String feedbackverifymail = Verify.sendVerfifyMail(anr, vn, nn, em);
-
-                                    // Feedback
-                                    out.println("<p>" + feedbackverifymail + "</p>");
-                                } else {
-                                    // Falls Verify-Einträge nicht in DB geschrieben wurden!
-                                    System.out.println("Verify Eintrag Error!");
-                                }
-                            } else {
-                                // Falls User-Einträge nicht in DB geschrieben wurden!
-                                out.println("<p>Leider ist bei der Datenverarbeitung ein Fehler unterlaufen! Bitte versuche dich erneut zu registrieren.</p>");
-                            }
                         }
-                    %>
+%>
                 </div>
             </div>
         </main>
-        <footer><p>&copy; 2017 Christoph Stockinger</p></footer>
+        <!--// Footer //-->
+        <footer class="row">
+            <div class="col-12 col-sm-6 imprint"><a href="/se-schulportal/impressum.html">Impressum</a></div>
+            <div class="col-12 col-sm-6 copyright"><p>&copy 2017 THD - Christoph Stockinger</p></div>
+        </footer>
 
         <!--// Javascript & jQuery //-->
         <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>

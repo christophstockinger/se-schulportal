@@ -38,96 +38,14 @@
                 <%
                     // Get Parameter
                     String status = request.getParameter("status");
-                    session.setAttribute("status", status);
                     String email = request.getParameter("email");
-                    session.setAttribute("email", email);
-                    
-                    System.out.println("Status: " + status);
-                    System.out.println("EMail " + email);
-                    System.out.println(status == "freizugeben");
-                    System.out.println(status == "delete");
-                    System.out.println(status == "freigabe");
-
-                    Map anwenderdata;
-                    Map anwenderrollen;
-                    // Standardausgabe
-                    if (status.equals("freizugeben") ) {
-                        // Get Anwenderdaten
-                        anwenderdata = DBConnector.getAnwenderdaten(Anwender.databasetablename, email);
-                        System.out.println("Ich bin drin!");
-                        // Get Rollen
-                        anwenderrollen = DBConnector.getAnwenderRollen((String) session.getAttribute("email"));
+                    String rolle = request.getParameter("rolle");
 
 
-                        out.println("<form><p class='textleft'>Folgender neuer Benutzer muss freigegeben werden:</p>");
-                        out.println("<p class='textleft'> Vorname: " + anwenderdata.get("VORNAME") + "</p>");
-                        out.println("<p class='textleft'> Nachname: " + anwenderdata.get("NACHNAME") + "</p>");
-                        out.println("<p class='textleft'> E-Mail: <span id='email'>" + anwenderdata.get("EMAIL") + "</span></p>");
-                        out.println("<p class='textleft'> Telefonnummer: " + anwenderdata.get("TELEFONNUMMER") + "</p>");
-                        if (anwenderrollen == null) {
-                            out.println("<p class='textleft'>Leider wurden keine Rollen gefunden.</p>");
-                        } else {
-                            out.println("<div class='rollen'><p>Der User beantragt folgende <span id='anzahl'>" + anwenderrollen.size() + "</span> Rollen:</p>");
-                            out.println("<ul>");
-                            for (int i = 1; i <= anwenderrollen.size(); i++) {
-                                out.println("<li>" + anwenderrollen.get(i) + "<button id='rolle-" + i + "' value=\"" + anwenderrollen.get(i) + "\" onclick=\"deleterolle('" + anwenderrollen.get(i) + "')\" class='deletebtn'><img src='/schulportal/images/icons/trash.svg' alt='Löschen' /></button></li>");
-                            }
-                        }
-                        out.println("</ul></div>");
-                        out.println("<button class='button' onclick=\"admin()\">Benutzer freigeben</button>");
-                        out.println("</form>");
-
+                    if (status != null) {
+                        out.println(Verify.adminVerify(email, status ,rolle) );
                     } else {
-
-                        // Delete User Rolle
-                        if (status.equals("delete")) {
-
-                            // Delete Rolle
-                            String rolle = request.getParameter("rolle");
-                            String deletefeedback = DBConnector.deleteAnwenderRolle((String) session.getAttribute("email"), rolle);
-
-                            // Get Anwenderdaten
-                            anwenderdata = DBConnector.getAnwenderdaten(Anwender.databasetablename, (String) session.getAttribute("email"));
-
-                            // Get Rollen
-                            anwenderrollen = DBConnector.getAnwenderRollen((String) session.getAttribute("email"));
-
-                            out.println("<form><p class='textleft'>Folgender neuer Benutzer muss freigegeben werden:</p>");
-                            out.println("<p class='textleft'> Vorname: " + anwenderdata.get("VORNAME") + "</p>");
-                            out.println("<p class='textleft'> Nachname: " + anwenderdata.get("NACHNAME") + "</p>");
-                            out.println("<p class='textleft'> E-Mail: <span id='email'>" + anwenderdata.get("EMAIL") + "</span></p>");
-                            out.println("<p class='textleft'> Telefonnummer: " + anwenderdata.get("TELEFONNUMMER") + "</p>");
-                            if (anwenderrollen == null) {
-                                out.println("<p class='textleft'>Leider wurden keine Rollen gefunden.</p>");
-                            } else {
-                                out.println("<div class='rollen'><p>Der User beantragt folgende <span id='anzahl'>" + anwenderrollen.size() + "</span> Rollen:</p>");
-                                out.println("<ul>");
-                                for (int i = 1; i <= anwenderrollen.size(); i++) {
-                                    out.println("<li>" + anwenderrollen.get(i) + "<button id='rolle-" + i + "' value=\"" + anwenderrollen.get(i) + "\" onclick=\"deleterolle('" + anwenderrollen.get(i) + "')\" class='deletebtn'><img src='/schulportal/images/icons/trash.svg' alt='Löschen' /></button></li>");
-                                }
-                            }
-                            out.println("</ul></div>");
-                            out.println("<button class='button' onclick=\"admin()\">Benutzer freigeben</button>");
-                            }   
-
-                        // Freigabe User
-                        if (status.equals("freigabe")) {
-                            // Get Anwenderdaten
-                            anwenderdata = DBConnector.getAnwenderdaten(Anwender.databasetablename, (String) session.getAttribute("email"));
-                            
-                            // SET VerifyAdmin in Database
-                            Boolean adminverify = DBConnector.writeAnwenderVerifystatusAdmin((String) session.getAttribute("email"), "true");
-                            String freigabefeedback;
-                            if (adminverify) {
-                            // Send Verifymail User
-                                freigabefeedback = Verify.sendVerifySMSMailUser((String) anwenderdata.get("ANREDE"), (String) anwenderdata.get("VORNAME"), (String) anwenderdata.get("NACHNAME"), (String) session.getAttribute("email"));
-                            } else {
-                                freigabefeedback = "Leider ist etwas schief gelaufen. Bitte melde sich bei support@schulportal.de";
-                            }
-                           
-                            out.println("<p>" + freigabefeedback + "</p>");
-                        }
-
+                        out.println("<p>Es ist ein Fehler aufgetreten. Bitte wende dich an den Administrator.</p>");
                     }
                 %>
                 </div>

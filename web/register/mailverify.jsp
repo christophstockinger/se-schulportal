@@ -37,42 +37,9 @@
                     <h3>Verifizierung</h3>
                     <%
                         String email = request.getParameter("email");
-                        session.setAttribute("email", email);
-                        Boolean verifymail = DBConnector.writeAnwenderVerifystatusMail((String) session.getAttribute("email"), "true");
-
-                        if (verifymail) {
-                            // E-Mail Verify successful
-                            out.println("<p>Deine E-Mail-Adresse ist nun authentifiziert.</p>");
-
-                            // Telefonnummer Verify
-                            // Powered by Nexmo
-                            out.println("<form><h4>Telefon-Authentifizierung</h4>");
-
-                            // GET Telefonnummer
-                            Map anwenderdata = DBConnector.getAnwenderdaten(Anwender.databasetablename, (String) session.getAttribute("email"));
-                            String tel = (String) anwenderdata.get("telefonnummer");
-
-                            // Create PIN
-                            Verify.setVerifySMSCode();
-                            // Pin bekommen
-                            int pin = Verify.getVerifySMSCode();
-
-                            // Create Message
-                            String message = "Dein Authentifizierungscode für deine Handynummer " + tel + " lautet: " + pin;
-                            System.out.println("Message: " + message);
-                            // Send SMS                            
-                            SMSSender.sendSMS(tel, message);
-
-                            out.println("<p>Wir haben Ihnen soeben an ihre Handynummer eine SMS mit einem PIN gesendet.</p>");
-
-                            out.println("<input type='number' name='pineingabe' id='userpin'>");
-                            out.println("<input type='hidden' value='" + email + "' name='email' id='email'>");
-                            out.println("<button type='button' class='button' onclick=\"pin()\">Absenden</button>");
-                            out.println("</form>");
-
-                            session.setAttribute("versuch", 0);
-
-                        }
+                        out.println( Verify.mailVerify(email) );
+                        
+                        session.setAttribute("versuch", 0);
                     %>
                 </div>
             </div>
