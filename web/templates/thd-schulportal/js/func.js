@@ -67,8 +67,10 @@ function rollen() {
 }
 
 function deleterolle(rolle) {
+    console.log("Rolle: " + rolle);
     var email = $('#email').html();
     var url = "adminverify.jsp?email=" + email + "&status=delete&rolle=" + rolle;
+    console.log(url);
     window.location.replace(url);
 }
 
