@@ -127,7 +127,7 @@ public class Anwender implements DBKonstanten {
                 if ((rollen.get(i)).equals("Admin")) {
                     naviOutput += "<li>";
                     naviOutput += "<a href=\"#\">";
-                    naviOutput += "<img class=\"icon\" src=\"/schulportal/images/icons/location-white.svg\">";
+                    naviOutput += "<img class=\"icon\" src=\"/se-schulportal/images/icons/location-white.svg\">";
                     naviOutput += "<span>KFZ-Kennzeichen</span>";
                     naviOutput += "</a>";
                     naviOutput += "</li>";
@@ -136,8 +136,8 @@ public class Anwender implements DBKonstanten {
                 // Notenblatt
                 if ((rollen.get(i)).equals("Admin") || (rollen.get(i)).equals("Rektor") || (rollen.get(i)).equals("Personal") || (rollen.get(i)).equals("Lehrer")) {
                     naviOutput += "<li>";
-                    naviOutput += "<a href=\"#\">";
-                    naviOutput += "<img class=\"icon\" src=\"/schulportal/images/icons/graph-white.svg\">";
+                    naviOutput += "<a href='/se-schulportal/notenblatt/'>";
+                    naviOutput += "<img class=\"icon\" src=\"/se-schulportal/images/icons/graph-white.svg\">";
                     naviOutput += "<span>Notenblatt</span>";
                     naviOutput += "</a>";
                     naviOutput += "</li>";
@@ -147,7 +147,7 @@ public class Anwender implements DBKonstanten {
                 if ((rollen.get(i)).equals("Admin")) {
                     naviOutput += "<li>";
                     naviOutput += "<a href=\"#\">";
-                    naviOutput += "<img class=\"icon\" src=\"/schulportal/images/icons/phone-white.svg\">";
+                    naviOutput += "<img class=\"icon\" src=\"/se-schulportal/images/icons/phone-white.svg\">";
                     naviOutput += "<span>Telefonbuch</span>";
                     naviOutput += "</a>";
                     naviOutput += "</li>";
@@ -157,7 +157,7 @@ public class Anwender implements DBKonstanten {
                 if ((rollen.get(i)).equals("Admin")) {
                     naviOutput += "<li>";
                     naviOutput += "<a href=\"#\">";
-                    naviOutput += "<img class=\"icon\" src=\"/schulportal/images/icons/calendar-white.svg\">";
+                    naviOutput += "<img class=\"icon\" src=\"/se-schulportal/images/icons/calendar-white.svg\">";
                     naviOutput += "<span>Terminkalender</span>";
                     naviOutput += "</a>";
                     naviOutput += "</li>";
@@ -166,7 +166,7 @@ public class Anwender implements DBKonstanten {
                 if ((rollen.get(i)).equals("Admin")) {
                     naviOutput += "<li>";
                     naviOutput += "<a href=\"#\">";
-                    naviOutput += "<img class=\"icon\" src=\"/schulportal/images/icons/comment-square-white.svg\">";
+                    naviOutput += "<img class=\"icon\" src=\"/se-schulportal/images/icons/comment-square-white.svg\">";
                     naviOutput += "<span>Nachrichten</span>";
                     naviOutput += "</a>";
                     naviOutput += "</li>";
@@ -192,8 +192,8 @@ public class Anwender implements DBKonstanten {
                 // Modul PKW
                 if ((rollen.get(i)).equals("Admin")) {
                     dashboardOutput += "<div class='col-12 col-sm-6 col-md-4 col-lg-3 dashboard_modul_image'>";
-                    dashboardOutput += "<a href='/schulportal/modul_example/'>";
-                    dashboardOutput += "<img src='/schulportal/images/module/modul_dummy.svg' alt='Modul Dummy' />";
+                    dashboardOutput += "<a href='/se-schulportal/modul_example/'>";
+                    dashboardOutput += "<img src='/se-schulportal/images/module/modul_dummy.svg' alt='Modul Dummy' />";
                     dashboardOutput += "</a>";
                     dashboardOutput += "</div>";
                 }
@@ -202,7 +202,7 @@ public class Anwender implements DBKonstanten {
                 if ((rollen.get(i)).equals("Admin") || (rollen.get(i)).equals("Rektor") || (rollen.get(i)).equals("Personal") || (rollen.get(i)).equals("Lehrer")) {
                     dashboardOutput += "<div class='col-12 col-sm-6 col-md-4 col-lg-3 dashboard_modul_image'>";
                     dashboardOutput += "<a href='#'>";
-                    dashboardOutput += "<img src='/schulportal/images/module/modul_dummy.svg' alt='Modul Dummy' />";
+                    dashboardOutput += "<img src='/se-schulportal/images/module/modul_dummy.svg' alt='Modul Dummy' />";
                     dashboardOutput += "</a>";
                     dashboardOutput += "</div>";
                 }
@@ -211,7 +211,7 @@ public class Anwender implements DBKonstanten {
                 if ((rollen.get(i)).equals("Admin")) {
                     dashboardOutput += "<div class='col-12 col-sm-6 col-md-4 col-lg-3 dashboard_modul_image'>";
                     dashboardOutput += "<a href='#'>";
-                    dashboardOutput += "<img src='/schulportal/images/module/modul_dummy.svg' alt='Modul Dummy' />";
+                    dashboardOutput += "<img src='/se-schulportal/images/module/modul_dummy.svg' alt='Modul Dummy' />";
                     dashboardOutput += "</a>";
                     dashboardOutput += "</div>";
                 }
@@ -220,7 +220,7 @@ public class Anwender implements DBKonstanten {
                 if ((rollen.get(i)).equals("Admin")) {
                     dashboardOutput += "<div class='col-12 col-sm-6 col-md-4 col-lg-3 dashboard_modul_image'>";
                     dashboardOutput += "<a href='#'>";
-                    dashboardOutput += "<img src='/schulportal/images/module/modul_dummy.svg' alt='Modul Dummy' />";
+                    dashboardOutput += "<img src='/se-schulportal/images/module/modul_dummy.svg' alt='Modul Dummy' />";
                     dashboardOutput += "</a>";
                     dashboardOutput += "</div>";
                 }
@@ -228,7 +228,7 @@ public class Anwender implements DBKonstanten {
                 if ((rollen.get(i)).equals("Admin")) {
                     dashboardOutput += "<div class='col-12 col-sm-6 col-md-4 col-lg-3 dashboard_modul_image'>";
                     dashboardOutput += "<a href='#'>";
-                    dashboardOutput += "<img src='/schulportal/images/module/modul_dummy.svg' alt='Modul Dummy' />";
+                    dashboardOutput += "<img src='/se-schulportal/images/module/modul_dummy.svg' alt='Modul Dummy' />";
                     dashboardOutput += "</a>";
                     dashboardOutput += "</div>";
                 }
@@ -242,10 +242,10 @@ public class Anwender implements DBKonstanten {
         String userNaviOutput = "";
         userNaviOutput += "<ul>";
         userNaviOutput += "<li>";
-        userNaviOutput += "<a href='#'> <img class='icon' src='/schulportal/images/icons/person.svg'> <span>Profil bearbeiten</span> </a>";
+        userNaviOutput += "<a href='#'> <img class='icon' src='/se-schulportal/images/icons/person.svg'> <span>Profil bearbeiten</span> </a>";
         userNaviOutput += "</li>";
         userNaviOutput += "<li>";
-        userNaviOutput += "<a href='#'> <img class='icon' src='/schulportal/images/icons/comment-square.svg'> <span>Nachrichten</span> </a>";
+        userNaviOutput += "<a href='#'> <img class='icon' src='/se-schulportal/images/icons/comment-square.svg'> <span>Nachrichten</span> </a>";
         userNaviOutput += "</li>";
         userNaviOutput += "</ul>";
 
