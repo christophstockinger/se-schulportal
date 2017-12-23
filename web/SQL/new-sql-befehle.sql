@@ -101,7 +101,7 @@ INSERT INTO faecher (fach) VALUES('Kunst');
 INSERT INTO faecher (fach) VALUES('Religion');
 INSERT INTO faecher (fach) VALUES('Sport');
 INSERT INTO faecher (fach) VALUES('Musik');
-INSERT INTO faecher (fach) VALUES('Förderunterricht');
+INSERT INTO faecher (fach) VALUES('Foerderunterricht');
 INSERT INTO faecher (fach) VALUES('Ethik');
 INSERT INTO faecher (fach) VALUES('Werken und Gestalten');
 
@@ -115,7 +115,7 @@ CREATE TABLE pruefungsarten(
 );
 
 INSERT INTO pruefungsarten (art) VALUES('schriftlich Probe');
-INSERT INTO pruefungsarten (art) VALUES('mündliche Probe');
+INSERT INTO pruefungsarten (art) VALUES('muendliche Probe');
 INSERT INTO pruefungsarten (art) VALUES('praktische Probe');
 
 SELECT art FROM pruefungsarten;
