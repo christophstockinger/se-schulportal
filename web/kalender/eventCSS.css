@@ -1,0 +1,20 @@
+.menu{
+    margin: 20px 0 20px 0;
+}
+
+.menupunkt{
+    font-size: 12pt;
+    margin: 0 10% 0 10%;
+}
+
+.hinzu{
+    margin-top: 20px;
+}
+
+.termine, .heute{
+    margin-top: 20px;
+}
+
+#form_hinzu{
+    display: none;
+}

@@ -22,9 +22,9 @@ Erstellt am 14.11.2017 von Christoph Stockinger
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
         <!--// CSS //-->
-        <link href="templates/thd-schulportal/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" media="all" />
-        <link href="templates/thd-schulportal/css/cs-reset.css" rel="stylesheet" type="text/css" media="all" />
-        <link href="templates/thd-schulportal/css/main-old.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="/se-schulportal/templates/thd-schulportal/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="/se-schulportal/templates/thd-schulportal/css/cs-reset.css" rel="stylesheet" type="text/css" media="all" />
+        <link href="/se-schulportal/templates/thd-schulportal/css/main-old.css" rel="stylesheet" type="text/css" media="all" />
 
     </head>
     <body>
@@ -124,8 +124,8 @@ Erstellt am 14.11.2017 von Christoph Stockinger
         <footer><p>&copy; 2017 Christoph Stockinger</p></footer>
 
         <!--// Javascript & jQuery //-->
-        <script src="templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-        <script src="templates/thd-schulportal/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="templates/thd-schulportal/js/func.js" type="text/javascript"></script>
+        <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+        <script src="/se-schulportal/templates/thd-schulportal/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/se-schulportal/templates/thd-schulportal/js/func.js" type="text/javascript"></script>
     </body>
 </html>

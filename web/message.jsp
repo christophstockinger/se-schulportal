@@ -58,7 +58,7 @@
             <button type="button" onclick="sms()">SMS versenden</button>
         </div>
         </main>
-        <script src="templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+        <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script type="text/javascript">
             var empfaengerliste = [];
             empfaengerliste[0] = [];
