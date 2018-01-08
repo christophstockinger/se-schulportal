@@ -17,11 +17,16 @@ import com.nexmo.client.auth.TokenAuthMethod;
 
 /**
  *
- * @author gotzwinterfeldt
+ * @author lgraml, mwitzlsperger
  */
 public class SMSSender {
     // create the HttpURLConnection
-
+    
+    /**
+     * Methode zum Senden von SMS
+     * @param empfaenger Nummer des Nachrichtenziels (Nummer des Epfängers)
+     * @param message Inhalt der Nachricht
+     */
     public static void sendSMS(String empfaenger, String message) {
         try {
             AuthMethod auth = new TokenAuthMethod("dae3d3bf","27d45ac64cd4d222" );

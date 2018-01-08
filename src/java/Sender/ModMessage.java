@@ -13,7 +13,7 @@ import java.util.Map;
  * 
  * @author mwitzlsperger & lgraml
  * 
- * Java-Klasse für Nachrichten senden (SMS & EMail)
+ * Java-Klasse zum Nachrichten senden (SMS & EMail)
  */
 public class ModMessage {
     

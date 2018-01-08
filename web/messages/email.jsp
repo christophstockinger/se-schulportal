@@ -102,9 +102,12 @@ Ionic Icons: https://useiconic.com/open/
     </head>
     <body>
 
-        <%            /*if ( loginstatus == false) {
+        <%
+            /*
+            if ( loginstatus == false) {
                 out.println(loginpage);
-            } */
+            }
+            */
         %>
         <header class="row">
             <div class="col-2 col-sm-1 nav_burger" >
@@ -126,7 +129,8 @@ Ionic Icons: https://useiconic.com/open/
         </header>
         <!--// Main Navigation //-->
         <nav class="main_navi" id="main_navigation" >
-            <%               user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
+            <%
+                user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
                 out.println(user.getNavigation());
             %>
         </nav>
@@ -147,9 +151,7 @@ Ionic Icons: https://useiconic.com/open/
                     <form method="get" action="mailsuccess.jsp">
                         <%
                             // Ausgelagert in ModMessage-Funktion, da alle Logik in dieser Java-Datei
-
                             out.println(ModMessage.getEmailForm());
-                            // JS-Code in funct.js auslagern .. in /templates/...
                         %>
                     </form>
                 </div>
@@ -228,10 +230,6 @@ Ionic Icons: https://useiconic.com/open/
                     }
                 }
             );
-    
-            /*$(document).ready(function() {
-                $('#summernote').summernote();
-            });*/
         </script>
     </body>
 </html>
