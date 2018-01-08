@@ -70,7 +70,7 @@
         
         <form method="get" action="kfzSucces.jsp">
         <input type="text" name="kennzeichen" placeholder="KFZ-Kennzeichen" id="kennzeichen">
-        <input type="submit" value="Hinzufügen"/>
+        <input class="button" type="submit" value="Hinzufügen"/>
         </form>
         
         

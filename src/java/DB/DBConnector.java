@@ -508,4 +508,48 @@ public class DBConnector {
             return "";
         }
     }
+    
+    /**
+     * Methode zum Eintrag eines Anwenders
+     * @param tblname Die einzutragende Datenbanktabelle
+     * @param anr Anrede des neuen Anwenders
+     * @param vn Vorname des neues Anwenders
+     * @param nn Nachname des neuen Anwenders
+     * @param tel Telefonnummer des neuen Anwenders mit führender +49 (führende 0 wurde entfernt)
+     * @param em E-Mail-Adresse des neuen Anwenders
+     * @param pw ungehashtes Passwort des neuen Anwenders
+     * @return Boolean-Value <br>true: bei erfolgreichem Eintrag<br>alse: bei nicht erfolgreichem Eintrag
+     */
+    public static Boolean writeKennzeichenData(String tblname, String knz, String mail) {
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+        
+
+        try {
+            
+            statement = javaDBConn.connect();
+            
+         
+            statement.executeUpdate("UPDATE " + tblname + " SET Kennzeichen = '" + knz + "' WHERE email='"+mail+"'");
+
+            return true;
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return false;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+    }
+    
+    
 }
+
+

@@ -15,7 +15,7 @@ public class KfzMod {
     
     public static String modulname = "Modulbeispiel";
     public static String moduldesc = "Hier könnte eventuell noch ein Text zur Modulerklärung stehen. <br>Muss aber nicht sein"; // Zeilenumbruch mit <br>-Tag erzeugen, da es in einen <p>-Tag gerendert wird.
-    
+    public static String databasetablename = "Nummernschild";
     public KfzMod() {}
     
     public static String getSubNavigation() {

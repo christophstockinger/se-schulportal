@@ -52,7 +52,7 @@ CREATE TABLE information (
 
 CREATE TABLE nummernschild (
 email varchar(200) NOT NULL,
-kennzeichen varchar(200) NOT NULL,
+kennzeichen varchar(200),
  FOREIGN KEY (email) REFERENCES anwender(email)
 );
 
@@ -71,8 +71,8 @@ INSERT INTO information(infotitel,infotext,author) VALUES('Erste Geschichte','Ei
 
 INSERT INTO anwenderverify (anwender, verifystatus_mail, verifystatus_tel, verifystatus_admin) VALUES('christoph.stockinger@stud.th-deg.de', false, false,false);
 
-INSERT INTO nummernschild (email, kennzeichen) VALUES ('thomas.forstner2@stud.th-deg.de', 'PA XI 1337');
-INSERT INTO nummernschild (email, kennzeichen) VALUES ('christoph.stockinger@stud.th-deg.de', 'BO XK 2112');
+INSERT INTO nummernschild (email, kennzeichen) VALUES ('thomas.forstner2@stud.th-deg.de','PA XI 337');
+INSERT INTO nummernschild (email, kennzeichen) VALUES ('christoph.stockinger@stud.th-deg.de');
 
 /* Mail verifizieren */
 UPDATE anwenderverify SET verifystatus_mail = true WHERE anwender = 'christoph.stockinger@stud.th-deg.de';

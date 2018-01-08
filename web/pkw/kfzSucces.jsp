@@ -4,6 +4,8 @@
     Author     : patrickrichter
 --%>
 
+<%@page import="KfzModul.KfzMod"%>
+<%@page import="DB.DBConnector"%>
 <%@page import="anwender.Anwender"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Statement"%>
@@ -11,7 +13,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<%
+<% 
     // Status Variable sowie String Variable für Weiterleitung auf Login-Seite
     Boolean loginstatus = (Boolean) session.getAttribute("login");
     String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
@@ -49,26 +51,40 @@
     <body>
         
         <%  
-                    String kennzeichen = request.getParameter("kennzeichen");
-                   
+            
+                    
+                    //mail = (String) session.getAttribute("email");
+                    String knz = request.getParameter("kennzeichen");
+                    String mail = request.getParameter("email");
+                    
+                    // if ( (Anwender) session.getAttribute("user")!= null ) {
+                    // User-Variablen mit Session-Values
+                    mail = (String) ((Anwender) session.getAttribute("user")).getEmail();
                     
                     try{
-                        Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/schulportal", "root", "root");
-                        Statement stmt = conn.createStatement();
+                        //Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/schulportal", "root", "root");
+                        //Statement stmt = conn.createStatement();
                         
-                        String sql = "INSERT INTO anwender (Nummernschild,email) VALUES ('"+kennzeichen+"','"+email+"')";
+                        Boolean dbinsert = DBConnector.writeKennzeichenData(KfzMod.databasetablename, knz, mail);
+                        
+                        
+                        
+                        
+                        String sql = "INSERT INTO Nummernschild VALUES ('"+knz+"') WHERE Email='"+mail+"'";
                         out.println(sql);
                 
-                        stmt.executeUpdate(sql);
+                        // stmt.executeUpdate(sql);
                 }   catch(Exception e){
                         System.out.println(e);
                 }
                 %>
         
+                
+  
         
         
         <h1>Sie haben Ihr KFZ-Kennzeichen erfolgreich aktuallisiert! 
-        Man wird noch in Äonen darüber berichten!
+       
         </h1>
                 
                <!--// Javascript & jQuery //-->
