@@ -114,6 +114,7 @@ public class ModMessage {
         returnstr += "</script>";
         returnstr += "<input type='text' name='betreff' placeholder='Betreff' />";
         returnstr += "<textarea name='nachricht' placeholder='Nachricht'></textarea>";
+        returnstr += "<input type='file' name='file'>";
         //returnstr += "<div id='summernote' name='nachricht'></div>";
         returnstr += "<input type='submit' value='Absenden'/>";
                 

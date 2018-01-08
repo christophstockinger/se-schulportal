@@ -5,10 +5,13 @@ package Sender;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import java.io.IOException;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 
 public class MailSender {
 
@@ -93,7 +96,7 @@ public class MailSender {
      * @param message Inhalt der Email
      * @throws MessagingException wirft eine Exception
      */
-    public static void postMail(String recipient, String subject, String message) throws MessagingException {
+    public static void postMail(String recipient, String subject, String message, String attachFile) throws MessagingException {
         Session s = getGMailSession(SenderKonstanten.EMAILSENDER, SenderKonstanten.EMAILPASSWORT);
         Message msg = new MimeMessage(s);
         String filename = "Dateipfad";
@@ -102,6 +105,34 @@ public class MailSender {
 
         msg.setSubject(subject);
         msg.setContent(message, "text/html; charset=utf-8");
+        
+        // creates message part
+        /*MimeBodyPart messageBodyPart = new MimeBodyPart();
+        messageBodyPart.setContent(message, "text/html");
+ 
+        // creates multi-part
+        Multipart multipart = new MimeMultipart();
+        multipart.addBodyPart(messageBodyPart);
+ 
+        // adds attachments
+        if (attachFile != null) {
+            
+            MimeBodyPart attachPart = new MimeBodyPart();
+
+            try {
+                attachPart.attachFile(attachFile);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
+            multipart.addBodyPart(attachPart);
+            
+        }
+ 
+        // sets the multi-part as e-mail's content
+        msg.setContent(multipart);
+ 
+        // sends the e-mail*/
         Transport.send(msg);
     }
 

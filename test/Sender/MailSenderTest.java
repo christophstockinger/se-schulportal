@@ -78,7 +78,8 @@ public class MailSenderTest {
         String recipient = "";
         String subject = "";
         String message = "";
-        MailSender.postMail(recipient, subject, message);
+        String attachFile = null;
+        MailSender.postMail(recipient, subject, message, attachFile);
         // TODO review the generated test code and remove the default call to fail.
         fail("The test case is a prototype.");
     }

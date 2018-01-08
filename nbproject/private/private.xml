@@ -4,10 +4,13 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/web/messages/index.jsp</file>
+            <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/src/java/Sender/SenderKonstanten.java</file>
+            <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/src/java/Sender/SMSSender.java</file>
             <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/src/java/Sender/ModMessage.java</file>
             <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/web/messages/mailsuccess.jsp</file>
+            <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/test/Sender/SMSSenderTest.java</file>
             <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/web/messages/email.jsp</file>
-            <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/src/java/DB/DBConnector.java</file>
+            <file>file:/Users/mwitzlsperger/NetBeansProjects/se-schulportal/src/java/Sender/MailSender.java</file>
         </group>
     </open-files>
 </project-private>
