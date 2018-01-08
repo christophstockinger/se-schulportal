@@ -72,7 +72,7 @@ INSERT INTO information(infotitel,infotext,author) VALUES('Erste Geschichte','Ei
 INSERT INTO anwenderverify (anwender, verifystatus_mail, verifystatus_tel, verifystatus_admin) VALUES('christoph.stockinger@stud.th-deg.de', false, false,false);
 
 INSERT INTO nummernschild (email, kennzeichen) VALUES ('thomas.forstner2@stud.th-deg.de','PA XI 337');
-INSERT INTO nummernschild (email, kennzeichen) VALUES ('christoph.stockinger@stud.th-deg.de');
+INSERT INTO nummernschild (email, kennzeichen) VALUES ('christoph.stockinger@stud.th-deg.de',NULL);
 
 /* Mail verifizieren */
 UPDATE anwenderverify SET verifystatus_mail = true WHERE anwender = 'christoph.stockinger@stud.th-deg.de';

@@ -4,7 +4,7 @@
     Author     : Christoph
 --%>
 
-<%@page import="KfzModul.KfzMod"%>
+<%@page import="KfzModulView.KfzModView"%>
 <%@page import="Modul_example.ModExample"%>
 <%@page import="anwender.Anwender"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -126,13 +126,13 @@ Ionic Icons: https://useiconic.com/open/
         <main>
             <div class="row modul">
                 <div class="col-12 col-sm-12 modul_headline">
-                    <h2><% out.println(KfzMod.modulname ); %></h2>
+                    <h2><% out.println(KfzModView.modulname ); %></h2>
                 </div>
                 <div class="col-12 col-sm-12 modul_description">
-                    <p><% out.println(KfzMod.moduldesc ); %></p>
+                    <p><% out.println(KfzModView.moduldesc ); %></p>
                 </div>
                 <nav class="col-12 col-sm-12 modul_nav">
-                    <% out.println(KfzMod.getSubNavigation() ); %>
+                    <% out.println(KfzModView.getSubNavigation() ); %>
                 </nav>
                <!-- <div class="col-12 col-sm-12 modul_form">
                     <h3>Formularname</h3>
