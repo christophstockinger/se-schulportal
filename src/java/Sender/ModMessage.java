@@ -5,15 +5,13 @@
  */
 package Sender;
 
-import Modul_example.*;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
  * 
- * @author mwitzlsperger & lgraml
+ * @author mwitzlsperger und lgraml
  * 
- * Java-Klasse zum Nachrichten senden (SMS & EMail)
+ * Java-Klasse zum Nachrichten senden (SMS und EMail)
  */
 public class ModMessage {
     
@@ -23,7 +21,7 @@ public class ModMessage {
     public ModMessage() {}
     
     /**
-     * Methode zur Darstellung des Untermenüs
+     * Methode zur Darstellung des Untermenüs<br>
      * Untermenüpunkte: SMS und EMail
      * @return gibt HTML-Code für Unternavigation zurück
      */
@@ -37,8 +35,8 @@ public class ModMessage {
     
     /**
      * Methode zur Darstellung des Formulars für die Email-Versendung
-     * Logik für die Datenbankanbindung
-     * -> Auslesen der Rollen und Verbindung mit den zugehörigen EMail-Adressen
+     * <br> - Logik für die Datenbankanbindung
+     * <br> - Auslesen der Rollen und Verbindung mit den zugehörigen EMail-Adressen
      * @return returnstr: gibt den HTML/Javascript-Code zurück der in der Variable returnstr gespeichert ist
      */
     
@@ -124,9 +122,9 @@ public class ModMessage {
     
     /**
      * Methode zur Darstellung des Formulars für die SMS-Versendung
-     * Logik für die Datenbankanbindung
-     * -> Auslesen der Rollen und Verbindung mit den zugehörigen Telefonnummern
-     * @return 
+     * <br> - Logik für die Datenbankanbindung
+     * <br> - Auslesen der Rollen und Verbindung mit den zugehörigen Telefonnummern
+     * @return gibt den HTML-Code zum Erstellen des SMS-Formulars zurück
      */
     
     public static String getSMSForm(){

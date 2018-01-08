@@ -5,14 +5,10 @@ package Sender;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import java.io.*;
 import java.util.*;
-import javax.activation.*;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 
 public class MailSender {
 
@@ -20,18 +16,15 @@ public class MailSender {
     }
 
     /**
-     * Methode Gmail Verbindung aufzubauen
+     * Methode um eine Gmail-Verbindung aufzubauen
      *
      * @param user ist die E-Mail-Adresse von GMail
      * @param pass ist das dazugehörige Passwort
-     * @return session to be used to send data
+     * @return Session die zum Senden von Daten benutzt wird
      */
     public static Session getGMailSession(String user, String pass) {
         final String username = user;
         final String password = pass;
-        
-        final String portlocal = "587";
-        final String portlive = "465";
         
         final Properties props = new Properties();
 
@@ -40,7 +33,7 @@ public class MailSender {
         props.setProperty("mail.smtp.auth", "true");
         props.setProperty("mail.smtp.starttls.enable", "true");
         props.setProperty("mail.smtp.port", "465");
-        props.setProperty("mail.smtp.socketFactory.port", portlocal);
+        props.setProperty("mail.smtp.socketFactory.port", SenderKonstanten.PORTLOCAL);
         props.setProperty("mail.smtp.socketFactory.class",
                 "javax.net.ssl.SSLSocketFactory");
         props.setProperty("mail.smtp.socketFactory.fallback", "false");
@@ -58,11 +51,11 @@ public class MailSender {
     }
     
     /**
-     * Methode 1und1 Verbindung aufzubauen
+     * Methode um eine 1und1-Verbindung aufzubauen
      *
      * @param user E-Mail-Adrese des 1und1 Accounts
      * @param pass das dazugehörige Passwort
-     * @return session to be used to send data
+     * @return Session die zum Senden von Daten benutzt wird
      */
     public Session get1and1Session(String user, String pass) {
         final String username = user;
@@ -93,32 +86,18 @@ public class MailSender {
     }
 
     /**
-     * Send a message with email
+     * Sende eine Nachricht per Email
      *
-     * @param session valid session form gerGmail Session
-     * @param recipient valid email address
-     * @param subject subject of our mail
-     * @param message our message as string
-     * @throws MessagingException will throw exception
+     * @param recipient gültige Email-Adresse des Empfängers
+     * @param subject Betreff der Email
+     * @param message Inhalt der Email
+     * @throws MessagingException wirft eine Exception
      */
     public static void postMail(String recipient, String subject, String message) throws MessagingException {
-        Session s = getGMailSession("mail@dit.education", "Mail2017+1");
+        Session s = getGMailSession(SenderKonstanten.EMAILSENDER, SenderKonstanten.EMAILPASSWORT);
         Message msg = new MimeMessage(s);
         String filename = "Dateipfad";
-        //Hier String in Array aufteilen
-        /*
-        String[] recipientList = recipient.split(",");
-        InternetAddress[] recipientAddress = new InternetAddress[recipientList.length];
-        int counter = 0;
-        for (String recipients : recipientList) {
-            recipientAddress[counter] = new InternetAddress(recipients.trim());
-            counter++;
-        }
-        msg.setRecipients(Message.RecipientType.TO, recipientAddress);
         
-        */
-                
-        // hier dann Array übergegben
         msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
 
         msg.setSubject(subject);

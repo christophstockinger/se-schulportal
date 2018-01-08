@@ -204,7 +204,6 @@ public class DBConnector {
 
     /**
      * Methode zur Abfrage der Emails einer Rolle
-     * @param rolle ausgewählte Rolle
      * @return Map mit Integer als Laufzahl und String als Email
      */
     public static Map getRollenEmail() {
@@ -243,7 +242,7 @@ public class DBConnector {
     
     /**
      * Methode zur Abfrage der Telefonnummern einer Rolle
-     * @param rolle ausgewählte Rolle
+     * @param email email des Anwenders der eine SMS bekommen soll
      * @return Map mit Integer als Laufzahl und String als Telefonnummer
      */
     public static Map getRollenSMS(String email) {
