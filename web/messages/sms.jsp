@@ -57,7 +57,7 @@ Ionic Icons: https://useiconic.com/open/
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width; initial-scale=1.0"/>
 
-        <title>Email senden | Schulportal</title>
+        <title>SMS senden | Schulportal</title>
 
         <meta name="description" content=""/>
         <meta name="author" content="Coding77 // Christoph Stockinger"/>
@@ -147,7 +147,7 @@ Ionic Icons: https://useiconic.com/open/
                     <% out.println(ModMessage.getSubNavigation()); %>
                 </nav>
                 <div class="col-12 col-sm-12 modul_form">
-                    <h3>Email senden</h3>
+                    <h3>SMS senden</h3>
                     <form method="get" action="smssuccess.jsp">
                         <%
                             // Ausgelagert in ModMessage-Funktion, da alle Logik in dieser Java-Datei

@@ -38,7 +38,7 @@ public class SMSSender {
                 SmsSubmissionResult[] responses = client.getSmsClient().submitMessage(new TextMessage(
                     SenderKonstanten.SMSSENDER, // Sender
                     empf[i], // Empfänger
-                    message));
+                    ModMessage.convertFromUTF8(message)));
                 for (SmsSubmissionResult response : responses) {
                     System.out.println(response);
                 }

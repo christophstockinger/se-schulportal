@@ -114,7 +114,7 @@ public class ModMessage {
         returnstr += "</script>";
         returnstr += "<input type='text' name='betreff' placeholder='Betreff' />";
         returnstr += "<textarea name='nachricht' placeholder='Nachricht'></textarea>";
-        returnstr += "<input type='file' name='file'>";
+        //returnstr += "<input type='file' name='file'>";
         //returnstr += "<div id='summernote' name='nachricht'></div>";
         returnstr += "<input type='submit' value='Absenden'/>";
                 
@@ -202,9 +202,25 @@ public class ModMessage {
         returnstr += "</script>";
         returnstr += "<textarea name='nachricht' placeholder='Nachricht'></textarea>";
         //returnstr += "<div id='summernote' name='nachricht'></div>";
-        returnstr += "<input type='submit' value='Absenden'/>";
+        returnstr += "<input type='submit' value='Absenden' onclick='doit()'>";
         
         return returnstr;
+    }
+    
+    
+    /**
+     * Decodiert eine String von UTF-8 zu ISO-8859-1
+     * @param message zu decodierender Inhalt
+     * @return Decodierten UTF-8 String
+     */
+    public static String convertFromUTF8(String message) {
+        String out = null;
+        try {
+            out = new String(message.getBytes("ISO-8859-1"), "UTF-8");
+        } catch (java.io.UnsupportedEncodingException e) {
+            return null;
+        }
+        return out;
     }
     
 }

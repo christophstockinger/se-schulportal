@@ -148,10 +148,11 @@ Ionic Icons: https://useiconic.com/open/
                 </nav>
                 <div class="col-12 col-sm-12 modul_form">
                     <h3>Email senden</h3>
-                    <form method="get" action="mailsuccess.jsp">
+                    <form method="get" action="mailsuccess.jsp" accept-charset="utf-8"> 
                         <%
                             // Ausgelagert in ModMessage-Funktion, da alle Logik in dieser Java-Datei
                             out.println(ModMessage.getEmailForm());
+                            
                         %>
                     </form>
                 </div>
@@ -177,8 +178,8 @@ Ionic Icons: https://useiconic.com/open/
         <script src="/se-schulportal/templates/thd-schulportal/js/func.js" type="text/javascript"></script>
         <!--script src="http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.8/summernote-bs4.js"></script-->
         
+        
         <script>
-                
             $('#list').change(
                 function () {
                     var sel = $('#list').val();

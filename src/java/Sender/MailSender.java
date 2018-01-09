@@ -96,44 +96,19 @@ public class MailSender {
      * @param message Inhalt der Email
      * @throws MessagingException wirft eine Exception
      */
-    public static void postMail(String recipient, String subject, String message, String attachFile) throws MessagingException {
+    public static void postMail(String recipient, String subject, String message) throws MessagingException {
         Session s = getGMailSession(SenderKonstanten.EMAILSENDER, SenderKonstanten.EMAILPASSWORT);
         Message msg = new MimeMessage(s);
         String filename = "Dateipfad";
         
         msg.addRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));
 
-        msg.setSubject(subject);
-        msg.setContent(message, "text/html; charset=utf-8");
+        msg.setSubject(ModMessage.convertFromUTF8(subject));
+        msg.setContent(ModMessage.convertFromUTF8(message), "text/html; charset=utf-8");
         
-        // creates message part
-        /*MimeBodyPart messageBodyPart = new MimeBodyPart();
-        messageBodyPart.setContent(message, "text/html");
- 
-        // creates multi-part
-        Multipart multipart = new MimeMultipart();
-        multipart.addBodyPart(messageBodyPart);
- 
-        // adds attachments
-        if (attachFile != null) {
-            
-            MimeBodyPart attachPart = new MimeBodyPart();
-
-            try {
-                attachPart.attachFile(attachFile);
-            } catch (IOException ex) {
-                ex.printStackTrace();
-            }
-
-            multipart.addBodyPart(attachPart);
-            
-        }
- 
-        // sets the multi-part as e-mail's content
-        msg.setContent(multipart);
- 
-        // sends the e-mail*/
+        
+        // sends the e-mail
         Transport.send(msg);
     }
-
+    
 }

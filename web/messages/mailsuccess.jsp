@@ -125,13 +125,14 @@ and open the template in the editor.
                 </nav>
                 <!--// Main Modul //-->
                 <%
+                    
+                    
                     String email2 = request.getParameter("email");
                     String betreff = request.getParameter("betreff");
                     String nachricht = request.getParameter("nachricht");
-                    String file = request.getParameter("file");
 
                     try {  
-                        MailSender.postMail(email2, betreff, nachricht, file);
+                        MailSender.postMail(email2, betreff, nachricht);
                         out.println("Nachricht gesendet");
 
 
