@@ -25,14 +25,22 @@ public class Edit {
     
     public static String getSubNavigation() {
         String output = "<ul>";
-        output += "<li>  <a href='#'>Daten betrachten</a> </li>";
-        output += "<li> <a href='#'>Daten bearbeiten</a> </li>";
+        output += "<li>  <a href=''>Daten betrachten</a> </li>";
+        output += "<li> <a href='/se-schulportal/profile_edit/edit_1.jsp'>Daten bearbeiten</a> </li>";
+        output += "</ul>";
+        return output;
+    }
+    
+    public static String getSubNavigation2() {
+        String output = "<ul>";
+        output += "<li>  <a href='/se-schulportal/profile_edit/edit.jsp'>Daten betrachten</a> </li>";
+        output += "<li> <a href=''>Daten bearbeiten</a> </li>";
         output += "</ul>";
         return output;
     }
     
     public static String getProfilData(){
-        String email = "fabian.schene@stud.th-deg.de";
+        String email = "";
         String password = "";
         String anrede = "";
         String vorname = "";

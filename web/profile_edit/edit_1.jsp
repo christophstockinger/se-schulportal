@@ -12,7 +12,7 @@
     // Status Variable sowie String Variable für Weiterleitung auf Login-Seite
     Boolean loginstatus = (Boolean) session.getAttribute("login");
     String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
-    
+
     // User Variablen
     String email = "";
     String password = "";
@@ -21,21 +21,21 @@
     String nachname = "";
     String telefonnummer = "";
     Anwender user;
-    
-    if ( (Anwender) session.getAttribute("user")!= null ) {
-    // User-Variablen mit Session-Values
-    email = (String) ((Anwender) session.getAttribute("user")).getEmail();
-    password = (String) ((Anwender) session.getAttribute("user")).getPassword();
-    anrede = (String) ((Anwender) session.getAttribute("user")).getAnrede();
-    vorname = (String) ((Anwender) session.getAttribute("user")).getVorname();
-    nachname = (String) ((Anwender) session.getAttribute("user")).getNachname();
-    telefonnummer = (String) ((Anwender) session.getAttribute("user")).getTelefonnummer();
-    
+
+    if ((Anwender) session.getAttribute("user") != null) {
+        // User-Variablen mit Session-Values
+        email = (String) ((Anwender) session.getAttribute("user")).getEmail();
+        password = (String) ((Anwender) session.getAttribute("user")).getPassword();
+        anrede = (String) ((Anwender) session.getAttribute("user")).getAnrede();
+        vorname = (String) ((Anwender) session.getAttribute("user")).getVorname();
+        nachname = (String) ((Anwender) session.getAttribute("user")).getNachname();
+        telefonnummer = (String) ((Anwender) session.getAttribute("user")).getTelefonnummer();
+
     } else {
         loginstatus = false;
     }
-    
-    %>
+
+%>
 
 
 <!DOCTYPE html>
@@ -85,8 +85,7 @@
 
     </head>
     <body>
-        <%
-            if ( loginstatus == false) {
+        <%            if (loginstatus == false) {
                 out.println(loginpage);
             } %>
         <header class="row">
@@ -109,7 +108,7 @@
         </header>
         <!--// Main Navigation //-->
         <nav class="main_navi" id="main_navigation" >
-           <%
+            <%
                 user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
                 out.println(user.getNavigation());
             %>
@@ -118,26 +117,31 @@
         <main>
             <div class="row modul">
                 <div class="col-12 col-sm-12 modul_headline">
-                    <h2><% out.println(Edit.modulname ); %></h2>
+                    <h2><% out.println(Edit.modulname); %></h2>
                 </div>
                 <div class="col-12 col-sm-12 modul_description">
-                    <p><% out.println(Edit.moduldesc ); %></p>
+                    <p><% out.println(Edit.moduldesc); %></p>
                 </div>
                 <nav class="col-12 col-sm-12 modul_nav">
-                    <% out.println(Edit.getSubNavigation() ); %>
+                    <% out.println(Edit.getSubNavigation2()); %>
                 </nav>
                 <div class="col-12 col-sm-12 modul_form">
-                    <h3>Persönliche Daten betrachten</h3><br>
+                    <h3>Persönliche Daten Bearbeiten</h3><br>
+                    <form>
                         <%
                             user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
                             String profilOutput;
-                            profilOutput= "<P>Anrede: " +anrede+"</P>";
-                            profilOutput+= "<P>Vorname: " +vorname+"</P>";
-                            profilOutput+= "<P>Nachname: " +nachname+"</P>";
-                            profilOutput+= "<P>e-Mail: "+email+"</P>";
-                            profilOutput+= "<P>Telefonnummer: "+telefonnummer+"</P>";
+                            profilOutput = "<form>";
+                            profilOutput += "Anrede <input type='text' id='ar' name='anrede' value='" + anrede + "' /><br>";
+                            profilOutput += "Vorname <input type='text' id='vn' name='vorname' value='" + vorname + "' /><br>";
+                            profilOutput += "Nachname <input type='text' id='nn' name='nachname' value='" + nachname + "' /><br>";
+                            profilOutput += "e-Mail <input type='text' id='em' name='email' value='" + email + "' /><br>";
+                            profilOutput += "Telefonnummer <input type='text' id='tn' name='telefonnummer' value='" + telefonnummer + "' /><br>";
+                            profilOutput += "</form>";
                             out.println(profilOutput);
                         %>
+                    </form>
+                    <button onclick='absenden()'>Absenden</button>
                 </div>
         </main>
         <!--// User Navigation //-->
@@ -148,14 +152,26 @@
                 out.println(user.getUserNavigation());
             %>
         </nav>
-        
+
         <!--// Footer //-->
         <footer class="row">
             <div class="col-12 col-sm-6 imprint"><a href="/se-schulportal/impressum.html">Impressum</a></div>
             <div class="col-12 col-sm-6 copyright"><p>&copy 2017 THD - Fabian Schene</p></div>
         </footer>
-        
-    <!--// Javascript & jQuery //-->
+
+        <script type="text/javascript">
+            function absenden() {
+                var ar = $('#ar').val();
+                var vn = $('#vn').val();
+                var nn = $('#nn').val();
+                var em = $('#em').val();
+                var tn = $('#tn').val();
+                var url = "absendenerfolgreich.jsp?ar=" + ar + "&vn=" + vn + "&nn=" + nn + "&em=" + em + "&tn=" + tn;
+                window.location.replace(url);
+            }
+
+        </script>
+        <!--// Javascript & jQuery //-->
         <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/func.js" type="text/javascript"></script>

@@ -14,7 +14,7 @@
     String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
     
     // User Variablen
-    String email = "fabian.schene@stud.th-deg.de";
+    String email = "";
     String password = "";
     String anrede = "";
     String vorname = "";
@@ -86,9 +86,9 @@
     </head>
     <body>
         <%
-            //if ( loginstatus == false) {
-            //    out.println(loginpage);
-         //   } %>
+            if ( loginstatus == false) {
+                out.println(loginpage);
+            } %>
         <header class="row">
             <div class="col-2 col-sm-1 nav_burger" >
                 <img data="#main_navigation" class="navicon nav_burger_image" src="/se-schulportal/images/icons/menu.svg" alt="Navigation öffnen" />
@@ -127,29 +127,17 @@
                     <% out.println(Edit.getSubNavigation() ); %>
                 </nav>
                 <div class="col-12 col-sm-12 modul_form">
-                    <h3>Formularname</h3>
-                    <form>
+                    <h3>Persönliche Daten betrachten</h3><br>
                         <%
                             user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
                             String profilOutput;
-                            profilOutput= "<form>";
-                            profilOutput+= "<input type='text' id='ar' name='anrede' value='"+anrede+"' />";
-                            profilOutput+= "<input type='text' id='vn' name='vorname' value='"+vorname+"' />";
-                            profilOutput+= "<input type='text' id='nn' name='nachname' value='"+nachname+"' />";
-                            profilOutput+= "<input type='text' id='em' name='email' value='"+email+"' />";
-                            profilOutput+= "<input type='text' id='tn' name='telefonnummer' value='"+telefonnummer+"' />";
-                            profilOutput+= "</form>";
+                            profilOutput= "<P>Anrede: " +anrede+"</P>";
+                            profilOutput+= "<P>Vorname: " +vorname+"</P>";
+                            profilOutput+= "<P>Nachname: " +nachname+"</P>";
+                            profilOutput+= "<P>e-Mail: "+email+"</P>";
+                            profilOutput+= "<P>Telefonnummer: "+telefonnummer+"</P>";
                             out.println(profilOutput);
                         %>
-                        <select>
-                            <option>Herr</option>
-                            <option> </option>
-                        </select>
-                        <div class="radio"><input type="radio" name=""> <label>A</label></div>
-                        <div class="checkbox"><input type="checkbox" name=""> <label>B</label></div>
-                        
-                        <button onclick='absenden()'>Absenden</button>
-                    </form>
                 </div>
         </main>
         <!--// User Navigation //-->
@@ -164,21 +152,9 @@
         <!--// Footer //-->
         <footer class="row">
             <div class="col-12 col-sm-6 imprint"><a href="/se-schulportal/impressum.html">Impressum</a></div>
-            <div class="col-12 col-sm-6 copyright"><p>&copy 2017 THD - Christoph Stockinger</p></div>
+            <div class="col-12 col-sm-6 copyright"><p>&copy 2017 THD - Fabian Schene</p></div>
         </footer>
         
-        <script type="text/javascript">
-            function absenden(){
-                var ar=$('#ar').val();
-                var vn=$('#vn').val();
-                var nn=$('#nn').val();
-                var em=$('#em').val();
-                var tn=$('#tn').val();
-                var url="absendenerfolgreich.jsp?ar="+ar+"&vn="+vn+"&nn="+nn+"&em="+em+"&tn="+tn;
-                window.location.replace(url);
-            }
-            
-        </script>
     <!--// Javascript & jQuery //-->
         <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/bootstrap.min.js" type="text/javascript"></script>
