@@ -4,6 +4,7 @@
     Author     : peterjerger
 --%>
 
+<%@page import="Kalender.Termine"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -65,68 +66,56 @@
                 <div class="hinzu">
                     <div class="row">
                         <button id="btn" type="button" onclick="togglefunction()">Termin hinzufügen</button>
-                        <script>
-                            function togglefunction(){
-                                var zu = document.getElementById("form_hinzu");
-                                zu.style.display = (zu.style.display == "table") ? "none" : "table";
-                                if(document.getElementById("btn").textContent != "Schließen"){
-                                    document.getElementById("btn").textContent = "Schließen";
-                                } else {
-                                    document.getElementById("btn").textContent = "Termin hinzufügen";
-                                }
-                            }
-                        </script>
+                        
                     </div>
                     <div id="form_hinzu">
                         <div class="row">
-                            <div class="col-12">
-                                <p>Wählen Sie das gewünschte Datum aus</p>
+                            <div class="col-12 datum">
+                                <p class="schrift">Wählen Sie das gewünschte Datum aus</p>
                                 <input type="text" name="datum" id="datepicker" />
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-12">
-                                <p>Wählen Sie die Zeit in der das Event stattfinden soll</p>
-                                <span>Von: <input type="text" name="zeitVon" id="zeitVon" /> Bis: <input type="text" name="zeitBis" id="zeitBis" /></span>
+                            <div class="col-12 zeit">
+                                <p class="schrift">Wählen Sie die Zeit in der das Event stattfinden soll</p>
+                                <div class="row">
+                                    <div class="col-2">Von: </div><div class="col-10"><input type="text" name="zeitVon" id="zeitVon" /></div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-2">Bis: </div><div class="col-10"><input type="text" name="zeitBis" id="zeitBis" /></div>
+                                </div>
                             </div>
+                            <br/>
                         </div>
                         <div class="row">
-                            <div class="col-12">
-                                <p>Geben Sie dem Event eine Bezeichnung mit</p>
+                            <div class="col-12 bezeichnung">
+                                <p class="schrift">Geben Sie dem Event eine Bezeichnung mit</p>
                                 <input type="text" name="bezeichnung" />
                             </div>
+                            <br/>
                         </div>
-                        <button type="button" onclick="inDieDB()">Erstellen</button>
+                        <span><button type="button" id="inDieDB" onclick="inDieDB()">Erstellen</button><button type="button" id="close" onclick="togglefunction()">Schließen</button></span>
                     </div>
-                    
-                    <% 
-                        String dat = request.getParameter("datum");
-                        session.setAttribute("datum", dat);
-                        String zevo = request.getParameter("zeitvon");
-                        session.setAttribute("zeitvon", zevo);
-                        String zebi = request.getParameter("zeitbis");
-                        session.setAttribute("zeitbis", zebi);
-                        String bez = request.getParameter("bezeichnung");
-                        session.setAttribute("bezeichnung", bez);
-                    %>
+                   
                     
                     
                     <div class="row heute">
                         <div class="col-12">
                             <h3>Heutige Veranstaltungen:</h3>
+                            <!-- While-Schleife (bzw. do-while-Schleife) mit datum==date (evtl. Halbstündlich erhöhen) -->
                         </div>
                     
                     <div class="row termine">
                         <div class="col-12">
                             <h3>Bevorstehende Veranstaltungen:</h3>
                         </div>
-                    <!-- Daten aus der Datenbank holen --->
-                    <!-- Als Array(?) in Kästchen anzeigen -->
-                    
-                    
-                    
-                    
                     </div>
+                    <!-- Daten aus der Datenbank holen --->
+                    <!-- Als Array(?) oder for-Schleife mit "datum" > date und in Kästchen anzeigen -->
+                    
+                    
+                    
+                    
                 </div>
             </div>
         </div>
@@ -146,6 +135,17 @@
                 });
             });
         </script>  
+        <script>
+            function togglefunction(){
+                var hinzu = document.getElementById("form_hinzu");
+                hinzu.style.display = (hinzu.style.display == "table") ? "none" : "table";
+                if(document.getElementById("btn").style.display != "none"){
+                    document.getElementById("btn").style.display = "none";
+                } else {
+                    document.getElementById("btn").style.display = "table";
+                }
+            }
+        </script>
             
     </body>
     
