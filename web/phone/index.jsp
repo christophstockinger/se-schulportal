@@ -126,20 +126,20 @@ Ionic Icons: https://useiconic.com/open/
         <main>
             <div class="row modul">
                 <div class="col-12 col-sm-12 modul_headline">
-                    <h2><% out.println(ModPhone.modulname ); %></h2>
+                    <h2><% out.println(ModPhone.modulname); %></h2>
                 </div>
                 <div class="col-12 col-sm-12 modul_description">
-                    <p><% out.println(ModPhone.moduldesc ); %></p>
+                    <p><% out.println(ModPhone.moduldesc); %></p>
                 </div>
                 <nav class="col-12 col-sm-12 modul_nav">
                     
                 </nav>
                 <div class="col-12 col-sm-12 modul_form">
-                    <form>
+                    <form action="aufruf.jsp" method="GET">
                         <h4>Suchen in Klassen</h4>
                         <br>
                         <h6>Klasse:</h6>
-                        <select id="klasse">
+                        <select name="klasse" id="klasse">
                             <option value="alle">Alle Klassen</option>
                             <option value="1a">1a</option>
                             <option value="1b">1b</option>
@@ -153,19 +153,22 @@ Ionic Icons: https://useiconic.com/open/
                             <option value="4a">4a</option>
                             <option value="4b">4b</option>
                             <option value="4c">4c</option>
-                        </select> 
+                        </select>                    
                         
                         <br>
                         <br>
-                        <br>
-                        <br>
+                        <br>    
                         
                         <h4>Suchen nach Namen</h4>
                         <br>
                         <h6>Name:</h6>
                         <input type="text" name="name" placeholder="Geben Sie hier den Namen ein..." id="name"/>
                         
-                       <button type="button" class="button" onclick="search()">Suchen</button>
+                        <br>
+                        <br>
+                        <br>
+                        
+                       <button type="submit" class="button">Suchen</button>
                     </form>
                 </div>             
             </div>
@@ -185,6 +188,7 @@ Ionic Icons: https://useiconic.com/open/
             <div class="col-12 col-sm-6 copyright"><p>&copy 2017 THD - Christoph Stockinger</p></div>
         </footer>
     <!--// Javascript & jQuery //-->
+    <!--
         <script type="text/javascript">
             function search() {
                 console.log("Geklick");
@@ -192,10 +196,11 @@ Ionic Icons: https://useiconic.com/open/
                 var klasse = $('#klasse').val();
            
                 var url = "aufruf.jsp?name=" + name + "&rolle=" + klasse;
+                console.log(url);
                 window.location.replace(url);
             }
-        </script>
-    
+        </script>     
+    -->
         <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/func.js" type="text/javascript"></script>

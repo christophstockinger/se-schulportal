@@ -6,6 +6,7 @@
 package Phone;
 
 import java.util.Map;
+import anwender.Anwender;
 
 /**
  *
@@ -25,27 +26,35 @@ public class ModPhone {
         return output;
     }
     
-   // public static Map getAnwenderdataPhone(String name, String rolle) {
-         
-       // Map anwenderdata = DB.DBConnector.getAnwenderdataPhone(name, rolle);
+    public static String getAnwenderdataPhones(String name, String klasse) {
         
-       // return anwenderdata;
-    //}
-    
-    public static String getAnwenderdataPhones(String name, String rolle) {
+        Map allPhoneContacts = DB.DBConnector.getAnwenderdataPhone(name, klasse);
         
-       // anwenderdaten.getAnwederdataPhone("sname", "srolle");
-        
-        String anwenderdata = "";
-        
-        anwenderdata += "<table>";
-        anwenderdata += "<tr>";
-        anwenderdata += "<th>Name</th>" + "<th>Vorname</th>" + "<th>E-Mail</th>" + "<th>Telefonnummer</th>";
-        anwenderdata += "</tr>";
-        anwenderdata += "<tr>";
-        anwenderdata += "<td>" + "Name" + "</td>" + "<td>" + "Vorname" + "</td>" + "<td>" + "E-Mail" + "</td>" + "<td>" + "Tel.Nr." + "</td>";
-        anwenderdata += "</tr>";
-        anwenderdata += "</table>";
+        String anwenderdata = ""; 
+ 
+            anwenderdata += "<table>";
+            anwenderdata += "<tr>";
+            anwenderdata += "<th>Name</th>" + "<th>Vorname</th>" + "<th>E-Mail</th>" + "<th>Telefonnummer</th>";
+            anwenderdata += "</tr>";
+            
+            for (int i = 1; i <= allPhoneContacts.size(); i++) {
+                // DB-Aufruf mit E-Mail-Addresse um User-Daten zu bekommen
+                String email = (String) allPhoneContacts.get(i);
+                
+                Map userdata = DB.DBConnector.getAnwenderdaten(Anwender.databasetablename, email);
+          
+                anwenderdata += "<tr>";
+
+                anwenderdata += "<td>" +  (String)userdata.get("NACHNAME") + "</td>";
+                anwenderdata += "<td>" +  (String)userdata.get("VORNAME") + "</td>";
+                anwenderdata += "<td>" +  (String)userdata.get("EMAIL") + "</td>";
+                anwenderdata += "<td>" +  (String)userdata.get("TELEFONNUMMER") + "</td>";
+
+                //anwenderdata += "<td>" + allPhonenumbers.get(i) + "</td>" + "<td>" + "Vorname" + "</td>" + "<td>" + "E-Mail" + "</td>" + "<td>" + "Tel.Nr." + "</td>";
+                anwenderdata += "</tr>";
+            }
+            
+            anwenderdata += "</table>";
 
         return anwenderdata;
     }

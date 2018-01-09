@@ -93,9 +93,9 @@ Ionic Icons: https://useiconic.com/open/
     </head>
     <body>
         <%
-            if ( loginstatus == false) {
-                out.println(loginpage);
-            } %>
+           // if ( loginstatus == false) {
+           //     out.println(loginpage);
+           // } %>
         <header class="row">
             <div class="col-2 col-sm-1 nav_burger" >
                 <img data="#main_navigation" class="navicon nav_burger_image" src="/se-schulportal/images/icons/menu.svg" alt="Navigation öffnen" />
@@ -137,14 +137,14 @@ Ionic Icons: https://useiconic.com/open/
                 <div>
                     <%
                         String sname = request.getParameter("name");
-                        String srolle = request.getParameter("rolle");
+                        String sklasse = request.getParameter("klasse");
+                        
+                        out.println("<h4> Ergebnisse: </h4><br>");
+                        out.println(ModPhone.getAnwenderdataPhones(sname, sklasse));
                     %>
                 </div>
                 
-                <div class="col-12 col-sm-12 modul_table">
-                    <h3>Ergebnisse:</h3>
-                    <% out.println(ModPhone.getAnwenderdataPhones(sname, srolle) ); %>
-                </div>
+                
             </div>
         </main>
         <!--// User Navigation //-->

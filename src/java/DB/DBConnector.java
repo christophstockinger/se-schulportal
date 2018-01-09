@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 
 /**
  * Meine Applikation: Datenbank Connector
+ *
  * @author Coding 77 - Christoph Stockinger
  * @version v0.1
  */
@@ -40,6 +41,7 @@ public class DBConnector {
 
     /**
      * Methode baut Verbindung zu Database auf
+     *
      * @return Connection-Statement
      * @throws SQLException bei Fehler der SQL-Anfrage
      * @throws ClassNotFoundException bei nicht vorhanderer Class
@@ -60,9 +62,10 @@ public class DBConnector {
             return null;
         }
     }
-    
+
     /**
      * Methode baut Verbindung zu Database auf
+     *
      * @param out
      * @return Connection-Statement
      * @throws SQLException bei Fehler der SQL-Anfrage
@@ -88,6 +91,7 @@ public class DBConnector {
 
     /**
      * Methode zur Abfrage der Anwenderdaten eienr bestimmten E-Mail-Adresse
+     *
      * @param tblname: Tabellenname in der angefragt werden soll
      * @param email: E-Mail, welche Daten abgefragt werden
      * @return Map mit Spaltenüberschrift und Wert. Jeweils als String.
@@ -128,6 +132,7 @@ public class DBConnector {
 
     /**
      * Methode zur Abfrage der Verify-Stati ein bestimmten E-Mail-Adresse
+     *
      * @param email E-Mail, welche Daten abgefragt werden
      * @return Map mit Spaltenüberschrift (String) und Boolean-Wert
      */
@@ -167,6 +172,7 @@ public class DBConnector {
 
     /**
      * Methode zur Abfrage der Rollen eines Anwenders
+     *
      * @param email E-Mail, welche Daten abgefragt werden
      * @return Map mit Integer als Laufzahl und String als Rolle
      */
@@ -189,29 +195,30 @@ public class DBConnector {
                 rownum++;
                 dbDataAnwenderRolle.put(rownum, (String) rs.getObject(1));
             }
-        return dbDataAnwenderRolle;
-        }
-        catch (ClassNotFoundException ex) {
+            return dbDataAnwenderRolle;
+        } catch (ClassNotFoundException ex) {
             Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
-        return null;
-        }
-        catch (SQLException ex) {
+            return null;
+        } catch (SQLException ex) {
             Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
-        return null;
+            return null;
         }
 
     }
 
     /**
      * Methode zum Eintrag eines Anwenders
+     *
      * @param tblname Die einzutragende Datenbanktabelle
      * @param anr Anrede des neuen Anwenders
      * @param vn Vorname des neues Anwenders
      * @param nn Nachname des neuen Anwenders
-     * @param tel Telefonnummer des neuen Anwenders mit führender +49 (führende 0 wurde entfernt)
+     * @param tel Telefonnummer des neuen Anwenders mit führender +49 (führende
+     * 0 wurde entfernt)
      * @param em E-Mail-Adresse des neuen Anwenders
      * @param pw ungehashtes Passwort des neuen Anwenders
-     * @return Boolean-Value <br>true: bei erfolgreichem Eintrag<br>alse: bei nicht erfolgreichem Eintrag
+     * @return Boolean-Value <br>true: bei erfolgreichem Eintrag<br>alse: bei
+     * nicht erfolgreichem Eintrag
      */
     public static Boolean writeRegistryAnwenderData(String tblname, String anr, String vn, String nn, String tel, String em, String pw) {
         DBConnector javaDBConn;
@@ -240,11 +247,13 @@ public class DBConnector {
 
     /**
      * Methode zum Eintrag eines Anwenders in der Verify-Datenbanktabelle
+     *
      * @param email einzutragende E-Mail-Adresse des Anwenders (Foreign Key)
      * @param verifystatus_mail Standardwert beim Ersteintrag: false
      * @param verifystatus_tel Standardwert beim Ersteintrag: false
      * @param verifystatus_admin Standardwert beim Ersteintrag: false
-     * @return Boolean-Value <br>true: bei erfolgreichem Eintrag<br>false: bei nicht erfolgreichem Eintrag
+     * @return Boolean-Value <br>true: bei erfolgreichem Eintrag<br>false: bei
+     * nicht erfolgreichem Eintrag
      */
     public static Boolean writeAnwenderVerify(String email, Boolean verifystatus_mail, Boolean verifystatus_tel, Boolean verifystatus_admin) {
         DBConnector javaDBConn;
@@ -271,9 +280,12 @@ public class DBConnector {
 
     /**
      * Methode zum Ändern des Verifystatus der E-Mail-Adresse
+     *
      * @param email E-Mail-Adresse des zu ändernden Anwenders
-     * @param verifystatus_mail Wird auf true gesetzt. <br> String wird für Zusammenbau des SQL Statements übergeben
-     * @return Boolean-Value <br>true: bei erfolgreichem Eintrag<br>false: bei nicht erfolgreichem Eintrag
+     * @param verifystatus_mail Wird auf true gesetzt. <br> String wird für
+     * Zusammenbau des SQL Statements übergeben
+     * @return Boolean-Value <br>true: bei erfolgreichem Eintrag<br>false: bei
+     * nicht erfolgreichem Eintrag
      */
     public static Boolean writeAnwenderVerifystatusMail(String email, String verifystatus_mail) {
         DBConnector javaDBConn;
@@ -302,9 +314,12 @@ public class DBConnector {
 
     /**
      * Methode zum Ändern des Verifystatus der Telefonnummer
+     *
      * @param email E-Mail-Adresse des zu ändernden Anwenders
-     * @param verifystatus_tel Wird auf true gesetzt. <br> String wird für Zusammenbau des SQL Statementsübergeben
-     * @return Boolean-Value <br>true: bei erfolgreichem Eintrag<br>false: bei nicht erfolgreichem Eintrag
+     * @param verifystatus_tel Wird auf true gesetzt. <br> String wird für
+     * Zusammenbau des SQL Statementsübergeben
+     * @return Boolean-Value <br>true: bei erfolgreichem Eintrag<br>false: bei
+     * nicht erfolgreichem Eintrag
      */
     public static Boolean writeAnwenderVerifystatusTel(String email, String verifystatus_tel) {
         DBConnector javaDBConn;
@@ -333,9 +348,12 @@ public class DBConnector {
 
     /**
      * Methode zum Ändern des Verifystatus der Adminfreischaltung
+     *
      * @param email E-Mail-Adresse des zu ändernden Anwenders
-     * @param verifystatus_admin Wird auf true gesetzt. <br> String  wird für Zusammenbau des SQL Statements übergeben
-     * @return Boolean-Value <br>true: bei erfolgreichem Eintrag<br>false: bei nicht erfolgreichem Eintrag
+     * @param verifystatus_admin Wird auf true gesetzt. <br> String wird für
+     * Zusammenbau des SQL Statements übergeben
+     * @return Boolean-Value <br>true: bei erfolgreichem Eintrag<br>false: bei
+     * nicht erfolgreichem Eintrag
      */
     public static Boolean writeAnwenderVerifystatusAdmin(String email, String verifystatus_admin) {
         DBConnector javaDBConn;
@@ -364,9 +382,10 @@ public class DBConnector {
 
     /**
      * Methode zum Löschen der Anwenderdaten
+     *
      * @param email E-Mail-Adresse des zu löschenden Anwenders
-     * @return String mit Meldung des Löschstatus
-     * Wird verwendet, wenn die Telefon-PIN dreimal falsch eingeben wurde
+     * @return String mit Meldung des Löschstatus Wird verwendet, wenn die
+     * Telefon-PIN dreimal falsch eingeben wurde
      */
     public static String deleteAnwenderdaten(String email) {
         DBConnector javaDBConn;
@@ -397,10 +416,14 @@ public class DBConnector {
 
     /**
      * Methode zur Eintragung aller Anwenderrollen eines Anwenders
+     *
      * @param email E-Mail-Adresse des Anwenders (Foreing Key)
-     * @param anwenderrollen ein zutragende Rollen als Map
-     * Der SQL-Befehl mit der Eintragung einer Rolle wird in Abhängigkeit der Anzahl der Map anwenderrollen ausgeführt und der Return-Status in jedem Durchgang geupdatet
-     * @return Boolean-Value <br>true: bei erfolgreichem Eintragungen<br>false: bei einer nicht erfolgreichen Eintragung
+     * @param anwenderrollen ein zutragende Rollen als Map Der SQL-Befehl mit
+     * der Eintragung einer Rolle wird in Abhängigkeit der Anzahl der Map
+     * anwenderrollen ausgeführt und der Return-Status in jedem Durchgang
+     * geupdatet
+     * @return Boolean-Value <br>true: bei erfolgreichem Eintragungen<br>false:
+     * bei einer nicht erfolgreichen Eintragung
      */
     public static Boolean writeAnwenderRollen(String email, Map anwenderrollen) {
         DBConnector javaDBConn;
@@ -435,6 +458,7 @@ public class DBConnector {
 
     /**
      * Methode zur Ausgabe aller hinterlegter Rollen
+     *
      * @return Map mit allen Rollennamen
      */
     public static Map getRollennamen() {
@@ -461,26 +485,28 @@ public class DBConnector {
             return rollen;
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Anwender.class .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex.getMessage());
             return null;
 
         } catch (SQLException ex) {
-            Logger.getLogger(DBConnector.class .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex.getMessage());
             return null;
-        } catch(NullPointerException ex) {
-            Logger.getLogger(DBConnector.class .getName()).log(Level.SEVERE, null, ex);
+        } catch (NullPointerException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex.getMessage());
             return null;
         }
     }
-    
+
     /**
      * Methode zur Löschung einer ausgewählten Rolle für einen Anwedner
+     *
      * @param email der Anwender bei dem die Rolle gelöscht wird
      * @param rolle die zu löschende Rolle
-     * @return String <br> true: Meldung über erfolgreiche Löschung<br>false: Fehlermeldung
+     * @return String <br> true: Meldung über erfolgreiche Löschung<br>false:
+     * Fehlermeldung
      */
     public static String deleteAnwenderRolle(String email, String rolle) {
         DBConnector javaDBConn;
@@ -508,45 +534,45 @@ public class DBConnector {
             return "";
         }
     }
-    
-        /**
+
+    /**
      * Methode zur Abfrage der Anwenderdaten eienr bestimmten E-Mail-Adresse
+     *
      * @param tblname: Tabellenname in der angefragt werden soll
      * @param email: E-Mail, welche Daten abgefragt werden
      * @return Map mit Spaltenüberschrift und Wert. Jeweils als String.
      */
-    /*public static Map getAnwenderdataPhone(String name, String rolle) {
+    public static Map getAnwenderdataPhone(String name, String klasse) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
-        
-        
+
         Statement statement = null;
         try {
             statement = javaDBConn.connect();
             ResultSet rs;
-            if(rolle == "alle"){
-                rs = statement.executeQuery("SELECT * FROM ANWENDER WHERE NACHNAME = '" + name + "'OR VORNAME ='" + name + "'");
-            }else {
-                rs = statement.executeQuery("SELECT EMAIL FROM ROLLE WHERE ROLLE = '" + rolle + "'");
-                
-                for(int i = 1; i <=  ; i++){
-                    rs = statement.executeQuery("SELECT * FROM ANWENDER WHERE EMAIL = '" +  + "'");
-                }
-                
-                Map<String, String> dbDataAnwender = new HashMap<String, String>();
-
-                ResultSetMetaData meta = rs.getMetaData();
-                int cols = meta.getColumnCount();
-                int rownum = 0;
-                while (rs.next()) {
-                rownum++;
-                    for (int i = 0; i < cols; i++) {
-                        dbDataAnwender.put((String) meta.getColumnLabel(i + 1), (String) rs.getObject(i + 1));
-                    }
-                }
-                return dbDataAnwender;
+            
+            Map<Integer, String> dbDataAnwender = new HashMap<Integer, String>();
+            if ((name != "") || (name != null)) {
+                rs = statement.executeQuery("SELECT EMAIL FROM ANWENDER WHERE NACHNAME = '" + name + "'OR VORNAME ='" + name + "'");
+            } else if (klasse == "alle") {
+                rs = statement.executeQuery("SELECT * FROM KLASSE WHERE KLASSE = '" + klasse + "'");
+               // rs = statement.executeQuery("SELECT * FROM ANWENDER WHERE NACHNAME = '" + name + "'OR VORNAME ='" + name + "'");
+            } else {
+                rs = statement.executeQuery("SELECT EMAIL FROM ROLLE WHERE ROLLE = '" + klasse + "'");
             }
-         
+
+            ResultSetMetaData meta = rs.getMetaData();
+            int cols = meta.getColumnCount();
+            int rownum = 0;
+            while (rs.next()) {
+                rownum++;
+                for (int i = 0; i < cols; i++) {
+                    dbDataAnwender.put(rownum, (String) rs.getObject(i + 1));
+                }
+            }
+
+            return dbDataAnwender;
+
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
             return null;
@@ -555,5 +581,5 @@ public class DBConnector {
             return null;
         }
 
-    }*/
+    }
 }
