@@ -5,7 +5,15 @@
  */
 package Profile_edit;
 
+import DB.DBConnector;
+import static DB.DBKonstanten.DBNAME;
+import static DB.DBKonstanten.PASSWORD;
+import static DB.DBKonstanten.USER;
 import anwender.Anwender;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -39,24 +47,39 @@ public class Edit {
         return output;
     }
     
-    public static String getProfilData(){
-        String email = "";
-        String password = "";
-        String anrede = "";
-        String vorname = "";
-        String nachname = "";
-        String telefonnummer = "";
-        String profilOutput;
-        Anwender user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
-        profilOutput= "<form>";
-        profilOutput+= "<input type='text' name='anrede' placeholder='"+anrede+"' />";
-        profilOutput+= "<input type='text' name='vorname' placeholder='"+vorname+"' />";
-        profilOutput+= "<input type='text' name='nachname' placeholder='"+nachname+"' />";
-        profilOutput+= "<input type='text' name='email' placeholder='"+email+"' />";
-        profilOutput+= "<input type='text' name='telefonnummer' placeholder='"+telefonnummer+"' />";
-        profilOutput+= "</form>";
-        return profilOutput;
-}
+    public static String getSubNavigation3() {
+        String output = "<ul>";
+        output += "<li>  <a href='/se-schulportal/profile_edit/edit.jsp'>Daten betrachten</a> </li>";
+        output += "<li>  <a href='/se-schulportal/profile_edit/edit_1.jsp'>Daten bearbeiten</a> </li>";
+        output += "</ul>";
+        return output;
+    }
+    
+  
+        public static Boolean updateAnwenderData(String anr, String vn, String nn, String tel, String em, String pw) {
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+
+        try {
+            statement = javaDBConn.connect();
+            statement.executeUpdate("UPDATE ANWENDER SET anrede='" + anr + "', nachname='" + nn + "', vorname='" + vn + "', telefonnummer='" + tel + "', passwort='" + pw+"' WHERE email='"+em+"'");
+
+            return true;
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return false;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+
+    }
     
     
 }

@@ -245,7 +245,7 @@ public class DBConnector {
 
     }
 
-    public static Boolean updateAnwenderData(String anr, String vn, String nn, String tel, String em, String pw) {
+public static Boolean updateAnwenderData(String anr, String vn, String nn, String tel, String em, String pw) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 

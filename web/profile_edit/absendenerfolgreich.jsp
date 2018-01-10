@@ -125,30 +125,38 @@
                     <p><% out.println(Edit.moduldesc ); %></p>
                 </div>
                 <nav class="col-12 col-sm-12 modul_nav">
-                    <% out.println(Edit.getSubNavigation() ); %>
+                    <% out.println(Edit.getSubNavigation3() ); %>
                 </nav>
                 <div class="col-12 col-sm-12 modul_form">
                     <h3>Neue persönliche Daten betrachten</h3><br>
                     <%
                         String anr = request.getParameter("ar");
-                        String vn = request.getParameter("vorname");
-                        String nn = request.getParameter("nachname");
-                        String tel = request.getParameter("telefonnummer");
-                        String em = request.getParameter("email");
-                        String pw = request.getParameter("password");
-                        Boolean dbupdate = DBConnector.writeRegistryAnwenderData(Anwender.databasetablename, anr, vn, nn, tel, em, pw);
+                        String vn = request.getParameter("vn");
+                        String nn = request.getParameter("nn");
+                        String tel = request.getParameter("tn");
+                        String em = request.getParameter("em");
+                        String pw = request.getParameter("pw");
+                        Boolean dbupdate = Edit.updateAnwenderData(anr, vn, nn, tel, em, pw);
                     %>
     
                     <%
                             user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
                             String profilOutput;
-                            profilOutput= "<P>Anrede: " +anrede+"</P>";
-                            profilOutput+= "<P>Vorname: " +vorname+"</P>";
-                            profilOutput+= "<P>Nachname: " +nachname+"</P>";
-                            profilOutput+= "<P>e-Mail: "+email+"</P>";
-                            profilOutput+= "<P>Telefonnummer: "+telefonnummer+"</P>";
+                            profilOutput= "<P>Anrede: " +anr+"</P>";
+                            profilOutput+= "<P>Vorname: " +vn+"</P>";
+                            profilOutput+= "<P>Nachname: " +nn+"</P>";
+                            profilOutput+= "<P>e-Mail: "+em+"</P>";
+                            profilOutput+= "<P>Telefonnummer: "+tel+"</P>";
+                            profilOutput+= "<P>Passwort "+pw+"</P>";
                             out.println(profilOutput);
+                            if (dbupdate) {
+                                out.println("<p>Deine Daten konnten erfolgreich verarbeitet werden. Um die Änderungen sofort zu sehen klicke bitte auf 'Speichern' und melde dich erneut an.</p>");
+                            }else {
+                                // Falls User-Einträge nicht in DB geschrieben wurden!
+                                out.println("<p>Leider ist bei der Datenverarbeitung ein Fehler unterlaufen! Bitte versuche dich erneut zu registrieren.</p>");
+                            }
                         %>
+                       <button onclick='speichern()'>Speichern</button>
                 </div>
         </main>
         <!--// User Navigation //-->
@@ -165,6 +173,13 @@
             <div class="col-12 col-sm-6 imprint"><a href="/se-schulportal/impressum.html">Impressum</a></div>
             <div class="col-12 col-sm-6 copyright"><p>&copy 2017 THD - Fabian Schene</p></div>
         </footer>
+        
+        <script type="text/javascript">
+            function speichern() {
+               window.location.replace('/se-schulportal/index.html');
+            }
+
+        </script>
         
     <!--// Javascript & jQuery //-->
         <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
