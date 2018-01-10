@@ -137,6 +137,7 @@
                             profilOutput += "Nachname <input type='text' id='nn' name='nachname' value='" + nachname + "' /><br>";
                             profilOutput += "e-Mail <input type='text' id='em' name='email' value='" + email + "' /><br>";
                             profilOutput += "Telefonnummer <input type='text' id='tn' name='telefonnummer' value='" + telefonnummer + "' /><br>";
+                            profilOutput += "Passwort <input type='text' id='pw' name='password' value='" + password + "' /><br>";
                             profilOutput += "</form>";
                             out.println(profilOutput);
                         %>
@@ -161,12 +162,13 @@
 
         <script type="text/javascript">
             function absenden() {
-                var ar = $('#ar').val();
+                var anr = $('#ar').val();
                 var vn = $('#vn').val();
                 var nn = $('#nn').val();
                 var em = $('#em').val();
                 var tn = $('#tn').val();
-                var url = "absendenerfolgreich.jsp?ar=" + ar + "&vn=" + vn + "&nn=" + nn + "&em=" + em + "&tn=" + tn;
+                var pw = $('#pw').val();
+                var url = "absendenerfolgreich.jsp?ar=" + anr + "&vn=" + vn + "&nn=" + nn + "&em=" + em + "&tn=" + tn + "&pw=" + pw;
                 window.location.replace(url);
             }
 

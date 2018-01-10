@@ -136,6 +136,7 @@
                             profilOutput+= "<P>Nachname: " +nachname+"</P>";
                             profilOutput+= "<P>e-Mail: "+email+"</P>";
                             profilOutput+= "<P>Telefonnummer: "+telefonnummer+"</P>";
+                            profilOutput+= "<P>Passwort: "+password+"</P>";
                             out.println(profilOutput);
                         %>
                 </div>

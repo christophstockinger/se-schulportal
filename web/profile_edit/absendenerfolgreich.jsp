@@ -36,6 +36,7 @@
     }
     
     %>
+    
 
 
 <!DOCTYPE html>
@@ -127,8 +128,18 @@
                     <% out.println(Edit.getSubNavigation() ); %>
                 </nav>
                 <div class="col-12 col-sm-12 modul_form">
-                    <h3>Persönliche Daten betrachten</h3><br>
-                        <%
+                    <h3>Neue persönliche Daten betrachten</h3><br>
+                    <%
+                        String anr = request.getParameter("ar");
+                        String vn = request.getParameter("vorname");
+                        String nn = request.getParameter("nachname");
+                        String tel = request.getParameter("telefonnummer");
+                        String em = request.getParameter("email");
+                        String pw = request.getParameter("password");
+                        Boolean dbupdate = DBConnector.writeRegistryAnwenderData(Anwender.databasetablename, anr, vn, nn, tel, em, pw);
+                    %>
+    
+                    <%
                             user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
                             String profilOutput;
                             profilOutput= "<P>Anrede: " +anrede+"</P>";
