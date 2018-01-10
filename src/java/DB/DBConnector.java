@@ -550,9 +550,73 @@ public class DBConnector {
     }
     
   
-   
+   public static Boolean deleteKennzeichenData(String tblname, String knz) {
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+        
+
+        try {
+            
+            statement = javaDBConn.connect();
+            
+         
+            statement.executeUpdate("UPDATE " + tblname + " SET Kennzeichen = NULL WHERE kennzeichen='"+knz+"'");
+
+            return true;
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return false;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
 
     }
     
+  
+   public static String kfzViewData(String tblname, String knz) {
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+        
+
+        try {
+            
+            statement = javaDBConn.connect();
+            String entry = "Eintrag gefunden!";
+            String noEntry = "<h1>Kein Eintrag gefunden!</h1><form><input value='Zurück zur Suche' onclick=\"window.location.href='kennzeichenView.jsp'\" type=button></form>";
+            
+            
+         
+           ResultSet rs = statement.executeQuery("SELECT kennzeichen from " + tblname + " WHERE kennzeichen='"+knz+"'");
+               
+            if (rs.next()) {
+                return entry;             
+            } else {
+                return noEntry;
+            }
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class
+                    .getName()).log(Level.SEVERE, null, ex);
+           return ("class not found Error");
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return ("exception error");
+        }
+    
+   }
+   
+   
+}
  
 

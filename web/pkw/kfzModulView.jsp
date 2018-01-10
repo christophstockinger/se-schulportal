@@ -4,7 +4,8 @@
     Author     : Christoph
 --%>
 
-<%@page import="KfzModulView.KfzModView"%>
+<%@page import="KfzModul.KfzModView"%>
+
 <%@page import="Modul_example.ModExample"%>
 <%@page import="anwender.Anwender"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

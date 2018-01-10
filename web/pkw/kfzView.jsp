@@ -4,6 +4,7 @@
     Author     : patrickrichter
 --%>
 
+<%@page import="KfzModul.KfzModView"%>
 <%@page import="KfzModul.KfzMod"%>
 <%@page import="DB.DBConnector"%>
 <%@page import="anwender.Anwender"%>
@@ -55,15 +56,27 @@
                     
                     //mail = (String) session.getAttribute("email");
                     String knz = request.getParameter("kennzeichen");
-                    String mail = request.getParameter("email");
+             
+                    // String mail = request.getParameter("email");
                     
                     // if ( (Anwender) session.getAttribute("user")!= null ) {
                     // User-Variablen mit Session-Values
-                    mail = (String) ((Anwender) session.getAttribute("user")).getEmail();
+                    // mail = (String) ((Anwender) session.getAttribute("user")).getEmail();
                     
                     try{
-                        Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/schulportal", "root", "root");
-                        Statement stmt = conn.createStatement();
+                        String conn = DBConnector.kfzViewData(KfzModView.databasetablename, knz);
+                        
+                        if (conn.equals("Eintrag gefunden!")) {
+                          
+                            out.println("<h1> Eintrag gefunden </h1><form><input value='Zurück zur Suche' onclick=\"window.location.href='kennzeichenView.jsp'\" type=button></form>"); // i.e. write the results of the method call
+                      
+                            System.out.println("Eintrag gefunden!");
+                        } else {
+                            out.write(conn);
+                            System.out.println(conn);
+                        }
+                            
+                       
                         
                         
                         
@@ -79,18 +92,7 @@
                 }
                 %>
         
- <?php               
-        $result = mysql_query("SELECT * FROM Nummernschild WHERE Kennzeichen='" +knz+"'";);
-            $num_rows = mysql_num_rows($result);
-
-            if ($num_rows > 0) {
-              echo "Eintrag gefunden";
-            }
-            else {
-              echo " kein Eintrag gefunden"; 
-            }
-?>
-        
+       
         
        
                 
