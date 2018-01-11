@@ -135,7 +135,7 @@
                             profilOutput += "Anrede <input type='text' id='ar' name='anrede' value='" + anrede + "' /><br>";
                             profilOutput += "Vorname <input type='text' id='vn' name='vorname' value='" + vorname + "' /><br>";
                             profilOutput += "Nachname <input type='text' id='nn' name='nachname' value='" + nachname + "' /><br>";
-                            profilOutput += "e-Mail <input type='text' id='em' name='email' value='" + email + "'/><br>";
+                            profilOutput += "<input type='hidden' id='em' name='email'  value='" + email + "'/>";
                             profilOutput += "Telefonnummer <input type='text' id='tn' name='telefonnummer' value='" + telefonnummer + "' /><br>";
                             profilOutput += "Passwort <input type='text' id='pw' name='password' value='" + password + "' /><br>";
                             profilOutput += "</form>";
