@@ -15,7 +15,7 @@ import anwender.Anwender;
 public class ModPhone {
 
     public static String modulname = "Kontakt";
-    public static String moduldesc = "Geben Sie im oberen Textfeld den Namen der gesuchten Person ein. <br>Danach wählen Sie die entsprechende Rolle, in der gesucht werden soll."; // Zeilenumbruch mit <br>-Tag erzeugen, da es in einen <p>-Tag gerendert wird.
+    public static String moduldesc = "Im oberen Feld können Sie die Klasse wählen. <br>Im unteren Feld können Sie nach spezifisch nach Namen suchen."; // Zeilenumbruch mit <br>-Tag erzeugen, da es in einen <p>-Tag gerendert wird.
 
     public ModPhone() {
     }

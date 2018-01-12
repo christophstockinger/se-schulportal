@@ -545,22 +545,29 @@ public class DBConnector {
     public static Map getAnwenderdataContact(String name, String klasse) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+        
+      
 
         Statement statement = null;
         try {
             statement = javaDBConn.connect();
             ResultSet rs;
+            ResultSet rs2;
             
             Map<Integer, String> dbDataAnwender = new HashMap<Integer, String>();
+            
             if ((name != "") || (name != null)) {
                 rs = statement.executeQuery("SELECT EMAIL FROM ANWENDER WHERE upper(NACHNAME) = '" + name + "' OR upper(VORNAME) ='" + name + "'");
-            /*} else if ((klasse != "alle") && (name != "" || name != null)) {
-                rs = statement.executeQuery("SELECT EMAIL FROM ANWENDER WHERE upper(NACHNAME) = '" + name + "' OR upper(VORNAME) ='" + name + "' AND KLASSE = '" + klasse + "'");            
-                //rs = statement.executeQuery("SELECT * FROM ANWENDER WHERE NACHNAME = '" + name + "'OR VORNAME ='" + name + "'");
+            }
+            
+            if ((klasse != "alle") && (name != "" || name != null)) {
+                
+                rs = statement.executeQuery("SELECT EMAIL FROM ANWENDER WHERE NACHNAME = '" + name + "' OR upper(VORNAME) ='" + name + "'");            
+                rs2 = statement.executeQuery("SELECT * FROM ANWENDER WHERE NACHNAME = '" + name + "'OR VORNAME ='" + name + "'");
             } else if ((klasse == "alle") && (name == "")) {
-                rs = statement.executeQuery("SELECT * FROM ANWENDER"); */           
+                rs = statement.executeQuery("SELECT * FROM ANWENDER");            
             } else {
-                rs = statement.executeQuery("SELECT EMAIL FROM ANWENDER WHERE");
+                rs = statement.executeQuery("SELECT EMAIL FROM ANWENDER");
             }
 
             ResultSetMetaData meta = rs.getMetaData();
