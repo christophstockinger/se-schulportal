@@ -140,7 +140,7 @@ Ionic Icons: https://useiconic.com/open/
                         String sklasse = request.getParameter("klasse");
                         
                         out.println("<h4> Ergebnisse: </h4><br>");
-                        out.println(ModPhone.getAnwenderdataPhones(sname, sklasse));
+                        out.println(ModPhone.getAnwenderdataContacts(sname, sklasse));
                     %>
                 </div>
                 
