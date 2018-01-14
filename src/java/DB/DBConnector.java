@@ -5,6 +5,7 @@
  */
 package DB;
 
+import kalender.*;
 import static DB.DBKonstanten.DBNAME;
 import static DB.DBKonstanten.PASSWORD;
 import static DB.DBKonstanten.USER;
@@ -507,5 +508,34 @@ public class DBConnector {
             System.out.println(ex.getMessage());
             return "";
         }
+    }
+    
+    public static Boolean DBTermine(String tblname, String id, String dat, String zevo, String zebi, String bez) {
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+        try {
+            statement = javaDBConn.connect();
+            
+            statement.executeUpdate("INSERT INTO " + tblname + "(ID, DAY, TIMEFROM, TIMETO, DESCRIPTION) VALUES (" + id + ", " + dat + ", " + zevo + ", " + zebi + ", " + bez + ")");
+           
+            return true;
+            
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
+            
+            return false;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
+            
+            return false;
+        }
+        
     }
 }

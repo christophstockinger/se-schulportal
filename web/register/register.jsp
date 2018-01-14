@@ -91,8 +91,8 @@ Erstellt am 14.11.2017 von Christoph Stockinger
                             Boolean dbinsert = DBConnector.writeRegistryAnwenderData(Anwender.databasetablename, anr, vn, nn, tel, em, pw);
                             Boolean dbverifyinsert = DBConnector.writeAnwenderVerify(em, false, false, false);
                             // Für Testzwecke!!!
-                            // Boolean dbinsert = true;
-                            // Boolean dbverifyinsert = true;
+                            //Boolean dbinsert = true;
+                            //Boolean dbverifyinsert = true;
                             if (dbinsert) {
                                 out.println("<p>Deine Daten konnten erfolgreich verarbeitet werden.</p>");
 

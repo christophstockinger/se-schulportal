@@ -25,16 +25,7 @@ import java.util.logging.Logger;
  */
 public class Kalender {
     public static String modulname = "Terminkalender";
-    public static String moduldesc = ""; // Zeilenumbruch mit <br>-Tag erzeugen, da es in einen <p>-Tag gerendert wird.
-    
-    public static String getSubNavigation() {
-        String output = "<ul>";
-        output += "<li>  <a href='#'>Menüpunkt 1</a> </li>";
-        output += "<li> <a href='#'>Menüpunkt 2</a> </li>";
-        output += "</ul>";
-        return output;
-    }
-    
+    public static String moduldesc = ""; // Zeilenumbruch mit <br>-Tag erzeugen, da es in einen <p>-Tag gerendert wird.    
     public String datum;
     public String zeitvon;
     public String zeitbis;

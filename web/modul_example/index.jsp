@@ -81,13 +81,13 @@ Ionic Icons: https://useiconic.com/open/
 
         <!--// CSS //-->
         <!--// CSS CS Reset //-->
-        <link href="/schulportal/templates/thd-schulportal/css/cs-reset.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/se-schulportal/templates/thd-schulportal/css/cs-reset.css" rel="stylesheet" type="text/css" media="all">
         <!--// CSS Bootstrap Grid //-->
-        <link href="/schulportal/templates/thd-schulportal/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/se-schulportal/templates/thd-schulportal/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" media="all">
 
-        <link href="/schulportal/templates/thd-schulportal/css/open-ionic.min.css" rel="stylesheet" type="text/css">
+        <link href="/se-schulportal/templates/thd-schulportal/css/open-ionic.min.css" rel="stylesheet" type="text/css">
         <!--// CSS Main //-->
-        <link href="/schulportal/templates/thd-schulportal/css/main.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/se-schulportal/templates/thd-schulportal/css/main.css" rel="stylesheet" type="text/css" media="all">
 
 
     </head>
@@ -178,13 +178,13 @@ Ionic Icons: https://useiconic.com/open/
         
         <!--// Footer //-->
         <footer class="row">
-            <div class="col-12 col-sm-6 imprint"><a href="/schulportal/impressum.html">Impressum</a></div>
+            <div class="col-12 col-sm-6 imprint"><a href="/se-schulportal/impressum.html">Impressum</a></div>
             <div class="col-12 col-sm-6 copyright"><p>&copy 2017 THD - Christoph Stockinger</p></div>
         </footer>
     <!--// Javascript & jQuery //-->
-        <script src="/schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
-        <script src="/schulportal/templates/thd-schulportal/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="/schulportal/templates/thd-schulportal/js/func.js" type="text/javascript"></script>
+        <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
+        <script src="/se-schulportal/templates/thd-schulportal/js/bootstrap.min.js" type="text/javascript"></script>
+        <script src="/se-schulportal/templates/thd-schulportal/js/func.js" type="text/javascript"></script>
 
     </body>
 </html>

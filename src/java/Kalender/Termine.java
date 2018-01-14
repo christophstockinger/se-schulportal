@@ -67,4 +67,5 @@ public class Termine implements DBKonstanten{
     }
     
     
+    
 }
