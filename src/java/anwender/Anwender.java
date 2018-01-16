@@ -253,6 +253,16 @@ public class Anwender implements DBKonstanten {
         return userNaviOutput;
     }
 
+    
+    public static Boolean CheckEmailInDatabase(String email) {
+        Map tmpEmailCheck = DB.DBConnector.getAnwenderdaten(Anwender.databasetablename, email);
+        
+        if ((tmpEmailCheck.size() == 0)||(tmpEmailCheck == null) ) {
+            return false;
+        } else {
+            return true;
+        }
+    }
     protected void finalize() {
         System.out.println("Anwender wurde zerstört!!!");
     }

@@ -34,15 +34,15 @@ public class Verify {
     public static String sendVerfifyMail(String anr, String vn, String nn, String em) {
         try {
             MailSender send = new MailSender();
-            Session absender = send.getGMailSession("mail@dit.education", "Mail2017+1");
+           
 
             // E-Mail Components
             String subject = "Bestaetigung deines Schulportal-Accounts";
             String link = "localhost:8080/schulportal/register/mailverify.jsp?email=" + em + "";
             String message = "<html><head></head><body><p>Sehr geehrter " + anr + " " + vn + " " + nn + ", </p><p> vielen Dank für die Registrierung in unserem Schulportal. Um sicher zu stellen, dass das ihre E-Mail-Adresse ist, klicken Sie bitte auf nach folgenden Link: <a href='" + link + "'>" + link + "</a></p><p> Sollte es Probleme mit dem Link geben können Sie alternativ, diesen einfach in ihr Browserfenster einfügen.</p>" + emailfooter + "</body></html>";
-
+            
             // E-Mail versenden
-            send.postMail(absender, em, subject, message);
+            send.postMail(em, subject, message);
 
             return "Bitte überprüfen Sie ihr E-Mail-Postfach und bestätigen Sie ihren Account.";
         } catch (Exception e) {
@@ -86,16 +86,16 @@ public class Verify {
     public static String sendVerifySMSMailUser(String anr, String vn, String nn, String em) {
         try {
             MailSender send = new MailSender();
-            Session absender = send.getGMailSession("mail@dit.education", "Mail2017+1");
+            
             
             String link = "localhost:8080/schulportal/";
 
             // E-Mail Components
             String subject = "Freischaltung deines Schulportal-Accounts abgeschlossen";
             String message = "<html><head></head><body><p>Sehr geehrter " + anr + " " + vn + " " + nn + ", </p><p> die Schulverwaltung hat ihre Rollen bestätigt und ihr Account ist nun freigeschaltet.</p><p>Sie können Sie jetzt unter " + link + " anmelden.</p>" + emailfooter + "</body></html>";
-
+            
             // E-Mail versenden
-            send.postMail(absender, em, subject, message);
+            send.postMail(em, subject, message);
 
             return "Der Benutzer ist nun freigeschaltet. Er wurde per E-Mail über seine Freischaltung informiert.";
         } catch (Exception e) {
@@ -110,7 +110,7 @@ public class Verify {
     public static String sendVerifySMSMailAdmin(String email, Map anwenderrollen) {
         try {
             MailSender send = new MailSender();
-            Session absender = send.getGMailSession("mail@dit.education", "Mail2017+1");
+            
 
             final String adminemail = "cs@christophstockinger.de";
             // GET Userdata
@@ -130,7 +130,7 @@ public class Verify {
             String message = "<html><head></head><body><p>Liebe Verwaltung,</p><p> Ein neuer Benutzer muss freigeschaltet werden: <br>Benutzername: " + (String) anwenderdata.get("ANREDE") + " " + (String) anwenderdata.get("VORNAME") + " " + (String) anwenderdata.get("NACHNAME") + "<br>Benutzer-E-Mail: " + email + "</p><p>Der Benutzer hat bereits erfolgreich seine E-Mail-Adresse  und SMS bestätigt.</p><p>Der neue Benutzer beantragt folgende Berechtigungsrollen:<br><ul>" + rollen + "</ul></p><p>Mit folgenden Link können Sie die Berechtigungen und den neuen Benutzer löschen:<br><a href='" + link + "'>" + link + "</a></p><p> Sollte es Probleme mit dem Link geben können Sie alternativ, diesen einfach in ihr Browserfenster einfügen.</p>" + emailfooter + "</body></html>";
 
             // E-Mail versenden
-            send.postMail(absender, adminemail, subject, message);
+            send.postMail(adminemail, subject, message);
 
             return "Bitte überprüfen Sie ihr E-Mail-Postfach und bestätigen Sie ihren Account.";
         } catch (Exception e) {
