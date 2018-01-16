@@ -147,30 +147,6 @@ public class Notenblatt implements Interfaces.IModul {
         return klassen;
     }
 
-    /**
-     * Methode baut einen Select-Tag mit allen Klassen als Option-Tag zusammen
-     *
-     * @param sename Value des Name-Atrritbut
-     * @return String mit HTML-Konstrukt
-     */
-    public static String getKlassenAsSelectForChange(String sename) {
-        Map alleRollen;
-        String returnstr = "";
-
-        alleRollen = DB.DBConnector.getRollennamen();
-
-        returnstr += "<select required name='" + sename + "' id='klasse'>";
-        returnstr += "<option>Klasse auswählen</option>";
-        for (int i = 1; i <= alleRollen.size(); i++) {
-            if (((String) alleRollen.get(i)).contains("Klasse")) {
-                returnstr += "<option value='" + alleRollen.get(i) + "'>" + alleRollen.get(i) + "</option>";
-            }
-        }
-        returnstr += "<option value='entlassen'>entlassen</option>";
-        returnstr += "</select>";
-
-        return returnstr;
-    }
 
     /**
      * Methode zur Ausgabe der Klassenübersicht
@@ -212,36 +188,7 @@ public class Notenblatt implements Interfaces.IModul {
         return returnstr;
     }
 
-    /**
-     * Methode zur Ausgabe der Auswahlmöglichkeit der neuen Klasse
-     *
-     * @return String mit HTML-Konstrukt
-     */
-    public static String getKlassenChange() {
-        Map alleRollen;
-        String returnstr = "";
-
-        alleRollen = DB.DBConnector.getRollennamen();
-
-        returnstr += "<h3>Klassenwechsel</h3>";
-
-        returnstr += "<table cellpadding='0' cellspacing='0'>";
-
-        for (int i = 1; i <= alleRollen.size(); i++) {
-            if (((String) alleRollen.get(i)).contains("Klasse")) {
-                returnstr += "<tr>";
-                returnstr += "<td>" + alleRollen.get(i) + "</td>";
-                returnstr += "<td> wird zu</td>";
-                returnstr += "<td>" + getKlassenAsSelectForChange((String) alleRollen.get(i)) + "</td>";
-                returnstr += "</tr>";
-            }
-        }
-
-        returnstr += "</table>";
-        returnstr += "<button type='submit' name='classchange' value='true'>Klassenwechsel vornehmen</button>";
-        return returnstr;
-    }
-
+    
     /**
      * Methode zur Speicherung von hochgeladenen (CSV) Dateien
      *
