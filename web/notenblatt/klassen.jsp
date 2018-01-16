@@ -135,21 +135,7 @@ Ionic Icons: https://useiconic.com/open/
                     <p><% 
                         out.println(Notenblatt.moduldesc);
                         
-                        if ( Boolean.parseBoolean(request.getParameter("classchange") ) ) {
-
-                                Map klassen = Notenblatt.getKlassenAsMap();
-                                Map neueKlassenZuordnung = new HashMap();
-
-                                for (int i = 0; i < klassen.size(); i++) {
-                                    String alteKlasse = (String) klassen.get(i);
-                                    if ( (alteKlasse != null)||(alteKlasse != "") ) {
-                                        String neueKlasse = request.getParameter( (String) klassen.get(i) );
-                                        neueKlassenZuordnung.put(alteKlasse, neueKlasse );
-                                    }
-                                }
-
-                                out.println( Notenblatt.updateKlassenRollen(neueKlassenZuordnung) );
-                            }
+                        
 
                         %></p>
                 </div>
