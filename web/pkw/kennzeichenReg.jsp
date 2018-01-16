@@ -1,12 +1,15 @@
 <%-- 
-    Document   : index
-    Created on : 05.12.2017, 14:08:48
-    Author     : Christoph
+    Document   : kennzeichenReg
+    Created on : 12.12.2017, 14:58:07
+    Author     : patrickrichter
 --%>
-
-<%@page import="Notenblatt.Notenblatt"%>
+<%@page import="Modul_example.ModExample"%>
+<%@page import="anwender.Anwender"%>
+<%@page import="KfzModul.KfzMod"%>
+<%@page import="Modul_example.ModExample"%>
 <%@page import="anwender.Anwender"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -21,10 +24,10 @@ Ionic Icons: https://useiconic.com/open/
 <%
     // Status Variable sowie String Variable für Weiterleitung auf Login-Seite
     Boolean loginstatus = (Boolean) session.getAttribute("login");
-    String loginpage = "<script type='text/javascript'>window.location.replace('/schulportal/index.html');</script>";
+    String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
     
     // User Variablen
-    String email = "christoph.stockinger@stud.th-deg.de" ; // For Development: hardgecoded normalerweise (String) session.getAttribute("email")
+    String email = "";
     String password = "";
     String anrede = "";
     String vorname = "";
@@ -51,7 +54,7 @@ Ionic Icons: https://useiconic.com/open/
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width; initial-scale=1.0"/>
 
-        <title>Startseite | <% out.println(Notenblatt.modulname); %> | Schulportal</title>
+        <title>Kennzeichen löschen</title>
 
         <meta name="description" content=""/>
         <meta name="author" content="Coding77 // Christoph Stockinger"/>
@@ -61,22 +64,22 @@ Ionic Icons: https://useiconic.com/open/
 
 
         <!--// Favicon //-->
-        <link rel="apple-touch-icon" sizes="57x57" href="/schulportal/images/favicon/apple-icon-57x57.png">
-        <link rel="apple-touch-icon" sizes="60x60" href="/schulportal/images/favicon/apple-icon-60x60.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="/schulportal/images/favicon/apple-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="/schulportal/images/favicon/apple-icon-76x76.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="/schulportal/images/favicon/apple-icon-114x114.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="/schulportal/images/favicon/apple-icon-120x120.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="/schulportal/images/favicon/apple-icon-144x144.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="/schulportal/images/favicon/apple-icon-152x152.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="/schulportal/images/favicon/apple-icon-180x180.png">
-        <link rel="icon" type="image/png" sizes="192x192" href="/schulportal/images/favicon/android-icon-192x192.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/schulportal/images/favicon/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="96x96" href="/schulportal/images/favicon/favicon-96x96.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/schulportal/images/favicon/favicon-16x16.png">
-        <link rel="manifest" href="/schulportal/images/favicon/manifest.json">
+        <link rel="apple-touch-icon" sizes="57x57" href="/se-schulportal/images/favicon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/se-schulportal/images/favicon/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/se-schulportal/images/favicon/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/se-schulportal/images/favicon/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/se-schulportal/images/favicon/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/se-schulportal/images/favicon/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/se-schulportal/images/favicon/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/se-schulportal/images/favicon/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/se-schulportal/images/favicon/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="/se-schulportal/images/favicon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/se-schulportal/images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/se-schulportal/images/favicon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/se-schulportal/images/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/se-schulportal/images/favicon/manifest.json">
         <meta name="msapplication-TileColor" content="#ffffff">
-        <meta name="msapplication-TileImage" content="/schulportal/images/favicon/ms-icon-144x144.png">
+        <meta name="msapplication-TileImage" content="/se-schulportal/images/favicon/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
 
         <!--// CSS //-->
@@ -84,6 +87,8 @@ Ionic Icons: https://useiconic.com/open/
         <link href="/se-schulportal/templates/thd-schulportal/css/cs-reset.css" rel="stylesheet" type="text/css" media="all">
         <!--// CSS Bootstrap Grid //-->
         <link href="/se-schulportal/templates/thd-schulportal/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" media="all">
+
+        <link href="/se-schulportal/templates/thd-schulportal/css/open-ionic.min.css" rel="stylesheet" type="text/css">
         <!--// CSS Main //-->
         <link href="/se-schulportal/templates/thd-schulportal/css/main.css" rel="stylesheet" type="text/css" media="all">
 
@@ -91,15 +96,15 @@ Ionic Icons: https://useiconic.com/open/
     </head>
     <body>
         <%
-           // if ( loginstatus == false) {
-           //     out.println(loginpage);
-           // } %>
+            if ( loginstatus == false) {
+                out.println(loginpage);
+            } %>
         <header class="row">
             <div class="col-2 col-sm-1 nav_burger" >
                 <img data="#main_navigation" class="navicon nav_burger_image" src="/se-schulportal/images/icons/menu.svg" alt="Navigation öffnen" />
             </div>
             <div class="col-6 col-sm-9 brand">
-                <a href="/schulportal/dashboard.jsp">
+                <a href="/se-schulportal/dashboard.jsp">
                     <img class="brand_image" src="/se-schulportal/images/logo/schullogo.svg" alt="Schulportal" />
                 </a>
             </div>
@@ -107,7 +112,7 @@ Ionic Icons: https://useiconic.com/open/
                 <img data="#user_navigation" class="navicon user_image" src="/se-schulportal/images/user/user-dummy.svg" alt="Userbild" />
             </div>
             <div class="col-2 col-sm-1 logout">
-                <a href="/schulportal/">
+                <a href="/se-schulportal/">
                     <img class="logout_image" src="/se-schulportal/images/icons/account-logout.svg" alt="Abmelden" />
                 </a>
             </div>
@@ -123,19 +128,24 @@ Ionic Icons: https://useiconic.com/open/
         <main>
             <div class="row modul">
                 <div class="col-12 col-sm-12 modul_headline">
-                    <h2><% out.println( Notenblatt.modulname ); %></h2>
+                    <h2><% out.println(KfzMod.modulname ); %></h2>
                 </div>
                 <div class="col-12 col-sm-12 modul_description">
-                    <p><% out.println( Notenblatt.moduldesc ); %></p>
+                    <p><% out.println(KfzMod.moduldesc ); %></p>
                 </div>
                 <nav class="col-12 col-sm-12 modul_nav">
-                    <% System.out.println("E-Mail: " +  email); %>
-                    <% out.println( Notenblatt.getSubNavigation( email ) ); %>
+                    <% out.println(KfzMod.getSubNavigation() ); %>
                 </nav>
-                <div class="col-12 col-sm-12 modul_form">
-                    <h3>Formularname</h3>
-                    <form>
-                        <input type="text" name="name" placeholder="Dein Name" />
+               <div class="col-12 col-sm-12 modul_form">
+                    <h3>Kennzeichen Registrieren</h3>
+                    
+                    <form method="get" action="kfzSucces.jsp">
+                        <input type="text" name="kennzeichen" placeholder="Neues KFZ-Kennzeichen eingeben" id="kennzeichen">
+                        <input class="button" type="submit" value="Registrieren"/>
+                    </form>
+                    
+               </div>       
+                    <!--
                         <textarea>Hier steht ihr Text!!!!</textarea>
                         <select>
                             <option>Auswahl 1</option>
@@ -163,15 +173,17 @@ Ionic Icons: https://useiconic.com/open/
                             <td>Inhalt 4</td>
                         </tr>
                     </table>
-                </div>
+              </div> 
+                    -->  
             </div>
+                
         </main>
         <!--// User Navigation //-->
         <nav class="user_navi" id="user_navigation">
             <%
                 user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
                 out.println("<div class='welcome'><p>Hallo " + anrede + " " + vorname + " " + nachname + "</p></div>");
-                out.println( user.getUserNavigation() );
+                out.println(user.getUserNavigation());
             %>
         </nav>
         

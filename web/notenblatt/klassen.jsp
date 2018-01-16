@@ -4,7 +4,12 @@
     Author     : Christoph
 --%>
 
-<%@page import="java.util.Map"%>
+<%@ page import="java.io.*,java.util.*, javax.servlet.*" %>
+<%@ page import="javax.servlet.http.*" %>
+<%@ page import="org.apache.commons.fileupload.*" %>
+<%@ page import="org.apache.commons.fileupload.disk.*" %>
+<%@ page import="org.apache.commons.fileupload.servlet.*" %>
+<%@ page import="org.apache.commons.io.output.*" %>
 <%@page import="Notenblatt.Notenblatt"%>
 <%@page import="anwender.Anwender"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -43,7 +48,7 @@ Ionic Icons: https://useiconic.com/open/
         telefonnummer = (String) ((Anwender) session.getAttribute("user")).getTelefonnummer();
 
     } else {
-        loginstatus = false;
+        loginstatus = true; // For dev eigentlich false
     }
 
 %>
@@ -52,7 +57,7 @@ Ionic Icons: https://useiconic.com/open/
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width; initial-scale=1.0"/>
 
-        <title>Startseite | <% out.println(Notenblatt.modulname); %> | Schulportal</title>
+        <title>Klassenübersicht | <% out.println(Notenblatt.modulname); %> | Schulportal</title>
 
         <meta name="description" content=""/>
         <meta name="author" content="Coding77 // Christoph Stockinger"/>
@@ -127,67 +132,43 @@ Ionic Icons: https://useiconic.com/open/
                     <h2><% out.println(Notenblatt.modulname); %></h2>
                 </div>
                 <div class="col-12 col-sm-12 modul_description">
-                    <p><% out.println(Notenblatt.moduldesc); %></p>
+                    <p><% 
+                        out.println(Notenblatt.moduldesc);
+                        
+                        if ( Boolean.parseBoolean(request.getParameter("classchange") ) ) {
+
+                                Map klassen = Notenblatt.getKlassenAsMap();
+                                Map neueKlassenZuordnung = new HashMap();
+
+                                for (int i = 0; i < klassen.size(); i++) {
+                                    String alteKlasse = (String) klassen.get(i);
+                                    if ( (alteKlasse != null)||(alteKlasse != "") ) {
+                                        String neueKlasse = request.getParameter( (String) klassen.get(i) );
+                                        neueKlassenZuordnung.put(alteKlasse, neueKlasse );
+                                    }
+                                }
+
+                                out.println( Notenblatt.updateKlassenRollen(neueKlassenZuordnung) );
+                            }
+
+                        %></p>
                 </div>
                 <nav class="col-12 col-sm-12 modul_nav">
                     <% System.out.println("E-Mail: " + email); %>
                     <% out.println(Notenblatt.getSubNavigation(email)); %>
                 </nav>
-                <div class="col-12 col-sm-12 modul_description">
-                    <%
-                        String klasse, fach, art, lehrer, date,examidstr;
-                        int examid = 0;
-                        examidstr = request.getParameter("examid");
-
-                        if (examidstr == null) {
-                            klasse = request.getParameter("klasse");
-                            fach = request.getParameter("fach");
-                            art = request.getParameter("art");
-                            lehrer = request.getParameter("lehrer");
-                            date = request.getParameter("datum");
-                            out.println(Notenblatt.writeExam(klasse, fach, art, lehrer, date));
-                            examid = DB.DBConnector.getExamId(klasse, fach, art, lehrer, date);
-                                if (examid == 0) {
-                                    out.println("Es ist ein Fehler beim Abrufen der Prüfung passiert!");
-                                }
-                            // examidstr = Integer.toString(examid);
-                        } else {
-                            
-                            examid = Integer.parseInt(examidstr);
-                            
-                            Map examdata = DB.DBConnector.getExamDataId(examid);
-                            
-                            klasse = (String) examdata.get("KLASSE");
-                            fach = (String) examdata.get("FACH");
-                            art = (String) examdata.get("ART");
-                            lehrer = (String) examdata.get("LEHRER");
-                            date = (String) examdata.get("DATUM");
-                            
-                        }
-                    %>
-                </div>
-                <div class="col-12 col-sm-12 modul_form">
-                    <h3>Noten eintragen</h3>
-                    <form action="exam.jsp" method="GET">
-                        <% 
-                            if (examidstr == null) {
-                                if (examid != 0) {
-                                    out.println("<input type='hidden' name='examid' value='" + examid + "' />");
-                                    out.println("<input type='hidden' name='klasse' value='" + klasse + "' />");
-                                    out.println(Notenblatt.getKlassenSchuelerForm(klasse));
-                                    out.println("<button type='submit' name='examsmark' value='true'>Prüfungsnoten speichern</button>");
-                                } else {
-                                    out.println("Leider konnte keine Schülerübersicht generiert werden.");
-                                }
-                            } else {
-                                out.println("<input type='hidden' name='examid' value='" + examid + "' />");
-                                out.println("<input type='hidden' name='klasse' value='" + klasse + "' />");
-                                out.println( Notenblatt.getExamMarkFromDatabase(examid, klasse) );
-                            }
-                        %>
-                        
+                <!-- <div class="col-12 col-sm-12 modul_form">
+                    <form>
+                        <a href="import.jsp" class="button"><img src="/se-schulportal/images/icons/data-transfer-upload-white.svg" alt=""/>Import</a>
+                        <a href="export.jsp" class="button"><img src="/se-schulportal/images/icons/data-transfer-download-white.svg" alt=""/>Export</a>
                     </form>
+                </div> -->
+                
+                <div class="col-12 col-sm-12 modul_table">
+                    <% out.println(Notenblatt.getKlassenOverview() ); %>
                 </div>
+
+
             </div>
         </main>
         <!--// User Navigation //-->

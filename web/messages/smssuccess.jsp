@@ -1,12 +1,16 @@
 <%-- 
-    Document   : index
-    Created on : 05.12.2017, 14:08:48
-    Author     : Christoph
+    Document   : smssuccess
+    Created on : 21.12.2017, 14:44:44
+    Author     : mwitzlsperger
 --%>
 
-<%@page import="Notenblatt.Notenblatt"%>
-<%@page import="anwender.Anwender"%>
+<%@page import="Sender.SMSSender"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="Sender.MailSender"%>
+<%@page import="javax.mail.MessagingException"%>
+<%@page import="javax.mail.Session"%>
+<%@page import="Sender.ModMessage"%>
+<%@page import="anwender.Anwender"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -14,17 +18,13 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 
-<!--// 
-Know-How:
-Ionic Icons: https://useiconic.com/open/ 
-//-->
 <%
     // Status Variable sowie String Variable für Weiterleitung auf Login-Seite
     Boolean loginstatus = (Boolean) session.getAttribute("login");
     String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
     
     // User Variablen
-    String email = (String) session.getAttribute("email");
+    String email = "";
     String password = "";
     String anrede = "";
     String vorname = "";
@@ -35,11 +35,11 @@ Ionic Icons: https://useiconic.com/open/
     if ( (Anwender) session.getAttribute("user")!= null ) {
     // User-Variablen mit Session-Values
     email = (String) ((Anwender) session.getAttribute("user")).getEmail();
-    password = (String) ((Anwender) session.getAttribute("user")).getPassword();
-    anrede = (String) ((Anwender) session.getAttribute("user")).getAnrede();
-    vorname = (String) ((Anwender) session.getAttribute("user")).getVorname();
-    nachname = (String) ((Anwender) session.getAttribute("user")).getNachname();
-    telefonnummer = (String) ((Anwender) session.getAttribute("user")).getTelefonnummer();
+    password = (String) ((Anwender) session.getAttribute("user")).getEmail();
+    anrede = (String) ((Anwender) session.getAttribute("user")).getEmail();
+    vorname = (String) ((Anwender) session.getAttribute("user")).getEmail();
+    nachname = (String) ((Anwender) session.getAttribute("user")).getEmail();
+    telefonnummer = (String) ((Anwender) session.getAttribute("user")).getEmail();
     
     } else {
         loginstatus = false;
@@ -51,7 +51,7 @@ Ionic Icons: https://useiconic.com/open/
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width; initial-scale=1.0"/>
 
-        <title>Startseite | <% out.println(Notenblatt.modulname); %> | Schulportal</title>
+        <title>Startseite | Nachricht senden | Schulportal</title>
 
         <meta name="description" content=""/>
         <meta name="author" content="Coding77 // Christoph Stockinger"/>
@@ -89,53 +89,62 @@ Ionic Icons: https://useiconic.com/open/
         <!--// CSS Main //-->
         <link href="/se-schulportal/templates/thd-schulportal/css/main.css" rel="stylesheet" type="text/css" media="all">
 
-        <link></link>
+
     </head>
     <body>
-        <%
-           // if ( loginstatus == false) {
-           //     out.println(loginpage);
-           // } %>
-        <header class="row">
-            <div class="col-2 col-sm-1 nav_burger" >
-                <img data="#main_navigation" class="navicon nav_burger_image" src="/se-schulportal/images/icons/menu.svg" alt="Navigation öffnen" />
-            </div>
-            <div class="col-6 col-sm-9 brand">
-                <a href="/se-schulportal/dashboard.jsp">
-                    <img class="brand_image" src="/se-schulportal/images/logo/schullogo.svg" alt="Schulportal" />
-                </a>
-            </div>
-            <div class="col-2 col-sm-1 user">
-                <img data="#user_navigation" class="navicon user_image" src="/se-schulportal/images/user/user-dummy.svg" alt="Userbild" />
-            </div>
-            <div class="col-2 col-sm-1 logout">
-                <a href="/se-schulportal/">
-                    <img class="logout_image" src="/se-schulportal/images/icons/account-logout.svg" alt="Abmelden" />
-                </a>
-            </div>
-        </header>
-        <!--// Main Navigation //-->
-        <nav class="main_navi" id="main_navigation" >
-           <%
-                user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
-                out.println(user.getNavigation());
-            %>
-        </nav>
-        <!--// Main Modul //-->
         <main>
             <div class="row modul">
-                <div class="col-12 col-sm-12 modul_headline">
-                    <h2><% out.println( Notenblatt.modulname ); %></h2>
-                </div>
-                <div class="col-12 col-sm-12 modul_description">
-                    <p><% out.println( Notenblatt.moduldesc ); %></p>
-                </div>
-                <nav class="col-12 col-sm-12 modul_nav">
-                    <% System.out.println("E-Mail: " +  email); %>
-                    <% out.println( Notenblatt.getSubNavigation( email ) ); %>
+                <%
+                    /*if ( loginstatus == false) {
+                        out.println(loginpage);
+                    } */
+                %>
+                <header class="row">
+                    <div class="col-2 col-sm-1 nav_burger" >
+                        <img data="#main_navigation" class="navicon nav_burger_image" src="/se-schulportal/images/icons/menu.svg" alt="Navigation öffnen" />
+                    </div>
+                    <div class="col-6 col-sm-9 brand">
+                        <a href="/se-schulportal/dashboard.jsp">
+                            <img class="brand_image" src="/se-schulportal/images/logo/schullogo.svg" alt="Schulportal" />
+                        </a>
+                    </div>
+                    <div class="col-2 col-sm-1 user">
+                        <img data="#user_navigation" class="navicon user_image" src="/se-schulportal/images/user/user-dummy.svg" alt="Userbild" />
+                    </div>
+                    <div class="col-2 col-sm-1 logout">
+                        <a href="/se-schulportal/">
+                            <img class="logout_image" src="/se-schulportal/images/icons/account-logout.svg" alt="Abmelden" />
+                        </a>
+                    </div>
+                </header>
+                <!--// Main Navigation //-->
+                <nav class="main_navi" id="main_navigation" >
+                    <%
+                        user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
+                        out.println(user.getNavigation());
+                    %>
                 </nav>
-                <div class="col-12 col-sm-12 modul_description">
-                    <img style="width: 100%;" src="/se-schulportal/images/module/notenblatt/noten.png" alt="Hier soll eine Übersicht stehen!" />
+                <!--// Main Modul //-->
+                <%
+                    String empfaenger = request.getParameter("sms");
+                    String nachricht = request.getParameter("nachricht");
+
+                    try {  
+                        SMSSender.sendSMS(empfaenger, nachricht);
+                        out.println("Nachricht gesendet");
+
+
+                    } catch (Exception e) {
+                        System.out.println(e);
+                        out.println("Nachricht konnte nicht gesendet werden");
+
+                    }  
+                %>
+                <br>
+                <div class="modul_form">
+                    <form>
+                        <button type="button" class="button" onclick='index()'>Zurück</button>
+                    </form>
                 </div>
             </div>
         </main>
@@ -144,19 +153,24 @@ Ionic Icons: https://useiconic.com/open/
             <%
                 user = new Anwender(anrede, vorname, nachname, email, telefonnummer, password);
                 out.println("<div class='welcome'><p>Hallo " + anrede + " " + vorname + " " + nachname + "</p></div>");
-                out.println( user.getUserNavigation() );
+                out.println(user.getUserNavigation());
             %>
         </nav>
         
         <!--// Footer //-->
         <footer class="row">
             <div class="col-12 col-sm-6 imprint"><a href="/se-schulportal/impressum.html">Impressum</a></div>
-            <div class="col-12 col-sm-6 copyright"><p>&copy 2017 THD - Christoph Stockinger</p></div>
+            <div class="col-12 col-sm-6 copyright"><p>&copy 2017 THD - Luis & Witzi</p></div>
         </footer>
     <!--// Javascript & jQuery //-->
         <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/bootstrap.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/func.js" type="text/javascript"></script>
-
+        <script>
+            function index(){
+                window.location.replace("index.jsp");
+            }
+        </script>
     </body>
 </html>
+

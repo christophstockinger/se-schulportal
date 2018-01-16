@@ -1,0 +1,31 @@
+.menu{
+    margin: 20px 0 20px 0;
+}
+
+.menupunkt{
+    font-size: 12pt;
+    margin: 0 10% 0 10%;
+}
+
+.hinzu{
+    margin-top: 20px;
+    color: #3F9AB2;
+}
+
+.termine, .heute{
+    margin-top: 20px;
+}
+
+#form_hinzu{
+    display: none;
+}
+
+.datum, .zeit, .bezeichnung {
+    margin: 10px 0px 10px 0px;
+    color: #3F9AB2;
+}
+
+p {
+    font-size: 12pt;
+    color: #3F9AB2;
+}

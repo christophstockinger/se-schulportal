@@ -4,6 +4,8 @@
     Author     : Christoph
 --%>
 
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 <%@page import="Notenblatt.Notenblatt"%>
 <%@page import="anwender.Anwender"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -24,7 +26,7 @@ Ionic Icons: https://useiconic.com/open/
     String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
     
     // User Variablen
-    String email = "christoph.stockinger@stud.th-deg.de" ; // For Development: hardgecoded normalerweise (String) session.getAttribute("email")
+    String email = (String) session.getAttribute("email");
     String password = "";
     String anrede = "";
     String vorname = "";
@@ -51,7 +53,7 @@ Ionic Icons: https://useiconic.com/open/
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width; initial-scale=1.0"/>
 
-        <title>Startseite | <% out.println(Notenblatt.modulname); %> | Schulportal</title>
+        <title>Prüfungen | <% out.println(Notenblatt.modulname); %> | Schulportal</title>
 
         <meta name="description" content=""/>
         <meta name="author" content="Coding77 // Christoph Stockinger"/>
@@ -61,22 +63,22 @@ Ionic Icons: https://useiconic.com/open/
 
 
         <!--// Favicon //-->
-        <link rel="apple-touch-icon" sizes="57x57" href="/schulportal/images/favicon/apple-icon-57x57.png">
-        <link rel="apple-touch-icon" sizes="60x60" href="/schulportal/images/favicon/apple-icon-60x60.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="/schulportal/images/favicon/apple-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="/schulportal/images/favicon/apple-icon-76x76.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="/schulportal/images/favicon/apple-icon-114x114.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="/schulportal/images/favicon/apple-icon-120x120.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="/schulportal/images/favicon/apple-icon-144x144.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="/schulportal/images/favicon/apple-icon-152x152.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="/schulportal/images/favicon/apple-icon-180x180.png">
-        <link rel="icon" type="image/png" sizes="192x192" href="/schulportal/images/favicon/android-icon-192x192.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/schulportal/images/favicon/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="96x96" href="/schulportal/images/favicon/favicon-96x96.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/schulportal/images/favicon/favicon-16x16.png">
-        <link rel="manifest" href="/schulportal/images/favicon/manifest.json">
+        <link rel="apple-touch-icon" sizes="57x57" href="/se-schulportal/images/favicon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/se-schulportal/images/favicon/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/se-schulportal/images/favicon/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/se-schulportal/images/favicon/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/se-schulportal/images/favicon/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/se-schulportal/images/favicon/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/se-schulportal/images/favicon/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/se-schulportal/images/favicon/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/se-schulportal/images/favicon/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="/se-schulportal/images/favicon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/se-schulportal/images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/se-schulportal/images/favicon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/se-schulportal/images/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/se-schulportal/images/favicon/manifest.json">
         <meta name="msapplication-TileColor" content="#ffffff">
-        <meta name="msapplication-TileImage" content="/schulportal/images/favicon/ms-icon-144x144.png">
+        <meta name="msapplication-TileImage" content="/se-schulportal/images/favicon/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
 
         <!--// CSS //-->
@@ -99,7 +101,7 @@ Ionic Icons: https://useiconic.com/open/
                 <img data="#main_navigation" class="navicon nav_burger_image" src="/se-schulportal/images/icons/menu.svg" alt="Navigation öffnen" />
             </div>
             <div class="col-6 col-sm-9 brand">
-                <a href="/schulportal/dashboard.jsp">
+                <a href="/se-schulportal/dashboard.jsp">
                     <img class="brand_image" src="/se-schulportal/images/logo/schullogo.svg" alt="Schulportal" />
                 </a>
             </div>
@@ -107,7 +109,7 @@ Ionic Icons: https://useiconic.com/open/
                 <img data="#user_navigation" class="navicon user_image" src="/se-schulportal/images/user/user-dummy.svg" alt="Userbild" />
             </div>
             <div class="col-2 col-sm-1 logout">
-                <a href="/schulportal/">
+                <a href="/se-schulportal/">
                     <img class="logout_image" src="/se-schulportal/images/icons/account-logout.svg" alt="Abmelden" />
                 </a>
             </div>
@@ -129,40 +131,58 @@ Ionic Icons: https://useiconic.com/open/
                     <p><% out.println( Notenblatt.moduldesc ); %></p>
                 </div>
                 <nav class="col-12 col-sm-12 modul_nav">
-                    <% System.out.println("E-Mail: " +  email); %>
                     <% out.println( Notenblatt.getSubNavigation( email ) ); %>
                 </nav>
+                <div class="col-12 col-sm-12 modul_description">
+                    <%
+                        if ( request.getParameter("examid") != null ) {
+                            if ( Boolean.parseBoolean(request.getParameter("examsmark") ) ) {
+                                int examid = Integer.parseInt( request.getParameter("examid") );
+                                String klasse = request.getParameter("klasse");
+
+                                
+                                Map klassenschueler = Notenblatt.getSchuelerOfAKlasse(klasse);
+                                Map schuelernote = new HashMap();
+                                
+                                for (int i = 1; i <= klassenschueler.size(); i++) {
+                                    int note = Integer.parseInt( request.getParameter( (String) klassenschueler.get(i) ));
+                                    System.out.println( (String) klassenschueler.get(i)+ " | " + note );
+                                    schuelernote.put((String) klassenschueler.get(i), note );
+                                }
+
+                                out.println( Notenblatt.writeExamMark(examid, schuelernote) );
+                            }
+                            if ( Boolean.parseBoolean(request.getParameter("examsmarkupdate") ) ) {
+                                int examid = Integer.parseInt( request.getParameter("examid") );
+                                String klasse = request.getParameter("klasse");
+
+                                Map klassenschueler = Notenblatt.getSchuelerOfAKlasse(klasse);
+                                Map schuelernote = new HashMap();
+
+                                for (int i = 1; i <= klassenschueler.size(); i++) {
+                                    int note = Integer.parseInt( request.getParameter( (String) klassenschueler.get(i) ));
+                                    System.out.println( (String) klassenschueler.get(i)+ " | " + note );
+                                    schuelernote.put((String) klassenschueler.get(i), note );
+                                }
+
+                                out.println( Notenblatt.updateExamMark(examid, schuelernote) );
+                            }
+                        }
+                    %>
+                </div>
                 <div class="col-12 col-sm-12 modul_form">
-                    <h3>Formularname</h3>
-                    <form>
-                        <input type="text" name="name" placeholder="Dein Name" />
-                        <textarea>Hier steht ihr Text!!!!</textarea>
-                        <select>
-                            <option>Auswahl 1</option>
-                            <option>Auswahl 2</option>
-                        </select>
-                        <div class="radio"><input type="radio" name=""> <label>A</label></div>
-                        <div class="checkbox"><input type="checkbox" name=""> <label>B</label></div>
-                        
-                        <button onclick=''>Absenden</button>
+                    <h3>Neue Prüfung anlegen</h3>
+                    <form action="exam-mark.jsp" method="get">
+                        <% out.println( Notenblatt.getKlassenAsSelect() ); %>
+                        <% out.println( Notenblatt.getFaecherAsSelect() ); %>
+                        <% out.println( Notenblatt.getLehrerAsSelect() ); %>
+                        <% out.println( Notenblatt.getExamartenAsSelect() ); %>
+                        <input required type="date" name="datum" placeholder="Datum" />
+                        <button type="submit" name="exam">Prüfung anlegen</button>
                     </form>
                 </div>
                 <div class="col-12 col-sm-12 modul_table">
-                    <h3>Tabellenname</h3>
-                    <table>
-                        <tr>
-                            <th>Überschrift 1</th>
-                            <th>Überschrift 2</th>
-                        </tr>
-                        <tr>
-                            <td>Inhalt 1</td>
-                            <td>Inhalt 2</td>
-                        </tr>
-                        <tr>
-                            <td>Inhalt 3</td>
-                            <td>Inhalt 4</td>
-                        </tr>
-                    </table>
+                    <% out.println( Notenblatt.getExamOverview( email ) ); %> 
                 </div>
             </div>
         </main>
