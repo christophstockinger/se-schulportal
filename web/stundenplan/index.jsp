@@ -86,6 +86,7 @@ Ionic Icons: https://useiconic.com/open/
         <link href="/se-schulportal/templates/thd-schulportal/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" media="all">
 
         <link href="/se-schulportal/templates/thd-schulportal/css/stundenplan.css" rel="stylesheet" type="text/css">
+      
         
         
         <!--// CSS Main //-->

@@ -19,14 +19,14 @@ body{
 }
 		/* container for the left table */
 		#main_container #left {
-			width: 130px;
+			width: 120px;
 			height: 320px;
 			float: left;
 			margin-right: 20px;
 		}
 		/* container for the main table and message line below */
 		#main_container #right {
-			width: 675px;
+			width: 580px;
 			padding-left: auto;
 			padding-right: 0px;
 			/* align div to the right */

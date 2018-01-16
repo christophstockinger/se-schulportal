@@ -45,7 +45,7 @@ redips.init = function () {
 		}
 		// print message only if target and source table cell differ
 		if (rd.td.target !== rd.td.source) { 
-			redips.printMessage('Content has been changed!');
+			redips.printMessage('Content geändert!');
 		}
 		// show / hide report buttons
 		redips.reportButton();
@@ -53,7 +53,7 @@ redips.init = function () {
 
 	// after element is deleted from the timetable, print message
 	rd.event.deleted = function () {
-		redips.printMessage('Content has been deleted!');
+		redips.printMessage('Content gelöscht!');
 		// show / hide report buttons
 		redips.reportButton();
 	};
@@ -191,3 +191,4 @@ if (window.addEventListener) {
 else if (window.attachEvent) {
 	window.attachEvent('onload', redips.init);
 }
+
