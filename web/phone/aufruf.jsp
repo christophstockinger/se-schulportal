@@ -134,7 +134,7 @@ Ionic Icons: https://useiconic.com/open/
                     <% out.println(ModPhone.getSubNavigation() ); %>
                 </nav>
                 
-                <div>
+                <div class="col-12 col-sm-12 modul_table">
                     <%
                         String sname = request.getParameter("name");
                         String sklasse = request.getParameter("klasse");

@@ -141,18 +141,18 @@ Ionic Icons: https://useiconic.com/open/
                         <h6>Klasse:</h6>
                         <select name="klasse" id="klasse">
                             <option value="alle">Alle Klassen</option>
-                            <option value="1a">1a</option>
-                            <option value="1b">1b</option>
-                            <option value="1c">1c</option>
-                            <option value="2a">2a</option>
-                            <option value="2b">2b</option>
-                            <option value="2c">2c</option>
-                            <option value="3a">3a</option>
-                            <option value="3b">3b</option>
-                            <option value="3c">3c</option>
-                            <option value="4a">4a</option>
-                            <option value="4b">4b</option>
-                            <option value="4c">4c</option>
+                            <option value="Klasse&#32;1a">1a</option>
+                            <option value="Klasse&#32;1b">1b</option>
+                            <option value="Klasse&#32;1c">1c</option>
+                            <option value="Klasse&#32;2a">2a</option>
+                            <option value="Klasse&#32;2b">2b</option>
+                            <option value="Klasse&#32;2c">2c</option>
+                            <option value="Klasse&#32;3a">3a</option>
+                            <option value="Klasse&#32;3b">3b</option>
+                            <option value="Klasse&#32;3c">3c</option>
+                            <option value="Klasse&#32;4a">4a</option>
+                            <option value="Klasse&#32;4b">4b</option>
+                            <option value="Klasse&#32;4c">4c</option>
                         </select>                    
                         
                         <br>
