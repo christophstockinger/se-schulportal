@@ -50,6 +50,14 @@ CREATE TABLE information (
     FOREIGN KEY (author) REFERENCES anwender(email)
 );
 
+CREATE TABLE termine (
+  id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+  datum date NOT NULL,
+  zeitVon varchar(20)  NOT NULL,
+  zeitBis varchar(20) NOT NULL,
+  bezeichnung varchar(200) NOT NULL,
+  PRIMARY KEY (id)
+);
 
 
 INSERT INTO anwender (anrede, nachname, vorname, email, telefonnummer, passwort) VALUES('Herr', 'Forstner', 'Thomas','thomas.forstner2@stud.th-deg.de','01523856852','123thomas654');

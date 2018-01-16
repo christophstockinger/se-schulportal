@@ -5,7 +5,6 @@
  */
 package DB;
 
-import kalender.*;
 import static DB.DBKonstanten.DBNAME;
 import static DB.DBKonstanten.PASSWORD;
 import static DB.DBKonstanten.USER;
@@ -17,6 +16,7 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -72,7 +72,7 @@ public class DBConnector {
     public Statement connect(PrintWriter out) throws SQLException, ClassNotFoundException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/schulportal", "thomas", "Dit2017+1");
+            Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/schulportal", "root", "root");
             Statement stmt = conn.createStatement();
             out.println("Connection ok");
             return stmt;
@@ -510,16 +510,16 @@ public class DBConnector {
         }
     }
     
-    public static Boolean DBTermine(String tblname, String id, String dat, String zevo, String zebi, String bez) {
+    public static Boolean DBTermine(String tblname, LocalDate dat, String zevo, String zebi, String bez) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
         Statement statement = null;
         try {
             statement = javaDBConn.connect();
-            
-            statement.executeUpdate("INSERT INTO " + tblname + "(ID, DAY, TIMEFROM, TIMETO, DESCRIPTION) VALUES (" + id + ", " + dat + ", " + zevo + ", " + zebi + ", " + bez + ")");
-           
+            if (dat != null && zevo != null && zebi != null && bez != null){
+            statement.executeUpdate("INSERT INTO TERMINE(DATUM, ZEITVON, ZEITBIS, BEZEICHNUNG) VALUES ('" + dat + "', '" + zevo + "', '" + zebi + "','" + bez + "')");
+            }
             return true;
             
         } catch (ClassNotFoundException ex) {
@@ -538,4 +538,38 @@ public class DBConnector {
         }
         
     }
+    
+        /*public static Map GetDBTermine(String tblname, String dat, String zevo, String zebi, String bez) {
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+        try {
+            statement = javaDBConn.connect();
+
+            ResultSet rs = statement.executeQuery("SELECT * FROM TERMINE");
+
+            Map<String, String> getdbtermine = new HashMap<String, String>();
+
+            ResultSetMetaData meta = rs.getMetaData();
+            int cols = meta.getColumnCount();
+            int rownum = 0;
+            while (rs.next()) {
+                rownum++;
+                for (int i = 0; i < cols; i++) {
+                    getdbtermine.put((String) meta.getColumnLabel(i + 1), (String) rs.getObject(i + 1));
+
+                }
+            }
+
+            return getdbtermine;
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        
+    }*/
 }
