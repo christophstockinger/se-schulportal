@@ -43,8 +43,8 @@ public class Stundenplan {
         output +=                               "<tr><td class='dark'><div id='hi' class='redips-drag redips-clone hi'>Musik</div><input id='b_hi' class='hi' type='button' value='' onclick='redips.report('hi')' title='Show only History'/></td></tr>";
         output +=                               "<tr><td class='dark'><div id='it' class='redips-drag redips-clone it'>Sport</div><input id='b_it' class='it' type='button' value='' onclick='redips.report('it')' title='Show only IT'/></td></tr>";
         output +=                               "<tr><td class='dark'><div id='ma' class='redips-drag redips-clone ma'>Ethik</div><input id='b_ma' class='ma' type='button' value='' onclick='redips.report('ma')' title='Show only Mathematics'/></td></tr>";
-        output +=                               "<tr><td class='dark'><div id='ph' class='redips-drag redips-clone ph'>Flexible Foerderung</div><input id='b_ph' class='ph' type='button' value='' onclick='redips.report('ph')' title='Show only Physics'/></td></tr>";
-        output +=                               "<tr><td class='dark'><div id='ph' class='redips-drag redips-clone ph'>Werken&Gestalten</div><input id='b_ph' class='ph' type='button' value='' onclick='redips.report('ph')' title='Show only Physics'/></td></tr>";
+        output +=                               "<tr><td class='dark'><div id='ph' class='redips-drag redips-clone ph'>Foerderung</div><input id='b_ph' class='ph' type='button' value='' onclick='redips.report('ph')' title='Show only Physics'/></td></tr>";
+        output +=                               "<tr><td class='dark'><div id='ph' class='redips-drag redips-clone ph'>Werken</div><input id='b_ph' class='ph' type='button' value='' onclick='redips.report('ph')' title='Show only Physics'/></td></tr>";
         output +=                               "<tr><td class='redips-trash' title='Trash'>Trash</td></tr>";
         output +=                           "</tbody>";
         output +=                           "</table>";
