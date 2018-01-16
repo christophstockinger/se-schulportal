@@ -127,9 +127,9 @@ public class Anwender implements DBKonstanten {
                 // Modul PKW
                 if ((rollen.get(i)).equals("Admin")) {
                     naviOutput += "<li>";
-                    naviOutput += "<a href=\"#\">";
+                    naviOutput += "<a href=\"/se-schulportal/pkw/\">";
                     naviOutput += "<img class=\"icon\" src=\"/se-schulportal/images/icons/location-white.svg\">";
-                    naviOutput += "<span>KFZ-Kennzeichen</span>";
+                    naviOutput += "<span>PKW</span>";
                     naviOutput += "</a>";
                     naviOutput += "</li>";
                 }
@@ -137,38 +137,47 @@ public class Anwender implements DBKonstanten {
                 // Notenblatt
                 if ((rollen.get(i)).equals("Admin") || (rollen.get(i)).equals("Rektor") || (rollen.get(i)).equals("Personal") || (rollen.get(i)).equals("Lehrer")) {
                     naviOutput += "<li>";
-                    naviOutput += "<a href=\"#\">";
+                    naviOutput += "<a href=\"/se-schulportal/notenblatt/\">";
                     naviOutput += "<img class=\"icon\" src=\"/se-schulportal/images/icons/graph-white.svg\">";
                     naviOutput += "<span>Notenblatt</span>";
                     naviOutput += "</a>";
                     naviOutput += "</li>";
                 }
 
-                // Telefonbuch
+                // Kontakte
                 if ((rollen.get(i)).equals("Admin")) {
                     naviOutput += "<li>";
-                    naviOutput += "<a href=\"#\">";
+                    naviOutput += "<a href=\"/se-schulportal/phone/\">";
                     naviOutput += "<img class=\"icon\" src=\"/se-schulportal/images/icons/phone-white.svg\">";
-                    naviOutput += "<span>Telefonbuch</span>";
+                    naviOutput += "<span>Kontakte</span>";
                     naviOutput += "</a>";
                     naviOutput += "</li>";
                 }
 
-                // Terminkalender
+                // Kalender
                 if ((rollen.get(i)).equals("Admin")) {
                     naviOutput += "<li>";
-                    naviOutput += "<a href=\"#\">";
+                    naviOutput += "<a href=\"/se-schulportal/kalender/eventCalender.jsp\">";
                     naviOutput += "<img class=\"icon\" src=\"/se-schulportal/images/icons/calendar-white.svg\">";
                     naviOutput += "<span>Terminkalender</span>";
                     naviOutput += "</a>";
                     naviOutput += "</li>";
                 }
-                // Mail oder SMS versenden
+                // Sender
                 if ((rollen.get(i)).equals("Admin")) {
                     naviOutput += "<li>";
-                    naviOutput += "<a href=\"#\">";
+                    naviOutput += "<a href=\"/se-schulportal/messages/\">";
                     naviOutput += "<img class=\"icon\" src=\"/se-schulportal/images/icons/comment-square-white.svg\">";
-                    naviOutput += "<span>Nachrichten</span>";
+                    naviOutput += "<span>Sender</span>";
+                    naviOutput += "</a>";
+                    naviOutput += "</li>";
+                }
+                // Stundenplan
+                if ((rollen.get(i)).equals("Admin")) {
+                    naviOutput += "<li>";
+                    naviOutput += "<a href=\"/se-schulportal/#\">";
+                    naviOutput += "<img class=\"icon\" src=\"/se-schulportal/images/icons/comment-square-white.svg\">";
+                    naviOutput += "<span>Stundenplan</span>";
                     naviOutput += "</a>";
                     naviOutput += "</li>";
                 }
@@ -193,8 +202,8 @@ public class Anwender implements DBKonstanten {
                 // Modul PKW
                 if ((rollen.get(i)).equals("Admin")) {
                     dashboardOutput += "<div class='col-12 col-sm-6 col-md-4 col-lg-3 dashboard_modul_image'>";
-                    dashboardOutput += "<a href='/se-schulportal/modul_example/'>";
-                    dashboardOutput += "<img src='/se-schulportal/images/module/modul_dummy.svg' alt='Modul Dummy' />";
+                    dashboardOutput += "<a href='/se-schulportal/pkw/'>";
+                    dashboardOutput += "<img src='/se-schulportal/images/module/pkw.svg' alt='PKW' />";
                     dashboardOutput += "</a>";
                     dashboardOutput += "</div>";
                 }
@@ -202,34 +211,42 @@ public class Anwender implements DBKonstanten {
                 // Notenblatt
                 if ((rollen.get(i)).equals("Admin") || (rollen.get(i)).equals("Rektor") || (rollen.get(i)).equals("Personal") || (rollen.get(i)).equals("Lehrer")) {
                     dashboardOutput += "<div class='col-12 col-sm-6 col-md-4 col-lg-3 dashboard_modul_image'>";
-                    dashboardOutput += "<a href='#'>";
-                    dashboardOutput += "<img src='/se-schulportal/images/module/modul_dummy.svg' alt='Modul Dummy' />";
+                    dashboardOutput += "<a href='/se-schulportal/notenblatt/'>";
+                    dashboardOutput += "<img src='/se-schulportal/images/module/notenblatt.svg' alt='Notenblatt' />";
                     dashboardOutput += "</a>";
                     dashboardOutput += "</div>";
                 }
 
-                // Telefonbuch
+                // Kontakte
                 if ((rollen.get(i)).equals("Admin")) {
                     dashboardOutput += "<div class='col-12 col-sm-6 col-md-4 col-lg-3 dashboard_modul_image'>";
-                    dashboardOutput += "<a href='#'>";
-                    dashboardOutput += "<img src='/se-schulportal/images/module/modul_dummy.svg' alt='Modul Dummy' />";
+                    dashboardOutput += "<a href='/se-schulportal/phone/'>";
+                    dashboardOutput += "<img src='/se-schulportal/images/module/kontakte.svg' alt='Kontakte' />";
                     dashboardOutput += "</a>";
                     dashboardOutput += "</div>";
                 }
 
-                // Terminkalender
+                // Kalender
                 if ((rollen.get(i)).equals("Admin")) {
                     dashboardOutput += "<div class='col-12 col-sm-6 col-md-4 col-lg-3 dashboard_modul_image'>";
-                    dashboardOutput += "<a href='#'>";
-                    dashboardOutput += "<img src='/se-schulportal/images/module/modul_dummy.svg' alt='Modul Dummy' />";
+                    dashboardOutput += "<a href='/se-schulportal/eventCalender.jsp'>";
+                    dashboardOutput += "<img src='/se-schulportal/images/module/kalender.svg' alt='Kalender' />";
                     dashboardOutput += "</a>";
                     dashboardOutput += "</div>";
                 }
                 // Mail oder SMS versenden
                 if ((rollen.get(i)).equals("Admin")) {
                     dashboardOutput += "<div class='col-12 col-sm-6 col-md-4 col-lg-3 dashboard_modul_image'>";
-                    dashboardOutput += "<a href='#'>";
-                    dashboardOutput += "<img src='/se-schulportal/images/module/modul_dummy.svg' alt='Modul Dummy' />";
+                    dashboardOutput += "<a href='/se-schulportal/messages/'>";
+                    dashboardOutput += "<img src='/se-schulportal/images/module/sender.svg' alt='Sender' />";
+                    dashboardOutput += "</a>";
+                    dashboardOutput += "</div>";
+                }
+                // Stundenplan
+                if ((rollen.get(i)).equals("Admin")) {
+                    dashboardOutput += "<div class='col-12 col-sm-6 col-md-4 col-lg-3 dashboard_modul_image'>";
+                    dashboardOutput += "<a href='/se-schulportal/#>";
+                    dashboardOutput += "<img src='/se-schulportal/images/module/stundenplan.svg' alt='Stundenplan' />";
                     dashboardOutput += "</a>";
                     dashboardOutput += "</div>";
                 }
@@ -243,10 +260,7 @@ public class Anwender implements DBKonstanten {
         String userNaviOutput = "";
         userNaviOutput += "<ul>";
         userNaviOutput += "<li>";
-        userNaviOutput += "<a href='#'> <img class='icon' src='/se-schulportal/images/icons/person.svg'> <span>Profil bearbeiten</span> </a>";
-        userNaviOutput += "</li>";
-        userNaviOutput += "<li>";
-        userNaviOutput += "<a href='#'> <img class='icon' src='/se-schulportal/images/icons/comment-square.svg'> <span>Nachrichten</span> </a>";
+        userNaviOutput += "<a href='profil_edit/edit.jsp'> <img class='icon' src='/se-schulportal/images/icons/person.svg'> <span>Profil bearbeiten</span> </a>";
         userNaviOutput += "</li>";
         userNaviOutput += "</ul>";
 
