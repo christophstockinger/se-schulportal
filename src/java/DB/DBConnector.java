@@ -539,7 +539,7 @@ public class DBConnector {
         
     }
     
-        /*public static Map GetDBTermine(String tblname, String dat, String zevo, String zebi, String bez) {
+        public static Map GetDBTermine(String tblname, String dat, String zevo, String zebi, String bez) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
@@ -547,7 +547,7 @@ public class DBConnector {
         try {
             statement = javaDBConn.connect();
 
-            ResultSet rs = statement.executeQuery("SELECT * FROM TERMINE");
+            ResultSet rs = statement.executeQuery("SELECT * FROM TERMINE ORDER BY datum");
 
             Map<String, String> getdbtermine = new HashMap<String, String>();
 
@@ -571,5 +571,5 @@ public class DBConnector {
             return null;
         }
         
-    }*/
+    }
 }
