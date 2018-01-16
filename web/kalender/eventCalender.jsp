@@ -98,19 +98,19 @@
             } %>
         <header class="row">
             <div class="col-2 col-sm-1 nav_burger" >
-                <img data="#main_navigation" class="navicon nav_burger_image" src="/schulportal/images/icons/menu.svg" alt="Navigation öffnen" />
+                <img data="#main_navigation" class="navicon nav_burger_image" src="/se-schulportal/images/icons/menu.svg" alt="Navigation öffnen" />
             </div>
             <div class="col-6 col-sm-9 brand">
                 <a href="/schulportal/dashboard.jsp">
-                    <img class="brand_image" src="/schulportal/images/logo/schullogo.svg" alt="Schulportal" />
+                    <img class="brand_image" src="/se-schulportal/images/logo/schullogo.svg" alt="Schulportal" />
                 </a>
             </div>
             <div class="col-2 col-sm-1 user">
-                <img data="#user_navigation" class="navicon user_image" src="/schulportal/images/user/user-dummy.svg" alt="Userbild" />
+                <img data="#user_navigation" class="navicon user_image" src="/se-schulportal/images/user/user-dummy.svg" alt="Userbild" />
             </div>
             <div class="col-2 col-sm-1 logout">
                 <a href="/schulportal/">
-                    <img class="logout_image" src="/schulportal/images/icons/account-logout.svg" alt="Abmelden" />
+                    <img class="logout_image" src="/se-schulportal/images/icons/account-logout.svg" alt="Abmelden" />
                 </a>
             </div>
         </header>
