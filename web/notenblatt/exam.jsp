@@ -141,7 +141,7 @@ Ionic Icons: https://useiconic.com/open/
                                 String klasse = request.getParameter("klasse");
 
                                 
-                                Map klassenschueler = Notenblatt.getSchulerOfAKlasse(klasse);
+                                Map klassenschueler = Notenblatt.getSchuelerOfAKlasse(klasse);
                                 Map schuelernote = new HashMap();
                                 
                                 for (int i = 1; i <= klassenschueler.size(); i++) {
@@ -156,7 +156,7 @@ Ionic Icons: https://useiconic.com/open/
                                 int examid = Integer.parseInt( request.getParameter("examid") );
                                 String klasse = request.getParameter("klasse");
 
-                                Map klassenschueler = Notenblatt.getSchulerOfAKlasse(klasse);
+                                Map klassenschueler = Notenblatt.getSchuelerOfAKlasse(klasse);
                                 Map schuelernote = new HashMap();
 
                                 for (int i = 1; i <= klassenschueler.size(); i++) {
