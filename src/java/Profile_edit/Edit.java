@@ -30,27 +30,29 @@ public class Edit {
     
     public Edit() {}
     
-    
+    //Subnavigation Fall 1: Daten werden gerade angezeigt
     public static String getSubNavigation() {
         String output = "<ul>";
-        output += "<li>  <a href=''>Daten betrachten</a> </li>";
+        output += "<li> <a href='#'>Daten betrachten</a> </li>";
         output += "<li> <a href='/se-schulportal/profile_edit/edit_1.jsp'>Daten bearbeiten</a> </li>";
         output += "</ul>";
         return output;
     }
     
+    //Subnavigation Fall 2: Daten können gerade bearbeitet werden
     public static String getSubNavigation2() {
         String output = "<ul>";
-        output += "<li>  <a href='/se-schulportal/profile_edit/edit.jsp'>Daten betrachten</a> </li>";
-        output += "<li> <a href=''>Daten bearbeiten</a> </li>";
+        output += "<li> <a href='/se-schulportal/profile_edit/edit.jsp'>Daten betrachten</a> </li>";
+        output += "<li> <a href='#'>Daten bearbeiten</a> </li>";
         output += "</ul>";
         return output;
     }
     
+    //Subnavigation Fall 3: Daten wurden gerade geändert und jetzt angezeigt
     public static String getSubNavigation3() {
         String output = "<ul>";
-        output += "<li>  <a href='/se-schulportal/profile_edit/edit.jsp'>Daten betrachten</a> </li>";
-        output += "<li>  <a href='/se-schulportal/profile_edit/edit_1.jsp'>Daten bearbeiten</a> </li>";
+        output += "<li> <a href='/se-schulportal/profile_edit/edit.jsp'>Daten betrachten</a> </li>";
+        output += "<li> <a href='/se-schulportal/profile_edit/edit_1.jsp'>Daten bearbeiten</a> </li>";
         output += "</ul>";
         return output;
     }
