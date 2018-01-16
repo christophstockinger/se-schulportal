@@ -159,7 +159,7 @@ public class Anwender implements DBKonstanten {
                     naviOutput += "<li>";
                     naviOutput += "<a href=\"/se-schulportal/kalender/eventCalender.jsp\">";
                     naviOutput += "<img class=\"icon\" src=\"/se-schulportal/images/icons/calendar-white.svg\">";
-                    naviOutput += "<span>Terminkalender</span>";
+                    naviOutput += "<span>Kalender</span>";
                     naviOutput += "</a>";
                     naviOutput += "</li>";
                 }
@@ -229,7 +229,7 @@ public class Anwender implements DBKonstanten {
                 // Kalender
                 if ((rollen.get(i)).equals("Admin")) {
                     dashboardOutput += "<div class='col-12 col-sm-6 col-md-4 col-lg-3 dashboard_modul_image'>";
-                    dashboardOutput += "<a href='/se-schulportal/eventCalender.jsp'>";
+                    dashboardOutput += "<a href='/se-schulportal/kalender/eventCalender.jsp'>";
                     dashboardOutput += "<img src='/se-schulportal/images/module/kalender.svg' alt='Kalender' />";
                     dashboardOutput += "</a>";
                     dashboardOutput += "</div>";
