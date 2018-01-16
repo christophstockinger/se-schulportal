@@ -66,7 +66,7 @@
                         //Statement stmt = conn.createStatement();
                         
                         // DELETE stmt HIER EINFÜGEN
-                        Boolean dbinsert = DBConnector.deleteKennzeichenData(KfzMod.databasetablename, knz);
+                        Boolean dbinsert = DBConnector.deleteKennzeichenData(KfzMod.databasetablename, knz, email);
                         
                         
                         

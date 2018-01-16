@@ -520,7 +520,7 @@ public class DBConnector {
      * @param pw ungehashtes Passwort des neuen Anwenders
      * @return Boolean-Value <br>true: bei erfolgreichem Eintrag<br>alse: bei nicht erfolgreichem Eintrag
      */
-    public static Boolean writeKennzeichenData(String tblname, String knz, String mail) {
+    public static Boolean writeKennzeichenData(String tblname, String knz, String email) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
@@ -532,7 +532,7 @@ public class DBConnector {
             statement = javaDBConn.connect();
             
          
-            statement.executeUpdate("UPDATE " + tblname + " SET Kennzeichen = '" + knz + "' WHERE email='"+mail+"'");
+            statement.executeUpdate("UPDATE " + tblname + " SET Kennzeichen = '" + knz + "' WHERE email='"+email+"'");
 
             return true;
 
@@ -550,7 +550,7 @@ public class DBConnector {
     }
     
   
-   public static Boolean deleteKennzeichenData(String tblname, String knz) {
+   public static Boolean deleteKennzeichenData(String tblname, String knz, String email) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
@@ -562,7 +562,7 @@ public class DBConnector {
             statement = javaDBConn.connect();
             
          
-            statement.executeUpdate("UPDATE " + tblname + " SET Kennzeichen = NULL WHERE kennzeichen='"+knz+"'");
+            statement.executeUpdate("UPDATE " + tblname + " SET Kennzeichen = NULL WHERE kennzeichen='"+knz+"' AND email='" + email + "'");
 
             return true;
 

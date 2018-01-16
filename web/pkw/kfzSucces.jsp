@@ -46,7 +46,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Kennzeichen ändern</title>
     </head>
     <body>
         
@@ -65,7 +65,7 @@
                         //Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/schulportal", "root", "root");
                         //Statement stmt = conn.createStatement();
                         
-                        Boolean dbinsert = DBConnector.writeKennzeichenData(KfzMod.databasetablename, knz, mail);
+                        Boolean dbinsert = DBConnector.writeKennzeichenData(KfzMod.databasetablename, knz, email);
                         
                         
                         

@@ -3,15 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/Users/patrickrichter/NetBeansProjects/se-schulportal/web/pkw/kfzModul.jsp</file>
-            <file>file:/Users/patrickrichter/NetBeansProjects/se-schulportal/web/pkw/kennzeichenViewName.jsp</file>
+            <file>file:/Users/patrickrichter/NetBeansProjects/se-schulportal/web/templates/thd-schulportal/js/func.js</file>
+            <file>file:/Users/patrickrichter/NetBeansProjects/se-schulportal/web/pkw/kfzSucces.jsp</file>
             <file>file:/Users/patrickrichter/NetBeansProjects/se-schulportal/web/pkw/kennzeichenDel.jsp</file>
-            <file>file:/Users/patrickrichter/NetBeansProjects/se-schulportal/web/pkw/kennzeichenView.jsp</file>
-            <file>file:/Users/patrickrichter/NetBeansProjects/se-schulportal/web/pkw/kfzModulView.jsp</file>
             <file>file:/Users/patrickrichter/NetBeansProjects/se-schulportal/web/pkw/kfzDelete.jsp</file>
-            <file>file:/Users/patrickrichter/NetBeansProjects/se-schulportal/web/pkw/kfzView.jsp</file>
             <file>file:/Users/patrickrichter/NetBeansProjects/se-schulportal/web/pkw/kennzeichenReg.jsp</file>
             <file>file:/Users/patrickrichter/NetBeansProjects/se-schulportal/src/java/DB/DBConnector.java</file>
+            <file>file:/Users/patrickrichter/NetBeansProjects/se-schulportal/web/dashboard.jsp</file>
+            <file>file:/Users/patrickrichter/NetBeansProjects/se-schulportal/src/java/KfzModul/KfzMod.java</file>
         </group>
     </open-files>
 </project-private>
