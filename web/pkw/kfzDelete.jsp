@@ -71,9 +71,9 @@
                         
                         
                         
-                        String sql = "DELETE FROM Nummernschild WHERE Kennzeichen='"+knz+"'";
-                        ;
+                        String sql = "<h1>Sie haben Ihr Kennzeichen Erfolgreich gelöscht!</h1><form><input value='Zurück zur Kennzeichen-Konfiguration' onclick=\"window.location.href='kfzModul.jsp'\" type=button></form>";
                         out.println(sql);
+                        
                 
                         // stmt.executeUpdate(sql);
                 }   catch(Exception e){
@@ -84,9 +84,7 @@
 
         
         
-        <h1>Sie haben Ihr KFZ-Kennzeichen erfolgreich gelöscht! 
-       
-        </h1>
+        
                 
                <!--// Javascript & jQuery //-->
         <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>

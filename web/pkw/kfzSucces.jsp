@@ -59,7 +59,7 @@
                     
                     // if ( (Anwender) session.getAttribute("user")!= null ) {
                     // User-Variablen mit Session-Values
-                    mail = (String) ((Anwender) session.getAttribute("user")).getEmail();
+                    // mail = (String) ((Anwender) session.getAttribute("user")).getEmail();
                     
                     try{
                         //Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/schulportal", "root", "root");
@@ -70,8 +70,8 @@
                         
                         
                         
-                        String sql = "INSERT INTO Nummernschild VALUES ('"+knz+"') WHERE Email='"+mail+"'";
-                        out.println(sql);
+                         String sql = "<h1>Sie haben Ihr Kennzeichen erfolgreich aktuallisiert!</h1><form><input value='Zurück zur Kennzeichen-Konfiguration' onclick=\"window.location.href='kfzModul.jsp'\" type=button></form>";
+                         out.println(sql);
                 
                         // stmt.executeUpdate(sql);
                 }   catch(Exception e){
@@ -83,9 +83,7 @@
   
         
         
-        <h1>Sie haben Ihr KFZ-Kennzeichen erfolgreich aktuallisiert! 
-       
-        </h1>
+                
                 
                <!--// Javascript & jQuery //-->
         <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
