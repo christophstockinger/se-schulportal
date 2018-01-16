@@ -536,14 +536,14 @@ public class DBConnector {
     }
 
     /**
-     * Methode zur Abfrage der Anwenderdaten eienr bestimmten E-Mail-Adresse
+     * Methode zur Abfrage der Anwenderdaten einer bestimmten E-Mail-Adresse
      *
-     * @param tblname: Tabellenname in der angefragt werden soll
+     * @param name: Name in der angefragt werden soll
      * @param email: E-Mail, welche Daten abgefragt werden
      * @return Map mit Spaltenüberschrift und Wert. Jeweils als String.
      */
     
-    public static Map getAnwenderdataAll(String name, String klasse) {
+    public static Map getAnwenderdataAll() {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);       
 
@@ -576,6 +576,13 @@ public class DBConnector {
 
     }
     
+    /**
+     * Methode zur Abfrage der Anwenderdaten einer bestimmten E-Mail-Adresse
+     *
+     * @param name: Name in der angefragt werden soll
+     * @return Map mit Spaltenüberschrift und Wert. Jeweils als String.
+     */
+    
     public static Map getAnwenderdataName(String name) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);       
@@ -584,19 +591,8 @@ public class DBConnector {
         try {
             statement = javaDBConn.connect();
             ResultSet rs = statement.executeQuery("SELECT EMAIL FROM ANWENDER WHERE upper(NACHNAME) = '" + name + "' OR upper(VORNAME) ='" + name + "'");
-
             
             Map<Integer, String> dbDataAnwender = new HashMap<Integer, String>();
-            
-            /*if ((klasse != "alle") && (name != "" || name != null)) {
-                
-                rs = statement.executeQuery("SELECT EMAIL FROM ANWENDER WHERE NACHNAME = '" + name + "' OR upper(VORNAME) ='" + name + "'");            
-                rs2 = statement.executeQuery("SELECT * FROM ANWENDER WHERE NACHNAME = '" + name + "'OR VORNAME ='" + name + "'");
-            } else if ((klasse == "alle") && (name == "")) {
-                rs = statement.executeQuery("SELECT * FROM ANWENDER");            
-            } else {
-                rs = statement.executeQuery("SELECT EMAIL FROM ANWENDER");
-            }*/
 
             ResultSetMetaData meta = rs.getMetaData();
             int cols = meta.getColumnCount();
@@ -620,7 +616,14 @@ public class DBConnector {
 
     }
     
-    public static Map getAnwenderdataClass(String name, String klasse) {
+    /**
+     * Methode zur Abfrage der Anwenderdaten einer bestimmten E-Mail-Adresse
+     *
+     * @param klasse: Klasse in der angefragt werden soll
+     * @return Map mit Spaltenüberschrift und Wert. Jeweils als String.
+     */
+    
+    public static Map getAnwenderdataClass(String klasse) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);       
 
@@ -653,41 +656,4 @@ public class DBConnector {
 
     }
     
-    /*public static Map getAnwenderdataClassAndName(String name, String klasse) {
-        DBConnector javaDBConn;
-        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);       
-
-        Statement statement = null;
-        try {
-            statement = javaDBConn.connect();
-            ResultSet anwender = statement.executeQuery ("SELECT ANWENDER FROM ROLLE WHERE ROLLE = '" + klasse + "'");
-            ResultSet email = statement.executeQuery("SELECT EMAIL FROM ANWENDER WHERE upper(NACHNAME) = '" + name + "' OR upper(VORNAME) ='" + name + "'");
-            ResultSet rs = statement.executeQuery("SELECT EMAIL FROM ANWENDER LEFT JOIN ROLLE ON ANWENDER.'" + anwender + "' = ROLLE.'" + email + "'");
-            
-            //rs = statement.executeQuery("SELECT EMAIL FROM ANWENDER WHERE EMAIL = '" + rs + "'");            
-            //rs2 = statement.executeQuery("SELECT * FROM ANWENDER WHERE NACHNAME = '" + name + "'OR VORNAME ='" + name + "'");
-            
-            Map<Integer, String> dbDataAnwender = new HashMap<Integer, String>();
-            
-            ResultSetMetaData meta = rs.getMetaData();
-            int cols = meta.getColumnCount();
-            int rownum = 0;
-            while (rs.next()) {
-                rownum++;
-                for (int i = 0; i < cols; i++) {
-                    dbDataAnwender.put(rownum, (String) rs.getObject(i + 1));
-                }
-            }
-
-            return dbDataAnwender;
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        } catch (SQLException ex) {
-            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-
-    }*/
 }

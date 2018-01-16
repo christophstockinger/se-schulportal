@@ -30,11 +30,7 @@ public class ModPhone {
     public static String getAnwenderdataContacts(String name, String klasse) {
 
         Map allContacts, allName, allClass;
-        //Map allClassAndName = DB.DBConnector.getAnwenderdataClassAndName(name, klasse);
 
-        System.out.println((klasse.equals("alle")) && ((name.equals(""))));
-        System.out.println((name.equals("")));
-        System.out.println((klasse.equals("alle")));
         String anwenderdata = "";
 
         anwenderdata += "<table>";
@@ -44,7 +40,7 @@ public class ModPhone {
 
         // Klasse = alle und Name = leer
         if ((klasse.equals("alle")) && ((name.equals("")))) {
-            allContacts = DB.DBConnector.getAnwenderdataAll(name, klasse);
+            allContacts = DB.DBConnector.getAnwenderdataAll();
 
             if (allContacts.size() > 0) {
                 for (int i = 1; i <= allContacts.size(); i++) {
@@ -65,6 +61,7 @@ public class ModPhone {
             } else {
                 anwenderdata += "<tr><td colspan='4'>Keine Einträge gefunden.</td></tr>";
             }
+
         } else {
 
             // Klasse = alle und Name = gesetzt
@@ -95,7 +92,7 @@ public class ModPhone {
 
                 // Klasse = spezifische Klasse und Name = leer
                 if (!klasse.equals("alle") && (name.equals(""))) {
-                    allClass = DB.DBConnector.getAnwenderdataClass(name, klasse);
+                    allClass = DB.DBConnector.getAnwenderdataClass(klasse);
 
                     if (allClass.size() > 0) {
                         for (int i = 1; i <= allClass.size(); i++) {
@@ -121,7 +118,7 @@ public class ModPhone {
 
                     // Klasse = spezifische Klasse und Name = gesetzt
                     if (!klasse.equals("alle") && (!name.equals(""))) {
-                        allClass = DB.DBConnector.getAnwenderdataClass(name, klasse);
+                        allClass = DB.DBConnector.getAnwenderdataClass(klasse);
                         allName = DB.DBConnector.getAnwenderdataName(name.toUpperCase());
 
                         if (allClass.size() > 0) {
@@ -133,6 +130,7 @@ public class ModPhone {
                                         String emailname = (String) allName.get(j);
 
                                         if (emailclass.equals(emailname)) {
+                                            
                                             // DB-Aufruf mit E-Mail-Addresse um User-Daten zu bekommen
                                             String email = emailclass;
                                             Map userdata = DB.DBConnector.getAnwenderdaten(Anwender.databasetablename, email);
@@ -147,11 +145,13 @@ public class ModPhone {
                                             anwenderdata += "</tr>";
                                         }
                                     }
+                                    
                                 } else {
                                     anwenderdata += "<tr><td colspan='4'>Keine Einträge gefunden.</td></tr>";
                                     break;
                                 }
                             }
+                            
                         } else {
                             anwenderdata += "<tr><td colspan='4'>Keine Einträge gefunden.</td></tr>";
                         }
@@ -163,28 +163,8 @@ public class ModPhone {
             }
         }
 
-        /*if ((klasse != "alle") && (name != "" || name != null)) {
-                DB.DBConnector.getAnwenderdataClassAndName(name, klasse);
-            }
-            
-            for (int i = 1; i <= allClassAndName.size(); i++) {
-
-            // DB-Aufruf mit E-Mail-Addresse um User-Daten zu bekommen
-            String email = (String) allClassAndName.get(i);
-            Map userdata = DB.DBConnector.getAnwenderdaten(Anwender.databasetablename, email);
-
-            anwenderdata += "<tr>";
-
-            anwenderdata += "<td>" + (String) userdata.get("NACHNAME") + "</td>";
-            anwenderdata += "<td>" + (String) userdata.get("VORNAME") + "</td>";
-            anwenderdata += "<td>" + (String) userdata.get("EMAIL") + "</td>";
-            anwenderdata += "<td>" + (String) userdata.get("TELEFONNUMMER") + "</td>";
-
-            anwenderdata += "</tr>";
-            }*/
         anwenderdata += "</table>";
 
         return anwenderdata;
     }
-
 }
