@@ -616,7 +616,7 @@ public class DBConnector {
     
    }
    
-   public static String kfzViewDataNames(String tblname, String knz) {
+   public static String kfzViewDataNames(String tblname, String knz, String email) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
@@ -626,12 +626,12 @@ public class DBConnector {
         try {
             
             statement = javaDBConn.connect();
-            String entry = "Eintrag gefunden!";
+            String entry = "Eintrag gefunden!<br> "+email+" ";
             String noEntry = "<h1>Kein Eintrag gefunden!</h1><form><input value='Zurück zur Suche' onclick=\"window.location.href='kennzeichenView.jsp'\" type=button></form>";
             
             
          
-           ResultSet rs = statement.executeQuery("SELECT kennzeichen from " + tblname + " WHERE kennzeichen='"+knz+"'");
+           ResultSet rs = statement.executeQuery("SELECT email from " + tblname + " WHERE kennzeichen='"+knz+"'");
                
             if (rs.next()) {
                 return entry;             
