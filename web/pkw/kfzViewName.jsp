@@ -4,6 +4,7 @@
     Author     : patrickrichter
 --%>
 
+<%@page import="KfzModul.KfzModView"%>
 <%@page import="KfzModul.KfzMod"%>
 <%@page import="DB.DBConnector"%>
 <%@page import="anwender.Anwender"%>
@@ -55,6 +56,7 @@
                     
                     //mail = (String) session.getAttribute("email");
                     String knz = request.getParameter("kennzeichen");
+             
                     // String mail = request.getParameter("email");
                     
                     // if ( (Anwender) session.getAttribute("user")!= null ) {
@@ -62,16 +64,27 @@
                     // mail = (String) ((Anwender) session.getAttribute("user")).getEmail();
                     
                     try{
-                        //Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/schulportal", "root", "root");
-                        //Statement stmt = conn.createStatement();
+                        String conn = DBConnector.kfzViewDataNames(KfzModView.databasetablename, knz, email);
                         
-                        Boolean dbinsert = DBConnector.writeKennzeichenData(KfzMod.databasetablename, knz, email);
+                        if (conn.equals("Eintrag gefunden!")) {
+                          
+                            out.println("<h1> Eintrag gefunden!  Auto gehört zu "+email+" </h1><form><input value='Zurück zur Suche' onclick=\"window.location.href='kennzeichenViewName.jsp'\" type=button></form>"); // i.e. write the results of the method call
+                      
+                            System.out.println("Eintrag gefunden!");
+                        } else {
+                            out.write(conn);
+                            System.out.println(conn);
+                        }
+                            
+                       
                         
                         
                         
                         
-                         String sql = "<h1>Sie haben Ihr Kennzeichen erfolgreich aktuallisiert!</h1><form><input value='Zurück zur Kennzeichen-Konfiguration' onclick=\"window.location.href='kfzModul.jsp'\" type=button></form>";
-                         out.println(sql);
+                        
+                        
+                        // String sql = "SELECT kennzeichen FROM NUMMERNSCHILD where kennzeichen='PA XI 337'";
+                        // out.println(sql);
                 
                         // stmt.executeUpdate(sql);
                 }   catch(Exception e){
@@ -79,11 +92,9 @@
                 }
                 %>
         
-                
-  
+       
         
-        
-                
+       
                 
                <!--// Javascript & jQuery //-->
         <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>

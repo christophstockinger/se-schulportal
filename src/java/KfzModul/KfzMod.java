@@ -21,6 +21,7 @@ public class KfzMod {
     public static String getSubNavigation() {
         String output = "<ul>";
         output += "<li>  <a href='../pkw/kennzeichenReg.jsp'>Kennzeichen hinzufügen</a> </li>";
+        output += "<li>  <a href='../pkw/kennzeichenLook.jsp'>Kennzeichen betrachten</a> </li>";
         output += "<li> <a href='../pkw/kennzeichenDel.jsp'>Kennzeichen löschen</a> </li>";
         output += "</ul>";
         return output;

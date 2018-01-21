@@ -1,15 +1,15 @@
 <%-- 
-    Document   : index
-    Created on : 05.12.2017, 14:08:48
-    Author     : Christoph
+    Document   : kennzeichenReg
+    Created on : 12.12.2017, 14:58:07
+    Author     : patrickrichter
 --%>
-
-<%@page import="KfzModul.KfzModView"%>
-<%@page import="DB.DBConnector"%>
+<%@page import="Modul_example.ModExample"%>
+<%@page import="anwender.Anwender"%>
 <%@page import="KfzModul.KfzMod"%>
 <%@page import="Modul_example.ModExample"%>
 <%@page import="anwender.Anwender"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
@@ -49,14 +49,12 @@ Ionic Icons: https://useiconic.com/open/
     }
     
     %>
-    
-
 <html>
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width; initial-scale=1.0"/>
 
-        <title>Startseite | KFZ-Modul | Schulportal</title>
+        <title>Kennzeichen löschen</title>
 
         <meta name="description" content=""/>
         <meta name="author" content="Coding77 // Christoph Stockinger"/>
@@ -139,9 +137,15 @@ Ionic Icons: https://useiconic.com/open/
                     <% out.println(KfzMod.getSubNavigation() ); %>
                 </nav>
                <div class="col-12 col-sm-12 modul_form">
-                   <h3></h3>
-                  <!-- <form>
-                        <input type="text" name="name" placeholder="Dein Name" />
+                    <h3>Kennzeichen Betrachten</h3>
+                    
+                    <form method="get" action="kfzLook.jsp">
+                        
+                        <input class="button" type="submit" value="Registriertes Kennzeichen betrachten"/>
+                    </form>
+                    
+               </div>       
+                    <!--
                         <textarea>Hier steht ihr Text!!!!</textarea>
                         <select>
                             <option>Auswahl 1</option>
@@ -169,7 +173,8 @@ Ionic Icons: https://useiconic.com/open/
                             <td>Inhalt 4</td>
                         </tr>
                     </table>
-              </div> -->  
+              </div> 
+                    -->  
             </div>
                 
         </main>

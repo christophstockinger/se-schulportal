@@ -550,7 +550,7 @@ public class DBConnector {
     }
     
   
-   public static Boolean deleteKennzeichenData(String tblname, String knz) {
+   public static Boolean deleteKennzeichenData(String tblname, String knz, String email) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
@@ -561,10 +561,19 @@ public class DBConnector {
             
             statement = javaDBConn.connect();
             
-         
-            statement.executeUpdate("UPDATE " + tblname + " SET Kennzeichen = NULL WHERE kennzeichen='"+knz+"'");
-
-            return true;
+          ResultSet rs = statement.executeQuery("SELECT kennzeichen from " + tblname + " WHERE kennzeichen='"+knz+"' AND email='"+email+"' ");
+          
+           if (rs.next()) {
+             statement.executeUpdate("UPDATE " + tblname + " SET Kennzeichen = NULL WHERE kennzeichen='"+knz+"' AND email='"+email+"'");
+             return true;
+            } else {
+                return false;
+            }
+          
+            
+           
+            
+           
 
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Anwender.class
@@ -616,7 +625,7 @@ public class DBConnector {
     
    }
    
-   public static String kfzViewDataNames(String tblname, String knz) {
+   public static String kfzViewDataNames(String tblname, String knz, String email) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
@@ -651,7 +660,37 @@ public class DBConnector {
         }
     
    }
-   
+
+      public static ResultSet kfzViewKfz(String tblname,String email) {
+        DBConnector javaDBConn;
+        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+        Statement statement = null;
+        
+
+        try {
+            
+            statement = javaDBConn.connect();
+           
+            
+         
+           ResultSet rs = statement.executeQuery("SELECT kennzeichen from " + tblname + " WHERE email='"+email+"'");
+               
+           return rs;
+           
+
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Anwender.class
+                    .getName()).log(Level.SEVERE, null, ex);
+           return null;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DBConnector.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+    
+   }
    
 }
  

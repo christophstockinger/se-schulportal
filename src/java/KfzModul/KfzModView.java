@@ -21,7 +21,7 @@ public class KfzModView {
     public static String getSubNavigation() {
         String output = "<ul>";
         output += "<li>  <a href='../pkw/kennzeichenView.jsp'>Nach Kennzeichen Suchen</a> </li>";
-       // output += "<li> <a href='../pkw/kennzeichenDel.jsp'>Kennzeichen löschen</a> </li>"; -->
+        output += "<li> <a href='../pkw/kennzeichenViewName.jsp'>Wem gehört das Auto? </a> </li>"; 
         output += "</ul>";
         return output;
     }

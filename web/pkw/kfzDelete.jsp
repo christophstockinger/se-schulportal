@@ -52,27 +52,35 @@
         
         <%  
             
-                    
+                     String sqlSuccess = "<h1>Sie haben Ihr Kennzeichen Erfolgreich gelöscht!</h1><form><input value='Zurück zur Kennzeichen-Konfiguration' onclick=\"window.location.href='kfzModul.jsp'\" type=button></form>";
+                        String sqlFail = "<h1>Kennzeichen konnte nicht gelöscht werden! Vergewissern Sie sich, dass sie es richtig geschrieben haben!</h1><form><input value='Zurück zur Kennzeichen-Konfiguration' onclick=\"window.location.href='kfzModul.jsp'\" type=button></form>";
                     //mail = (String) session.getAttribute("email");
                     String knz = request.getParameter("kennzeichen");
-                    String mail = request.getParameter("email");
+                   // String mail = request.getParameter("email");
                     
                     // if ( (Anwender) session.getAttribute("user")!= null ) {
                     // User-Variablen mit Session-Values
-                    mail = (String) ((Anwender) session.getAttribute("user")).getEmail();
+                    //mail = (String) ((Anwender) session.getAttribute("user")).getEmail();
                     
                     try{
                         //Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/schulportal", "root", "root");
                         //Statement stmt = conn.createStatement();
                         
                         // DELETE stmt HIER EINFÜGEN
-                        Boolean dbinsert = DBConnector.deleteKennzeichenData(KfzMod.databasetablename, knz);
+                        Boolean dbinsert = DBConnector.deleteKennzeichenData(KfzMod.databasetablename, knz, email);
                         
                         
                         
                         
-                        String sql = "<h1>Sie haben Ihr Kennzeichen Erfolgreich gelöscht!</h1><form><input value='Zurück zur Kennzeichen-Konfiguration' onclick=\"window.location.href='kfzModul.jsp'\" type=button></form>";
-                        out.println(sql);
+                       
+                        
+                        if (dbinsert == true){
+                        out.println(sqlSuccess);
+                        } else {
+                           // if (email != (String) ((Anwender) session.getAttribute("user")).getEmail() )
+                            out.println(sqlFail);
+                        }
+                        
                         
                 
                         // stmt.executeUpdate(sql);
