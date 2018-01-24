@@ -165,7 +165,7 @@
                                         String bez = request.getParameter("bezeichnung");
 
                                         //An DB übergeben
-                                        Boolean dbinsert = DBConnector.DBTermine(databasetablename, datum, zevo, zebi, bez);
+                                        Boolean dbinsert = DBConnector.dbTermine(databasetablename, datum, zevo, zebi, bez);
 
                                         if (dbinsert){ //Wenn alle Parameter erfolgreich übergeben, dann in DB lagern und zurück zum Kalender
                                             if (datum != null && zevo != null && zebi != null && bez != null){
