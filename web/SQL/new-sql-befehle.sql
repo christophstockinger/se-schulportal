@@ -50,11 +50,7 @@ CREATE TABLE information (
     FOREIGN KEY (author) REFERENCES anwender(email)
 );
 
-CREATE TABLE nummernschild (
-email varchar(200) NOT NULL,
-kennzeichen varchar(200),
- FOREIGN KEY (email) REFERENCES anwender(email)
-);
+
 
 
 
@@ -71,10 +67,9 @@ INSERT INTO information(infotitel,infotext,author) VALUES('Erste Geschichte','Ei
 
 INSERT INTO anwenderverify (anwender, verifystatus_mail, verifystatus_tel, verifystatus_admin) VALUES('christoph.stockinger@stud.th-deg.de', false, false,false);
 
-INSERT INTO nummernschild (email, kennzeichen) VALUES ('thomas.forstner2@stud.th-deg.de','PA XI 337');
-INSERT INTO nummernschild (email, kennzeichen) VALUES ('christoph.stockinger@stud.th-deg.de',NULL);
 
-/* Mail verifizieren */
+
+/* Mail verifizieren  */
 UPDATE anwenderverify SET verifystatus_mail = true WHERE anwender = 'christoph.stockinger@stud.th-deg.de';
 /* Telfon verifizieren */
 UPDATE anwenderverify SET verifystatus_tel = true WHERE anwender = 'christoph.stockinger@stud.th-deg.de';
@@ -86,3 +81,14 @@ SELECT anwender.nachname, anwender.vorname FROM anwender LEFT JOIN rolle ON roll
 
 SELECT * FROM rollennamen;
 
+/* KFZ RELEVANT */
+/* Tabelle Nummernschild erstellen */
+CREATE TABLE nummernschild (
+email varchar(200) NOT NULL,
+kennzeichen varchar(200),
+ FOREIGN KEY (email) REFERENCES anwender(email)
+);
+
+/* 2 Testeinträge in Nummernschild */
+INSERT INTO nummernschild (email, kennzeichen) VALUES ('thomas.forstner2@stud.th-deg.de','PA XI 337');
+INSERT INTO nummernschild (email, kennzeichen) VALUES ('christoph.stockinger@stud.th-deg.de',NULL);
