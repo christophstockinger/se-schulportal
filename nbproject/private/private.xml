@@ -5,14 +5,17 @@
         <group>
             <file>file:/D:/Daten/Media/Uni/5.%20Semester/SE/se-schulportal/web/pkw/kfzDelete.jsp</file>
             <file>file:/D:/Daten/Media/Uni/5.%20Semester/SE/se-schulportal/web/pkw/kfzViewName.jsp</file>
-            <file>file:/D:/Daten/Media/Uni/5.%20Semester/SE/se-schulportal/web/pkw/kfzView.jsp</file>
             <file>file:/D:/Daten/Media/Uni/5.%20Semester/SE/se-schulportal/src/java/KfzModul/KfzMod.java</file>
+            <file>file:/D:/Daten/Media/Uni/5.%20Semester/SE/se-schulportal/web/pkw/kfzSucces.jsp</file>
+            <file>file:/D:/Daten/Media/Uni/5.%20Semester/SE/se-schulportal/web/pkw/kennzeichenLook.jsp</file>
+            <file>file:/D:/Daten/Media/Uni/5.%20Semester/SE/se-schulportal/src/java/DB/DBConnector.java</file>
+            <file>file:/D:/Daten/Media/Uni/5.%20Semester/SE/se-schulportal/web/pkw/kfzView.jsp</file>
             <file>file:/D:/Daten/Media/Uni/5.%20Semester/SE/se-schulportal/web/pkw/kfzLook.jsp</file>
             <file>file:/D:/Daten/Media/Uni/5.%20Semester/SE/se-schulportal/web/pkw/kennzeichenViewName.jsp</file>
+            <file>file:/D:/Daten/Media/Uni/5.%20Semester/SE/se-schulportal/web/pkw/kennzeichenReg.jsp</file>
+            <file>file:/D:/Daten/Media/Uni/5.%20Semester/SE/se-schulportal/.git/config</file>
             <file>file:/D:/Daten/Media/Uni/5.%20Semester/SE/se-schulportal/web/pkw/kfzModul.jsp</file>
-            <file>file:/D:/Daten/Media/Uni/5.%20Semester/SE/se-schulportal/web/pkw/kennzeichenLook.jsp</file>
             <file>file:/D:/Daten/Media/Uni/5.%20Semester/SE/se-schulportal/web/templates/thd-schulportal/js/func.js</file>
-            <file>file:/D:/Daten/Media/Uni/5.%20Semester/SE/se-schulportal/src/java/DB/DBConnector.java</file>
         </group>
     </open-files>
 </project-private>

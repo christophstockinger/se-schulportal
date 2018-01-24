@@ -510,17 +510,13 @@ public class DBConnector {
     }
     
     /**
-     * Methode zum Eintrag eines Anwenders
-     * @param tblname Die einzutragende Datenbanktabelle
-     * @param anr Anrede des neuen Anwenders
-     * @param vn Vorname des neues Anwenders
-     * @param nn Nachname des neuen Anwenders
-     * @param tel Telefonnummer des neuen Anwenders mit führender +49 (führende 0 wurde entfernt)
-     * @param em E-Mail-Adresse des neuen Anwenders
-     * @param pw ungehashtes Passwort des neuen Anwenders
-     * @return Boolean-Value <br>true: bei erfolgreichem Eintrag<br>alse: bei nicht erfolgreichem Eintrag
+     * Methode zum Registrieren/Updaten eines Nummernschildes
+     * @param tblname Die einzutragende Datenbanktabelle 
+     * @param knz Das einzutragende Kennzeichen
+     * @param email E-Mail-Adresse des neuen Anwenders 
+     * @return Boolean-Value <br>true: bei erfolgreichem Eintrag
      */
-    public static Boolean writeKennzeichenData(String tblname, String knz, String mail) {
+    public static Boolean writeKennzeichenData(String tblname, String knz, String email) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
@@ -532,7 +528,7 @@ public class DBConnector {
             statement = javaDBConn.connect();
             
          
-            statement.executeUpdate("UPDATE " + tblname + " SET Kennzeichen = '" + knz + "' WHERE email='"+mail+"'");
+            statement.executeUpdate("UPDATE " + tblname + " SET Kennzeichen = '" + knz + "' WHERE email='"+email+"'");
 
             return true;
 
@@ -549,7 +545,13 @@ public class DBConnector {
 
     }
     
-  
+  /**
+     * Methode zum Löschen eines Nummernschildes
+     * @param tblname Die einzutragende Datenbanktabelle 
+     * @param knz Das einzutragende Kennzeichen
+     * @param email E-Mail-Adresse des neuen Anwenders 
+     * @return Boolean-Value <br>true: bei erfolgreichem Eintrag<br> false: bei erfolglosem Eintrag
+     */
    public static Boolean deleteKennzeichenData(String tblname, String knz, String email) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
@@ -588,7 +590,12 @@ public class DBConnector {
 
     }
     
-  
+  /**
+   * Methode, um zu schauen, ob ein Kennzeichen in der Datenbank eingetragen ist.
+   * @param tblname der einzutragende Tabellenname
+   * @param knz das einzutragende Kennzeichen
+   * @return  String entry wenn gefunden <br> String noEntry wenn nicht gefunden
+   */
    public static String kfzViewData(String tblname, String knz) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
@@ -625,6 +632,14 @@ public class DBConnector {
     
    }
    
+  /**
+   * Methode zum Identifizieren eines Nummernschildes
+   * @param tblname der einzutragende Tabellenname
+   * @param knz das einzutragende Kennzeichen
+   * @param email die einzutragende Email
+   * @return String entry wenn gefunden <br> String noEntry wenn nicht gefunden
+   */
+  
    public static String kfzViewDataNames(String tblname, String knz, String email) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
@@ -661,36 +676,6 @@ public class DBConnector {
     
    }
 
-      public static ResultSet kfzViewKfz(String tblname,String email) {
-        DBConnector javaDBConn;
-        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
-
-        Statement statement = null;
-        
-
-        try {
-            
-            statement = javaDBConn.connect();
-           
-            
-         
-           ResultSet rs = statement.executeQuery("SELECT kennzeichen from " + tblname + " WHERE email='"+email+"'");
-               
-           return rs;
-           
-
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Anwender.class
-                    .getName()).log(Level.SEVERE, null, ex);
-           return null;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(DBConnector.class
-                    .getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
-    
-   }
    
 }
  

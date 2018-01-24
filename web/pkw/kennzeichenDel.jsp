@@ -17,11 +17,19 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 
-<!--// 
-Know-How:
-Ionic Icons: https://useiconic.com/open/ 
-//-->
+
+
+
 <%
+    /**
+     * Überprüft, ob user eingeloggt ist.
+     * Falls nicht, leitet auf Index zurück.
+     * <p> 
+     * Wenn der User eingeloggt ist, holt es sich aus der Session die Attribute
+     * wie Email, Anrede, Name, Vorname, usw. des Userszur weiteren Nutzung. 
+     * 
+     * 
+     */
     // Status Variable sowie String Variable für Weiterleitung auf Login-Seite
     Boolean loginstatus = (Boolean) session.getAttribute("login");
     String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
@@ -144,36 +152,7 @@ Ionic Icons: https://useiconic.com/open/
                         <input class="button" type="submit" value="Löschen"/>
                     </form>
                </div>       
-                    <!--
-                        <textarea>Hier steht ihr Text!!!!</textarea>
-                        <select>
-                            <option>Auswahl 1</option>
-                            <option>Auswahl 2</option>
-                        </select>
-                        <div class="radio"><input type="radio" name=""> <label>A</label></div>
-                        <div class="checkbox"><input type="checkbox" name=""> <label>B</label></div>
-                        
-                        <button onclick=''>Absenden</button>
-                    </form>
-                </div>
-                <div class="col-12 col-sm-12 modul_table">
-                    <h3>Tabellenname</h3>
-                    <table>
-                        <tr>
-                            <th>Überschrift 1</th>
-                            <th>Überschrift 2</th>
-                        </tr>
-                        <tr>
-                            <td>Inhalt 1</td>
-                            <td>Inhalt 2</td>
-                        </tr>
-                        <tr>
-                            <td>Inhalt 3</td>
-                            <td>Inhalt 4</td>
-                        </tr>
-                    </table>
-              </div> 
-                    -->  
+      
             </div>
                 
         </main>

@@ -4,8 +4,6 @@
     Author     : Christoph
 --%>
 
-<%@page import="KfzModul.KfzModView"%>
-<%@page import="DB.DBConnector"%>
 <%@page import="KfzModul.KfzMod"%>
 <%@page import="Modul_example.ModExample"%>
 <%@page import="anwender.Anwender"%>
@@ -22,6 +20,16 @@ Know-How:
 Ionic Icons: https://useiconic.com/open/ 
 //-->
 <%
+    
+    /**
+     * Überprüft, ob user eingeloggt ist.
+     * Falls nicht, leitet auf Index zurück.
+     * <p> 
+     * Wenn der User eingeloggt ist, holt es sich aus der Session die Attribute
+     * wie Email, Anrede, Name, Vorname, usw. des Userszur weiteren Nutzung. 
+     * 
+     * 
+     */
     // Status Variable sowie String Variable für Weiterleitung auf Login-Seite
     Boolean loginstatus = (Boolean) session.getAttribute("login");
     String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
@@ -49,8 +57,6 @@ Ionic Icons: https://useiconic.com/open/
     }
     
     %>
-    
-
 <html>
     <head>
         <meta charset="UTF-8">
@@ -138,9 +144,9 @@ Ionic Icons: https://useiconic.com/open/
                 <nav class="col-12 col-sm-12 modul_nav">
                     <% out.println(KfzMod.getSubNavigation() ); %>
                 </nav>
-               <div class="col-12 col-sm-12 modul_form">
-                   <h3></h3>
-                  <!-- <form>
+               <!-- <div class="col-12 col-sm-12 modul_form">
+                    <h3>Formularname</h3>
+                    <form>
                         <input type="text" name="name" placeholder="Dein Name" />
                         <textarea>Hier steht ihr Text!!!!</textarea>
                         <select>

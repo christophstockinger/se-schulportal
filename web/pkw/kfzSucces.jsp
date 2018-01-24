@@ -14,6 +14,16 @@
 <!DOCTYPE html>
 
 <% 
+    
+    /**
+     * Überprüft, ob user eingeloggt ist.
+     * Falls nicht, leitet auf Index zurück.
+     * <p> 
+     * Wenn der User eingeloggt ist, holt es sich aus der Session die Attribute
+     * wie Email, Anrede, Name, Vorname, usw. des Userszur weiteren Nutzung. 
+     * 
+     * 
+     */
     // Status Variable sowie String Variable für Weiterleitung auf Login-Seite
     Boolean loginstatus = (Boolean) session.getAttribute("login");
     String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
@@ -51,27 +61,31 @@
     <body>
         
         <%  
+        /**
+         * Hier Verbindung mit dem DB-Connector.
+         * Gibt einen String zurück. 
+         * Im DB-Connector mit einer einfach Update-Funktion das aktuelle Nummernschild überschrieben.
+         * @param knz das zu registrierende Kennzeichen
+         * @param email stellt sicher, dass nur der eingeloggte User sein eigenes Kennzeichen ändern kann.
+         * werden benötigt, um zu bestätigen, dass man auch nur bei seiner eigenen Email das Nummernschild (knz) ändern kann.
+         * 
+         *
+         */
             
                     
-                    //mail = (String) session.getAttribute("email");
+                    String update = "<h1>Sie haben Ihr Kennzeichen erfolgreich aktuallisiert!</h1><form><input value='Zurück zur Kennzeichen-Konfiguration' onclick=\"window.location.href='kfzModul.jsp'\" type=button></form>";
+                    
                     String knz = request.getParameter("kennzeichen");
-                    // String mail = request.getParameter("email");
-                    
-                    // if ( (Anwender) session.getAttribute("user")!= null ) {
-                    // User-Variablen mit Session-Values
-                    // mail = (String) ((Anwender) session.getAttribute("user")).getEmail();
-                    
+                  
                     try{
-                        //Connection conn = DriverManager.getConnection("jdbc:derby://localhost:1527/schulportal", "root", "root");
-                        //Statement stmt = conn.createStatement();
-                        
+                       
                         Boolean dbinsert = DBConnector.writeKennzeichenData(KfzMod.databasetablename, knz, email);
                         
                         
                         
                         
-                         String sql = "<h1>Sie haben Ihr Kennzeichen erfolgreich aktuallisiert!</h1><form><input value='Zurück zur Kennzeichen-Konfiguration' onclick=\"window.location.href='kfzModul.jsp'\" type=button></form>";
-                         out.println(sql);
+                        
+                         out.println(update);
                 
                         // stmt.executeUpdate(sql);
                 }   catch(Exception e){

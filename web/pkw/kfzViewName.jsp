@@ -15,6 +15,17 @@
 <!DOCTYPE html>
 
 <% 
+    
+    /**
+     * Überprüft, ob user eingeloggt ist.
+     * Falls nicht, leitet auf Index zurück.
+     * <p> 
+     * Wenn der User eingeloggt ist, holt es sich aus der Session die Attribute
+     * wie Email, Anrede, Name, Vorname, usw. des Userszur weiteren Nutzung. 
+     * 
+     * 
+     */
+    
     // Status Variable sowie String Variable für Weiterleitung auf Login-Seite
     Boolean loginstatus = (Boolean) session.getAttribute("login");
     String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
@@ -52,23 +63,26 @@
     <body>
         
         <%  
-            
+            /**
+             * Stellt Verbindung zum DB.Connector her.
+             * Das Resultat des Scripts gibt zu einem gefundenen Eintrag des Kennzeichens in der Datenbank
+             * die Email des Besitzers an.
+             * @param knz das Kennzeichen des Inputs
+             * @param email des eingeloggten Users
+             * sind hier die zwei ausschlaggebenden Variablen.
+             * Gibt einen String mit der Email des Besitzers wieder.
+             */
                     
-                    //mail = (String) session.getAttribute("email");
+                    
                     String knz = request.getParameter("kennzeichen");
              
-                    // String mail = request.getParameter("email");
-                    
-                    // if ( (Anwender) session.getAttribute("user")!= null ) {
-                    // User-Variablen mit Session-Values
-                    // mail = (String) ((Anwender) session.getAttribute("user")).getEmail();
-                    
+                 
                     try{
                         String conn = DBConnector.kfzViewDataNames(KfzModView.databasetablename, knz, email);
                         
                         if (conn.equals("Eintrag gefunden!")) {
                           
-                            out.println("<h1> Eintrag gefunden!  Auto gehört zu "+email+" </h1><form><input value='Zurück zur Suche' onclick=\"window.location.href='kennzeichenViewName.jsp'\" type=button></form>"); // i.e. write the results of the method call
+                            out.println("<h1> Eintrag gefunden!  Auto gehört zu "+email+" </h1><form><input value='Zurück zur Suche' onclick=\"window.location.href='kennzeichenViewName.jsp'\" type=button></form>"); 
                       
                             System.out.println("Eintrag gefunden!");
                         } else {
@@ -76,17 +90,8 @@
                             System.out.println(conn);
                         }
                             
-                       
-                        
-                        
-                        
-                        
-                        
-                        
-                        // String sql = "SELECT kennzeichen FROM NUMMERNSCHILD where kennzeichen='PA XI 337'";
-                        // out.println(sql);
-                
-                        // stmt.executeUpdate(sql);
+
+              
                 }   catch(Exception e){
                         System.out.println(e);
                 }

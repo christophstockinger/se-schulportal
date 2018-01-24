@@ -15,6 +15,15 @@
 <!DOCTYPE html>
 
 <% 
+    /**
+     * Überprüft, ob user eingeloggt ist.
+     * Falls nicht, leitet auf Index zurück.
+     * <p> 
+     * Wenn der User eingeloggt ist, holt es sich aus der Session die Attribute
+     * wie Email, Anrede, Name, Vorname, usw. des Userszur weiteren Nutzung. 
+     * 
+     * 
+     */
     // Status Variable sowie String Variable für Weiterleitung auf Login-Seite
     Boolean loginstatus = (Boolean) session.getAttribute("login");
     String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
@@ -52,28 +61,32 @@
     <body>
         
         <%  
-            
+            /**
+             * Verbindung zum DB-Connector wird aufgebaut.
+             * Es wird geschaut, ob die Variable
+             * @param knz das zu betrachtende Kennzeichen im Inputfeld
+             * einen Eintrag in der Datenbank hat.
+             * Ist dies der Fall, wird der String viewSuccess zurückgegeben.
+             * Falls nicht, wird der String conn aus dem DB-Connector zurückgegeben ("Kein Eintrag gefunden").
+             */
                     
-                    //mail = (String) session.getAttribute("email");
+                    String viewSuccess ="<h1> Eintrag gefunden </h1><form><input value='Zurück zur Suche' onclick=\"window.location.href='kennzeichenView.jsp'\" type=button></form>";
                     String knz = request.getParameter("kennzeichen");
              
-                    // String mail = request.getParameter("email");
-                    
-                    // if ( (Anwender) session.getAttribute("user")!= null ) {
-                    // User-Variablen mit Session-Values
-                    // mail = (String) ((Anwender) session.getAttribute("user")).getEmail();
+                   
+                   
                     
                     try{
                         String conn = DBConnector.kfzViewData(KfzModView.databasetablename, knz);
                         
                         if (conn.equals("Eintrag gefunden!")) {
                           
-                            out.println("<h1> Eintrag gefunden </h1><form><input value='Zurück zur Suche' onclick=\"window.location.href='kennzeichenView.jsp'\" type=button></form>"); // i.e. write the results of the method call
+                            out.println(viewSuccess); // i.e. write the results of the method call
                       
-                            System.out.println("Eintrag gefunden!");
+                           
                         } else {
                             out.write(conn);
-                            System.out.println(conn);
+                        
                         }
                             
                        
