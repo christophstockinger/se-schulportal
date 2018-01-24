@@ -3,11 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Peter/Documents/NetBeansProjects/se-schulportal/web/templates/thd-schulportal/css/main.css</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/se-schulportal/src/java/Kalender/Termine.java</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/se-schulportal/web/kalender/eventCalender.jsp</file>
-            <file>file:/C:/Users/Peter/Documents/NetBeansProjects/se-schulportal/web/modul_example/index.jsp</file>
+            <file>file:/C:/Users/Peter/Documents/NetBeansProjects/se-schulportal/web/SQL/new-sql-befehle.sql</file>
+            <file>file:/C:/Users/Peter/Documents/NetBeansProjects/se-schulportal/web/templates/thd-schulportal/scss/main.scss</file>
             <file>file:/C:/Users/Peter/Documents/NetBeansProjects/se-schulportal/src/java/DB/DBConnector.java</file>
-            <file>file:/C:/Users/Peter/Documents/NetBeansProjects/se-schulportal/src/java/anwender/Anwender.java</file>
+            <file>file:/C:/Users/Peter/Documents/NetBeansProjects/se-schulportal/web/kalender/neuerTermin.jsp</file>
+            <file>file:/C:/Users/Peter/Documents/NetBeansProjects/se-schulportal/web/kalender/eventCSS.css</file>
         </group>
     </open-files>
 </project-private>

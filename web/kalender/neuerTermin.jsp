@@ -49,7 +49,7 @@
 <html>
     <head>
         
-        <title>Event-Kalender</title>
+        <title>Termin hinzufügen</title>
         
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -83,13 +83,11 @@
         <!--// CSS Main //-->
         <link href="/se-schulportal/templates/thd-schulportal/css/main.css" rel="stylesheet" type="text/css" media="all">
         <link href="/se-schulportal/kalender/eventCSS.css" rel="stylesheet" type="text/css" media="all">
+        
+        
     </head>
     
     <body>
-        <%/*
-            if (loginstatus == false) {
-                out.println(loginpage);
-            }*/ %>
         <header class="row">
             <div class="col-2 col-sm-1 nav_burger" >
                 <img data="#main_navigation" class="navicon nav_burger_image" src="/se-schulportal/images/icons/menu.svg" alt="Navigation öffnen" />
@@ -115,73 +113,88 @@
                 out.println(user.getNavigation());
             %>
         </nav>
-        <div class="row">
-            <div class="col-2"></div>
-            <div class="col-8">
-                <div class="row" style="height: 40px;"></div>
-                <div class="kalender">
-                        <h1>Terminkalender</h1>
-                        <hr>
-                
-                <div class="row heute">
-                    <h3>Heutige Veranstaltungen:</h3>
-                </div>    
-                <div class="row termine">
-                    <h3>Bevorstehende Veranstaltungen:</h3>
-                        <%
-                            String alleTermine = Kalender.Termine.getTermine();
-                            out.print(alleTermine);
-                        %>
-                </div>
-                    
-                <%  //Verifizierung, sodass nur Rektor (bzw. andere berechtigte Personen) Termine hinzufügen können
-                    /*        -----Für Testzwecke noch auskommentiert------
-                    Map userrollen = new HashMap();
-                    String output = "";
-                    if (email != null) {
-                        userrollen = DBConnector.getAnwenderRollen(email);
-                        for (int i = 1; i <= userrollen.size(); i++) {
-                            if ( userrollen.get(i).equals("Rektor") ) {
-                                output += "<div class='row'>";
-                                output += "<a href='neuerTermin.jsp'><button class='hbutton' id='btn' type='button'>Termin hinzufügen</button></a>";
-                                output += "</div>";
-                            }*/
-                %>
-                    <div class='row'></div>
-                        <a href='neuerTermin.jsp'><button class='hbutton' id='btn' type='button'>Termin hinzufügen</button></a>
+                        <!--- Event hinzufügen --->
+                <!--- Datum, Zeit und Bezeichnung in Datenbank legen -->
+                <div class="row ">
+                    <div class="col-2"></div>
+                    <div class="col-8">
+                    <div class="row" style="height: 40px;"></div>
+                        <div class="hinzu">
+                            <h1>Termin hinzufügen</h1>
+                            <hr>
+                            <form class="THinzu" method="get" action="neuerTermin.jsp">
+                                <div class="row">
+                                    <div class="col-12 datum">
+                                        <p class="schrift">Wählen Sie das gewünschte Datum aus</p>
+                                        <input type="date" name="datum" id="datum" />
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 zeit">
+                                        <p class="schrift">Wählen Sie die Zeit in der das Event stattfinden soll</p>
+                                        <div class="row">
+                                            <div class="col-1">Von: </div><div class="col-11"><input type="time" name="zeitVon" id="zeitVon" /></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-1">Bis: </div><div class="col-11"><input type="time" name="zeitBis" id="zeitBis" /></div>
+                                        </div>
+                                    </div>
+                                    <br/>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 bezeichnung">
+                                        <p class="schrift">Geben Sie dem Event eine Bezeichnung mit</p>
+                                        <input type="text" name="bezeichnung" id="bezeichnung" />
+                                    </div>
+                                    <br/>
+                                </div>
+                                <button class="formbutton" method="get" type="submit" id="inDieDB">Erstellen</button><a href="eventCalender.jsp"><button class="formbutton" type="button" id="close">Zurück</button></a>
+                           
+                            </form>
+                                <%
+
+                                    //Tabellennamen übergeben
+                                    String databasetablename = "Termine";
+                                    
+                                    //Zur Fehlervermeidung zuerst das Datum auslesen
+                                    String datum = request.getParameter("datum");
+                                    
+                                    if (datum != null){
+                                        String zevo = request.getParameter("zeitVon");
+                                        String zebi = request.getParameter("zeitBis");                  
+                                        String bez = request.getParameter("bezeichnung");
+
+                                        //An DB übergeben
+                                        Boolean dbinsert = DBConnector.DBTermine(databasetablename, datum, zevo, zebi, bez);
+
+                                        if (dbinsert){ //Wenn alle Parameter erfolgreich übergeben, dann in DB lagern und zurück zum Kalender
+                                            if (datum != null && zevo != null && zebi != null && bez != null){
+                                            out.println("Der Termin wurde erfolgreich hinzugefügt <br />");
+                                            out.println("Das Event: " + bez + " findet am " + datum + " statt, beginnt um " + zevo + " und endet um " + zebi);
+                                            }
+                                        response.sendRedirect("eventCalender.jsp");
+                                        } else { //Bei Fehler wird Benutzer informiert, sonst nichts
+                                            out.println("Etwas ist schiefgelaufen. Versuchen Sie es erneut");
+                                        }
+
+                                    }
+
+                                %>
+                        </div>
                     </div>
+                    <div class="col-2"></div>
                 </div>
-            </div>
-            <div class="col-2"></div>
-        </div>
         
-        
-        <!--// Footer //-->
+                                <!--// Footer //-->
         <footer class="row">
             <div class="col-12 col-sm-6 imprint"><a href="/se-schulportal/impressum.html">Impressum</a></div>
             <div class="col-12 col-sm-6 copyright"><p>&copy 2017 THD - Peter Jerger</p></div>
         </footer>
-        
-        
-        <script type="text/javascript">
-            var dateControl = document.querySelector('input[type="date"]');
-            dateControl.value = 'Datum auswählen';
-            function togglefunction(){
-                var hinzu = document.getElementById("form_hinzu");
-                hinzu.style.display = (hinzu.style.display == "table") ? "none" : "table";
-                if(document.getElementById("btn").style.display != "none"){
-                    document.getElementById("btn").style.display = "none";
-                } else {
-                    document.getElementById("btn").style.display = "table";
-                }
-            }
-
-        </script>
-        
+                                
+                                        <!--// Javascript & jQuery //-->
         <script src="/se-schulportal/templates/thd-schulportal/js/jquery-3.2.1.min.js" type="text/javascript"></script>
         <script src="/se-schulportal/templates/thd-schulportal/js/bootstrap.min.js" type="text/javascript"></script>
-        <script src="/se-schulportal/templates/thd-se-schulportal/js/func.js" type="text/javascript"></script>
-            
+        <script src="/se-schulportal/templates/thd-schulportal/js/func.js" type="text/javascript"></script>
+        
     </body>
-    
 </html>

@@ -8,15 +8,19 @@ package DB;
 import static DB.DBKonstanten.DBNAME;
 import static DB.DBKonstanten.PASSWORD;
 import static DB.DBKonstanten.USER;
+import Kalender.*;
 import anwender.Anwender;
 import java.io.PrintWriter;
+import static java.lang.System.out;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.time.LocalDate;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -510,15 +514,26 @@ public class DBConnector {
         }
     }
     
-    public static Boolean DBTermine(String tblname, LocalDate dat, String zevo, String zebi, String bez) {
+    /**
+     * 
+     * @param databasetablename der Tabellennamen, von eventCalender.jsp mitgegeben
+     * @param datum das Datum aus der Frontend-Form (eventCalender.jsp)
+     * @param zevo die Startzeit eines Events aus der Frontend-Form
+     * @param zebi die Endzeit eines Events aus der Frontend-Form
+     * @param bez die Erläuterung zu einem Event aus der Frontend-Form
+     * 
+     * @return gibt true/false zurück, darauf wird zugegriffen um einen "Erfolgreich-, bzw. Fehlgeschlagen-Text auszugeben"
+     */
+    
+    public static Boolean DBTermine(String databasetablename, String datum, String zevo, String zebi, String bez) {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
         Statement statement = null;
-        try {
+        try {                           //Nur in DB lagern wenn alle Parameter vorhanden
             statement = javaDBConn.connect();
-            if (dat != null && zevo != null && zebi != null && bez != null){
-            statement.executeUpdate("INSERT INTO TERMINE(DATUM, ZEITVON, ZEITBIS, BEZEICHNUNG) VALUES ('" + dat + "', '" + zevo + "', '" + zebi + "','" + bez + "')");
+            if (datum != null && zevo != null && zebi != null && bez != null){
+            statement.executeUpdate("INSERT INTO " + databasetablename + "(DATUM, ZEITVON, ZEITBIS, BEZEICHNUNG) VALUES ('" + datum + "', '" + zevo + "', '" + zebi + "','" + bez + "')");
             }
             return true;
             
@@ -539,37 +554,52 @@ public class DBConnector {
         
     }
     
-        public static Map GetDBTermine(String tblname, String dat, String zevo, String zebi, String bez) {
-        DBConnector javaDBConn;
-        javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+    /**
+     * 
+     * @param databasetablename Tabellenname von Termine.java mitgegeben
+     * @param cols nummer der Reihe ---- sollte zusätzlich zum ausgeben der einzelnen Reihen (also Events) benutzt werden, aber hat auch nicht geklappt
+     * @return
+     * SQL Befehl wandelt das Datum in eine String um,
+     * gibt vorsichtshalber die Reihenzahl zusätzlich mit
+     * und ordnet die Einträge aufsteigend dem Datum nach.
+     * 
+     * @throws SQLException 
+     */
+    
+        public static HashMap GetDBTermine(String databasetablename) throws ParseException {
+            DBConnector javaDBConn;
+            javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
-        Statement statement = null;
-        try {
-            statement = javaDBConn.connect();
+            Statement statement = null;
+            try {
+                statement = javaDBConn.connect();
 
-            ResultSet rs = statement.executeQuery("SELECT * FROM TERMINE ORDER BY datum");
+                ResultSet rs = statement.executeQuery("SELECT CAST (DATUM AS VARCHAR(20)), ZEITVON, ZEITBIS, BEZEICHNUNG FROM " + databasetablename + " WHERE DATUM >= CURRENT_DATE ORDER BY DATUM");
+                //ResultSet rs = statement.executeQuery("SELECT ZEITVON, ZEITBIS, BEZEICHNUNG FROM TERMINE ORDER BY DATUM");
+                //ResultSet rs = statement.executeQuery("SELECT * FROM (SELECT ROW_NUMBER() OVER () AS R, Termine.* FROM Termine) AS TR WHERE R <= " + cols + " AND DATUM >= CURRENT_DATE ORDER BY DATUM");
 
-            Map<String, String> getdbtermine = new HashMap<String, String>();
+                HashMap<Integer, String> termine = new HashMap<Integer, String>();
 
-            ResultSetMetaData meta = rs.getMetaData();
-            int cols = meta.getColumnCount();
-            int rownum = 0;
-            while (rs.next()) {
-                rownum++;
-                for (int i = 0; i < cols; i++) {
-                    getdbtermine.put((String) meta.getColumnLabel(i + 1), (String) rs.getObject(i + 1));
-
+                //HashMap anlegen, Einzelne Reihen mit whileschleife auslesen und HTML-Grundstruktur mitgeben
+                ResultSetMetaData meta = rs.getMetaData();
+                int cols = meta.getColumnCount();
+                int rownum = 0;
+                while (rs.next()) {
+                    rownum++;
+                    termine.put(rownum, "<h4 class='DBdatum'>" + (String) rs.getObject(1) + "</h4><h3 class='DBbezeichnung'>" + (String) rs.getObject(4) +  "</h3> Von: " + (String) rs.getObject(2) + " bis " + (String) rs.getObject(3));
                 }
-            }
 
-            return getdbtermine;
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        } catch (SQLException ex) {
-            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-        }
+            return termine;
+            
+
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            } catch (SQLException ex) {
+                Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+                return null;
+            }
         
-    }
+        
+        }
 }
