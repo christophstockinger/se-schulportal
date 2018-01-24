@@ -1712,7 +1712,7 @@ public static Integer getExamMarkOfExamIdFromSchueler(int examid, String schuele
  * @return gibt true/false zurück, darauf wird zugegriffen um einen "Erfolgreich-, bzw. Fehlgeschlagen-Text auszugeben"
  */
 
-public static Boolean DBTermine(String databasetablename, String datum, String zevo, String zebi, String bez) {
+public static Boolean dbTermine(String databasetablename, String datum, String zevo, String zebi, String bez) {
     DBConnector javaDBConn;
     javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
@@ -1753,7 +1753,7 @@ public static Boolean DBTermine(String databasetablename, String datum, String z
  * @throws SQLException
  */
 
-    public static HashMap GetDBTermine(String databasetablename) throws ParseException {
+    public static HashMap getDBTermine(String databasetablename) throws ParseException {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
