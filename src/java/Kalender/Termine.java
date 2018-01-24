@@ -77,7 +77,7 @@ public class Termine implements Interfaces.IModul{
         HashMap alleTermine;
         String returnstr = "";
        
-        alleTermine = DBConnector.GetDBTermine(databasetablename);
+        alleTermine = DBConnector.getDBTermine(databasetablename);
         
         returnstr += "<div class='row TerminContainer' name='termin' id='termin'>";
         for (int i = 1; i <= alleTermine.size(); i++) {
