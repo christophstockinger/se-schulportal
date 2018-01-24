@@ -88,7 +88,7 @@ public class EditTest {
         String tel = "";
         String em = "";
         String pw = "";
-        Boolean expResult = null;
+        Boolean expResult = true;
         Boolean result = Edit.updateAnwenderData(anr, vn, nn, tel, em, pw);
         assertEquals(expResult, result);
         // TODO review the generated test code and remove the default call to fail.
