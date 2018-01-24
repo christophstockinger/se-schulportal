@@ -6,66 +6,99 @@
 package Kalender;
 
 import DB.DBConnector;
-import DB.DBKonstanten;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.text.ParseException;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
- *
+ *@param DBdate das Datum im SimpleDateFormat aus der Datenbank
+ * @param DBzevo die Startzeit eines Events aus der Datenbank
+ * @param DBzebi die Endzeit eines Events aus der Datenbank
+ * @param DBbez die Erläuterung des Events aus der Datenbank
+ * @param DbTermine die Hashmap mit allen Daten des zugehörigen SQL-Befehls
+ * 
  * @author Peter
  */
-public class Termine implements DBKonstanten{
-    private String datum;
-    private String zeitvon;
-    private String zeitbis;
-    private String bezeichnung;
+public class Termine implements Interfaces.IModul{
+    private String DBdate;
+    private String DBzevo;
+    private String DBzebi;
+    private String DBbez;
     
     public final static String databasetablename = "Termine";
     
-    public Termine(String dat, String zevo, String zebi, String bez){
-        this.datum = dat;
-        this.zeitvon = zevo;
-        this.zeitbis = zebi;
-        this.bezeichnung = bez;
+    public Termine (){}
+    
+    public Termine(String dbdate, String dbzevo, String dbzebi, String dbbez){
+        this.DBdate = dbdate;
+        this.DBzevo = dbzevo;
+        this.DBzebi = dbzebi;
+        this.DBbez = dbbez;
     }
     
-    public void setDatum(String dat) {
-        this.datum = dat;
+    //Getter-Setter der Datums aus der DB
+    public void setDBdate(String dbdate){
+        this.DBdate = dbdate;
     }
     
-    public String getDatum() {
-        return datum;
+    public String getDBdate(){
+        return this.DBdate;
     }
     
-    public void setZeitVon(String zevo) {
-        this.zeitvon = zevo;
+    //Getter-Setter der Startzeit aus der DB
+    public void setDBzevo(String dbzevo){
+        this.DBzevo = dbzevo;
     }
     
-    public String getZeitVon() {
-        return zeitvon;
+    public String getDBzevo(){
+        return this.DBzevo;
     }
     
-    public void setZeitBis(String zebi){
-        this.zeitbis = zebi;
+    //Getter-Setter der Endzeit aus der DB
+    public void setDBzebi(String dbzebi){
+        this.DBzebi = dbzebi;
     }
     
-    public String getZeitBis() {
-        return zeitbis;
+    public String getDBzebi(){
+        return this.DBzebi;
     }
     
-    public void setBezeichnung(String bez) {
-        this.bezeichnung = bez;
+    //Getter-Setter der Event-Erläuterung aus der DB
+    public void setDBbez(String dbbez){
+        this.DBbez = dbbez;
     }
     
-    public String getBezeichnung() {
-        return bezeichnung;
+    public String getDBbez(){
+        return this.DBbez;
     }
     
+        //HashMap auslesen und weitere HTML-Struktur mitgeben
     
+        public static String getTermine() throws ParseException {
+        HashMap alleTermine;
+        String returnstr = "";
+       
+        alleTermine = DBConnector.GetDBTermine(databasetablename);
+        
+        returnstr += "<div class='row TerminContainer' name='termin' id='termin'>";
+        for (int i = 1; i <= alleTermine.size(); i++) {
+            if(alleTermine != null) {
+                System.out.println(alleTermine.get(i));
+                returnstr += "<div class='col-12 EinTermin'>" + alleTermine.get(i) + "</div>";
+            }
+        }
+        returnstr += "</div>";
+        
+        return returnstr;
+    }
+
+    @Override
+    public String getSubNavigation() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+
     
 }
+
+
+

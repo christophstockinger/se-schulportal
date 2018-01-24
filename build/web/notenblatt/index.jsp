@@ -24,7 +24,7 @@ Ionic Icons: https://useiconic.com/open/
     String loginpage = "<script type='text/javascript'>window.location.replace('/se-schulportal/index.html');</script>";
     
     // User Variablen
-    String email = "christoph.stockinger@stud.th-deg.de" ; // For Development: hardgecoded normalerweise (String) session.getAttribute("email")
+    String email = (String) session.getAttribute("email");
     String password = "";
     String anrede = "";
     String vorname = "";
@@ -61,35 +61,35 @@ Ionic Icons: https://useiconic.com/open/
 
 
         <!--// Favicon //-->
-        <link rel="apple-touch-icon" sizes="57x57" href="/schulportal/images/favicon/apple-icon-57x57.png">
-        <link rel="apple-touch-icon" sizes="60x60" href="/schulportal/images/favicon/apple-icon-60x60.png">
-        <link rel="apple-touch-icon" sizes="72x72" href="/schulportal/images/favicon/apple-icon-72x72.png">
-        <link rel="apple-touch-icon" sizes="76x76" href="/schulportal/images/favicon/apple-icon-76x76.png">
-        <link rel="apple-touch-icon" sizes="114x114" href="/schulportal/images/favicon/apple-icon-114x114.png">
-        <link rel="apple-touch-icon" sizes="120x120" href="/schulportal/images/favicon/apple-icon-120x120.png">
-        <link rel="apple-touch-icon" sizes="144x144" href="/schulportal/images/favicon/apple-icon-144x144.png">
-        <link rel="apple-touch-icon" sizes="152x152" href="/schulportal/images/favicon/apple-icon-152x152.png">
-        <link rel="apple-touch-icon" sizes="180x180" href="/schulportal/images/favicon/apple-icon-180x180.png">
-        <link rel="icon" type="image/png" sizes="192x192" href="/schulportal/images/favicon/android-icon-192x192.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/schulportal/images/favicon/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="96x96" href="/schulportal/images/favicon/favicon-96x96.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/schulportal/images/favicon/favicon-16x16.png">
-        <link rel="manifest" href="/schulportal/images/favicon/manifest.json">
+        <link rel="apple-touch-icon" sizes="57x57" href="/se-schulportal/images/favicon/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/se-schulportal/images/favicon/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/se-schulportal/images/favicon/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/se-schulportal/images/favicon/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/se-schulportal/images/favicon/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/se-schulportal/images/favicon/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/se-schulportal/images/favicon/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/se-schulportal/images/favicon/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/se-schulportal/images/favicon/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192" href="/se-schulportal/images/favicon/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/se-schulportal/images/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/se-schulportal/images/favicon/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/se-schulportal/images/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/se-schulportal/images/favicon/manifest.json">
         <meta name="msapplication-TileColor" content="#ffffff">
-        <meta name="msapplication-TileImage" content="/schulportal/images/favicon/ms-icon-144x144.png">
+        <meta name="msapplication-TileImage" content="/se-schulportal/images/favicon/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
 
         <!--// CSS //-->
         <!--// CSS CS Reset //-->
-        <link href="/schulportal/templates/thd-schulportal/css/cs-reset.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/se-schulportal/templates/thd-schulportal/css/cs-reset.css" rel="stylesheet" type="text/css" media="all">
         <!--// CSS Bootstrap Grid //-->
-        <link href="/schulportal/templates/thd-schulportal/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/se-schulportal/templates/thd-schulportal/css/bootstrap-grid.min.css" rel="stylesheet" type="text/css" media="all">
 
-        <link href="/schulportal/templates/thd-schulportal/css/open-ionic.min.css" rel="stylesheet" type="text/css">
+        <link href="/se-schulportal/templates/thd-schulportal/css/open-ionic.min.css" rel="stylesheet" type="text/css">
         <!--// CSS Main //-->
-        <link href="/schulportal/templates/thd-schulportal/css/main.css" rel="stylesheet" type="text/css" media="all">
+        <link href="/se-schulportal/templates/thd-schulportal/css/main.css" rel="stylesheet" type="text/css" media="all">
 
-
+        <link></link>
     </head>
     <body>
         <%
@@ -101,7 +101,7 @@ Ionic Icons: https://useiconic.com/open/
                 <img data="#main_navigation" class="navicon nav_burger_image" src="/se-schulportal/images/icons/menu.svg" alt="Navigation öffnen" />
             </div>
             <div class="col-6 col-sm-9 brand">
-                <a href="/schulportal/dashboard.jsp">
+                <a href="/se-schulportal/dashboard.jsp">
                     <img class="brand_image" src="/se-schulportal/images/logo/schullogo.svg" alt="Schulportal" />
                 </a>
             </div>
@@ -109,7 +109,7 @@ Ionic Icons: https://useiconic.com/open/
                 <img data="#user_navigation" class="navicon user_image" src="/se-schulportal/images/user/user-dummy.svg" alt="Userbild" />
             </div>
             <div class="col-2 col-sm-1 logout">
-                <a href="/schulportal/">
+                <a href="/se-schulportal/">
                     <img class="logout_image" src="/se-schulportal/images/icons/account-logout.svg" alt="Abmelden" />
                 </a>
             </div>
@@ -134,37 +134,8 @@ Ionic Icons: https://useiconic.com/open/
                     <% System.out.println("E-Mail: " +  email); %>
                     <% out.println( Notenblatt.getSubNavigation( email ) ); %>
                 </nav>
-                <div class="col-12 col-sm-12 modul_form">
-                    <h3>Formularname</h3>
-                    <form>
-                        <input type="text" name="name" placeholder="Dein Name" />
-                        <textarea>Hier steht ihr Text!!!!</textarea>
-                        <select>
-                            <option>Auswahl 1</option>
-                            <option>Auswahl 2</option>
-                        </select>
-                        <div class="radio"><input type="radio" name=""> <label>A</label></div>
-                        <div class="checkbox"><input type="checkbox" name=""> <label>B</label></div>
-                        
-                        <button onclick=''>Absenden</button>
-                    </form>
-                </div>
-                <div class="col-12 col-sm-12 modul_table">
-                    <h3>Tabellenname</h3>
-                    <table>
-                        <tr>
-                            <th>Überschrift 1</th>
-                            <th>Überschrift 2</th>
-                        </tr>
-                        <tr>
-                            <td>Inhalt 1</td>
-                            <td>Inhalt 2</td>
-                        </tr>
-                        <tr>
-                            <td>Inhalt 3</td>
-                            <td>Inhalt 4</td>
-                        </tr>
-                    </table>
+                <div class="col-12 col-sm-12 modul_description">
+                    <img style="width: 100%;" src="/se-schulportal/images/module/notenblatt/noten.png" alt="Hier soll eine Übersicht stehen!" />
                 </div>
             </div>
         </main>

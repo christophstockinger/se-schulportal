@@ -1701,7 +1701,59 @@ public static Integer getExamMarkOfExamIdFromSchueler(int examid, String schuele
 /***********************************************************************/
 // Notenblatt
 
-    public static Boolean DBTermine(String tblname, String id, String dat, String zevo, String zebi, String bez) {
+/**
+ *
+ * @param databasetablename der Tabellennamen, von eventCalender.jsp mitgegeben
+ * @param datum das Datum aus der Frontend-Form (eventCalender.jsp)
+ * @param zevo die Startzeit eines Events aus der Frontend-Form
+ * @param zebi die Endzeit eines Events aus der Frontend-Form
+ * @param bez die Erläuterung zu einem Event aus der Frontend-Form
+ *
+ * @return gibt true/false zurück, darauf wird zugegriffen um einen "Erfolgreich-, bzw. Fehlgeschlagen-Text auszugeben"
+ */
+
+public static Boolean DBTermine(String databasetablename, String datum, String zevo, String zebi, String bez) {
+    DBConnector javaDBConn;
+    javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
+
+    Statement statement = null;
+    try {                           //Nur in DB lagern wenn alle Parameter vorhanden
+        statement = javaDBConn.connect();
+        if (datum != null && zevo != null && zebi != null && bez != null){
+        statement.executeUpdate("INSERT INTO " + databasetablename + "(DATUM, ZEITVON, ZEITBIS, BEZEICHNUNG) VALUES ('" + datum + "', '" + zevo + "', '" + zebi + "','" + bez + "')");
+        }
+        return true;
+
+    } catch (ClassNotFoundException ex) {
+        Logger.getLogger(Anwender.class
+                .getName()).log(Level.SEVERE, null, ex);
+        System.out.println(ex.getMessage());
+
+        return false;
+
+    } catch (SQLException ex) {
+        Logger.getLogger(DBConnector.class
+                .getName()).log(Level.SEVERE, null, ex);
+        System.out.println(ex.getMessage());
+
+        return false;
+    }
+
+}
+
+/**
+ *
+ * @param databasetablename Tabellenname von Termine.java mitgegeben
+ * @param cols nummer der Reihe ---- sollte zusätzlich zum ausgeben der einzelnen Reihen (also Events) benutzt werden, aber hat auch nicht geklappt
+ * @return
+ * SQL Befehl wandelt das Datum in eine String um,
+ * gibt vorsichtshalber die Reihenzahl zusätzlich mit
+ * und ordnet die Einträge aufsteigend dem Datum nach.
+ *
+ * @throws SQLException
+ */
+
+    public static HashMap GetDBTermine(String databasetablename) throws ParseException {
         DBConnector javaDBConn;
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
@@ -1709,24 +1761,32 @@ public static Integer getExamMarkOfExamIdFromSchueler(int examid, String schuele
         try {
             statement = javaDBConn.connect();
 
-            statement.executeUpdate("INSERT INTO " + tblname + "(ID, DAY, TIMEFROM, TIMETO, DESCRIPTION) VALUES (" + id + ", " + dat + ", " + zevo + ", " + zebi + ", " + bez + ")");
+            ResultSet rs = statement.executeQuery("SELECT CAST (DATUM AS VARCHAR(20)), ZEITVON, ZEITBIS, BEZEICHNUNG FROM " + databasetablename + " WHERE DATUM >= CURRENT_DATE ORDER BY DATUM");
+            //ResultSet rs = statement.executeQuery("SELECT ZEITVON, ZEITBIS, BEZEICHNUNG FROM TERMINE ORDER BY DATUM");
+            //ResultSet rs = statement.executeQuery("SELECT * FROM (SELECT ROW_NUMBER() OVER () AS R, Termine.* FROM Termine) AS TR WHERE R <= " + cols + " AND DATUM >= CURRENT_DATE ORDER BY DATUM");
 
-            return true;
+            HashMap<Integer, String> termine = new HashMap<Integer, String>();
+
+            //HashMap anlegen, Einzelne Reihen mit whileschleife auslesen und HTML-Grundstruktur mitgeben
+            ResultSetMetaData meta = rs.getMetaData();
+            int cols = meta.getColumnCount();
+            int rownum = 0;
+            while (rs.next()) {
+                rownum++;
+                termine.put(rownum, "<h4 class='DBdatum'>" + (String) rs.getObject(1) + "</h4><h3 class='DBbezeichnung'>" + (String) rs.getObject(4) +  "</h3> Von: " + (String) rs.getObject(2) + " bis " + (String) rs.getObject(3));
+            }
+
+        return termine;
+
 
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Anwender.class
-                    .getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex.getMessage());
-
-            return false;
-
+            Logger.getLogger(Anwender.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         } catch (SQLException ex) {
-            Logger.getLogger(DBConnector.class
-                    .getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex.getMessage());
-
-            return false;
+            Logger.getLogger(DBConnector.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
+
 
     }
 

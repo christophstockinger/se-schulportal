@@ -7,25 +7,66 @@
     margin: 0 10% 0 10%;
 }
 
-.hinzu{
-    margin-top: 20px;
-    color: #3F9AB2;
-}
-
 .termine, .heute{
     margin-top: 20px;
 }
 
 #form_hinzu{
-    display: none;
 }
 
 .datum, .zeit, .bezeichnung {
     margin: 10px 0px 10px 0px;
+    padding: 20px;
+}
+
+#bezeichnung{
+    min-width: 250px;
+}
+
+
+.EinTermin{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #3B596A;
+    padding: 10px;
+    min-width: 100%;
+    max-width: 100%;
+    color: white;
+}
+
+.DBbezeichnung{
+    margin: 10px 0px 10px 0px;
     color: #3F9AB2;
 }
 
-p {
+.DBdatum{
+    color: white;
+}
+
+.THinzu{
+    padding: 20px;
     font-size: 12pt;
-    color: #3F9AB2;
+    background-color: #3B596A;
+    padding: 15px;
+    color: white;
+}
+
+.schrift{
+    font-size: 14pt;
+    color: white;
+}
+
+.hbutton{
+    margin: 30px 0px 80px 0px;
+    width: 100%;
+    background-color: #3F9AB2;
+    color: white;
+    padding: 10px 0px 10px 0px;
+    font-size: 12pt;
+}
+
+.formbutton{
+    margin-left: 20px;
+    width: 100px;
+    height: 30px;
 }

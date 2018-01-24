@@ -67,8 +67,10 @@ function rollen() {
 }
 
 function deleterolle(rolle) {
+    console.log("Rolle: " + rolle);
     var email = $('#email').html();
     var url = "adminverify.jsp?email=" + email + "&status=delete&rolle=" + rolle;
+    console.log(url);
     window.location.replace(url);
 }
 
@@ -105,8 +107,10 @@ function main_user_navigation() {
     })
 }
 
-function csvImport() {
-    
+function examMark() {
+    var email = $('#email').html();
+    var url = "adminverify.jsp?email=" + email + "&status=freigabe";
+    window.location.replace(url);
 }
 
 
