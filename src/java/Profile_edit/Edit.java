@@ -70,13 +70,14 @@ public class Edit {
      * /**
      * UPDATE-Funktion zum aktualisieren der Tabelle 'ANWENDER'
      *
-     * @param anr
-     * @param vn
-     * @param nn
-     * @param tel
-     * @param em
-     * @param pw
-     * @return 
+     * @param anr Anrede
+     * @param vn Vorname
+     * @param nn Nachname
+     * @param tel Telefonnummer
+     * @param em E-Mail
+     * @param pw Passwort
+     * @return true DB-Update erfolgreich
+     * @return false DB-Update fehlgeschlagen
      */
     public static Boolean updateAnwenderData(String anr, String vn, String nn, String tel, String em, String pw) {
         DBConnector javaDBConn;
