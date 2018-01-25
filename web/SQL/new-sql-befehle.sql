@@ -92,6 +92,11 @@ CREATE TABLE termine (
   bezeichnung varchar(200) NOT NULL,
   PRIMARY KEY (id)
 );
+CREATE TABLE nummernschild (
+email varchar(200) NOT NULL,
+kennzeichen varchar(200),
+ FOREIGN KEY (email) REFERENCES anwender(email)
+);
 
 
 
