@@ -1740,16 +1740,15 @@ public static Boolean dbTermine(String databasetablename, String datum, String z
 
 }
 
-/**
+/** TERMINKALENDER
  *
  * @param databasetablename Tabellenname von Termine.java mitgegeben
- * @param cols nummer der Reihe ---- sollte zusätzlich zum ausgeben der einzelnen Reihen (also Events) benutzt werden, aber hat auch nicht geklappt
  * @return
  * SQL Befehl wandelt das Datum in eine String um,
  * gibt vorsichtshalber die Reihenzahl zusätzlich mit
  * und ordnet die Einträge aufsteigend dem Datum nach.
  *
- * @throws SQLException
+ * @throws java.text.ParseException Exception für Datum-Parse
  */
 
     public static HashMap getDBTermine(String databasetablename) throws ParseException {
