@@ -540,10 +540,8 @@ public class DBConnector {
     // Kontakte
 
     /**
-     * Methode zur Abfrage der Anwenderdaten einer bestimmten E-Mail-Adresse
+     * Methode zur Abfrage der Anwenderdaten für alle Anwender
      *
-     * @param name: Name in der angefragt werden soll
-     * @param email: E-Mail, welche Daten abgefragt werden
      * @return Map mit Spaltenüberschrift und Wert. Jeweils als String.
      */
 
@@ -581,7 +579,7 @@ public class DBConnector {
     }
 
     /**
-     * Methode zur Abfrage der Anwenderdaten einer bestimmten E-Mail-Adresse
+     * Methode zur Abfrage der Anwenderdaten einer bestimmten E-Mail-Adresse mittel Name
      *
      * @param name: Name in der angefragt werden soll
      * @return Map mit Spaltenüberschrift und Wert. Jeweils als String.
@@ -621,7 +619,7 @@ public class DBConnector {
     }
 
     /**
-     * Methode zur Abfrage der Anwenderdaten einer bestimmten E-Mail-Adresse
+     * Methode zur Abfrage der Anwenderdaten mittels Klasse
      *
      * @param klasse: Klasse in der angefragt werden soll
      * @return Map mit Spaltenüberschrift und Wert. Jeweils als String.
