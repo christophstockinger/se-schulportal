@@ -19,9 +19,6 @@ CREATE TABLE anwender (
   PRIMARY KEY (email)
 );
 
-
-
-
 CREATE TABLE rollennamen (
     rollenname varchar(100) not null,
     PRIMARY KEY(rollenname)
@@ -49,6 +46,53 @@ CREATE TABLE information (
    author varchar(200) NOT NULL,
     FOREIGN KEY (author) REFERENCES anwender(email)
 );
+
+CREATE TABLE termine (
+  id int NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),
+  datum date NOT NULL,
+  zeitVon varchar(20)  NOT NULL,
+  zeitBis varchar(20) NOT NULL,
+  bezeichnung varchar(200) NOT NULL,
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE faecher (
+  fach varchar(100) NOT NULL,
+    PRIMARY KEY (fach) 
+);
+CREATE TABLE pruefungsarten(
+    art varchar(100) NOT NULL,
+    PRIMARY KEY (art)
+);
+CREATE TABLE pruefung (
+  id int(100) NOT NULL AUTO_INCREMENT,
+  lehrer varchar(200) NOT NULL,
+  art varchar(100) NOT NULL,
+  klasse varchar(100) NOT NULL,
+  fach varchar(100) NOT NULL,
+    PRIMARY KEY (id),
+    FOREIGN KEY (fach) REFERENCES faecher(fach),
+    FOREIGN KEY (klasse) REFERENCES rollennamen(rollenname),
+    FOREIGN KEY (lehrer) REFERENCES anwender(email),
+    FOREIGN KEY (art) REFERENCES pruefungsarten(art)
+);
+REATE TABLE pruefungsnoten (
+  note int NOT NULL,
+  pruefung int NOT NULL,
+  email varchar (200) NOT NULL,
+    PRIMARY KEY (pruefung, email),
+    FOREIGN KEY (email) REFERENCES anwender(email),
+    FOREIGN KEY (pruefung) REFERENCES pruefung(id)
+);
+CREATE TABLE termine (
+  id int NOT NULL AUTO_INCREMENT,
+  datum date NOT NULL,
+  zeitVon varchar(20)  NOT NULL,
+  zeitBis varchar(20) NOT NULL,
+  bezeichnung varchar(200) NOT NULL,
+  PRIMARY KEY (id)
+);
+
 
 
 
