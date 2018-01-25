@@ -15,22 +15,22 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 /**
  *
- * @author Christoph
+ * @author Fabian
  */
 public class Edit {
-    
+
     public static String modulname = "Profilbearbeitung";
     public static String moduldesc = "Hier können Sie auf ihre Persönlichen Daten einsehen und diese ändern."; // Zeilenumbruch mit <br>-Tag erzeugen, da es in einen <p>-Tag gerendert wird.
-    
-    
-    
-    
-    public Edit() {}
-    
-    //Subnavigation Fall 1: Daten werden gerade angezeigt
+
+    public Edit() {
+    }
+
+    /**
+     * Subnavigation Fall 1: Daten werden gerade angezeigt
+     * @return output, listet html-Markierungen auf
+     */
     public static String getSubNavigation() {
         String output = "<ul>";
         output += "<li> <a href='#'>Daten betrachten</a> </li>";
@@ -38,8 +38,11 @@ public class Edit {
         output += "</ul>";
         return output;
     }
-    
-    //Subnavigation Fall 2: Daten können gerade bearbeitet werden
+
+    /**
+     * Subnavigation Fall 2: Daten können gerade bearbeitet werden
+     * @return output, listet html-Markierungen auf
+     */
     public static String getSubNavigation2() {
         String output = "<ul>";
         output += "<li> <a href='/se-schulportal/profile_edit/edit.jsp'>Daten betrachten</a> </li>";
@@ -47,8 +50,12 @@ public class Edit {
         output += "</ul>";
         return output;
     }
+
     
-    //Subnavigation Fall 3: Daten wurden gerade geändert und jetzt angezeigt
+    /**
+     * Subnavigation Fall 3: Daten wurden gerade geändert und jetzt angezeigt
+     * @return output, listet html-Markierungen auf
+     */
     public static String getSubNavigation3() {
         String output = "<ul>";
         output += "<li> <a href='/se-schulportal/profile_edit/edit.jsp'>Daten betrachten</a> </li>";
@@ -56,17 +63,31 @@ public class Edit {
         output += "</ul>";
         return output;
     }
+
     
-  
-        public static Boolean updateAnwenderData(String anr, String vn, String nn, String tel, String em, String pw) {
+
+    /**
+     * /**
+     * UPDATE-Funktion zum aktualisieren der Tabelle 'ANWENDER'
+     *
+     * @param anr
+     * @param vn
+     * @param nn
+     * @param tel
+     * @param em
+     * @param pw
+     * @return 
+     */
+    public static Boolean updateAnwenderData(String anr, String vn, String nn, String tel, String em, String pw) {
         DBConnector javaDBConn;
+        
         javaDBConn = new DBConnector(DBNAME, USER, PASSWORD);
 
         Statement statement = null;
 
         try {
             statement = javaDBConn.connect();
-            statement.executeUpdate("UPDATE ANWENDER SET anrede='" + anr + "', nachname='" + nn + "', vorname='" + vn + "', telefonnummer='" + tel + "', passwort='" + pw+"' WHERE email='"+em+"'");
+            statement.executeUpdate("UPDATE ANWENDER SET anrede='" + anr + "', nachname='" + nn + "', vorname='" + vn + "', telefonnummer='" + tel + "', passwort='" + pw + "' WHERE email='" + em + "'");
 
             return true;
 
@@ -80,8 +101,5 @@ public class Edit {
                     .getName()).log(Level.SEVERE, null, ex);
             return false;
         }
-
     }
-    
-    
 }
