@@ -9,8 +9,9 @@ import java.util.Map;
 import anwender.Anwender;
 
 /**
- *
- * @author Christoph
+ * Klasse zum Aufrufen von Suchanfragen
+ * 
+ * @author Mr. Precha Sae-Heng
  */
 public class ModPhone {
 
@@ -20,6 +21,10 @@ public class ModPhone {
     public ModPhone() {
     }
 
+    /**
+     * 
+     * @return output listet HTML-Markierungen auf
+     */
     public static String getSubNavigation() {
         String output = "<ul>";
         output += "<li>  <a href='index.jsp'>Zurück zur Suche</a> </li>";
@@ -27,6 +32,12 @@ public class ModPhone {
         return output;
     }
 
+    /**
+     * 
+     * @param name Name des Suchenden
+     * @param klasse Klasse des Suchenden
+     * @return anwenderdata listet die HTML-Tabelle auf
+     */
     public static String getAnwenderdataContacts(String name, String klasse) {
 
         Map allContacts, allName, allClass;
@@ -168,3 +179,4 @@ public class ModPhone {
         return anwenderdata;
     }
 }
+
